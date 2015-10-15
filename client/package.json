@@ -1,0 +1,23 @@
+{
+  "name": "encompass-browser-client-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-replace": "^1.5.4",
+    "gulp-react": "^3.1.0",
+    "gulp-uglify": "^1.4.2"
+  }
+}

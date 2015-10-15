@@ -1,0 +1,19 @@
+{
+  "name": "Encompass",
+  "version": "0.0.0",
+  "description": "Startup Career Compensation Calculator.",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "mocha test/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EncompassHR/Encompass.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3"
+  }
+}

@@ -1,6 +1,19 @@
 'use strict';
 
-var tabList = [{ 'id': 1, 'name': 'Mike', 'url': '/mike' }, { 'id': 2, 'name': 'Donnie', 'url': '/donnie' }, { 'id': 3, 'name': 'Raph', 'url': '/raph' }, { 'id': 4, 'name': 'Leo', 'url': '/leo' }];
+var tabList = [{ 'id': 1, 'name': 'Home', 'url': '/home' }, { 'id': 2, 'name': 'Company View', 'url': '/company' }, { 'id': 3, 'name': 'Search', 'url': '/search' }, { 'id': 4, 'name': 'Compensation Packages', 'url': '/compensation' }];
+
+var AppView = React.createClass({
+	displayName: 'AppView',
+
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ id: 'app-view' },
+			React.createElement(NavBar, { tablist: tabList }),
+			React.createElement(ContentView, null)
+		);
+	}
+});
 
 var NavBar = React.createClass({
 	displayName: 'NavBar',
@@ -8,24 +21,8 @@ var NavBar = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'div',
-			null,
-			React.createElement(Tabs, { tablist: tabList })
-		);
-	}
-});
-
-var Tab = React.createClass({
-	displayName: 'Tab',
-
-	render: function render() {
-		return React.createElement(
-			'li',
-			null,
-			React.createElement(
-				'a',
-				{ href: this.props.url },
-				this.props.name
-			)
+			{ id: 'nav-bar' },
+			React.createElement(Tabs, { tablist: this.props.tablist })
 		);
 	}
 });
@@ -38,10 +35,34 @@ var Tabs = React.createClass({
 			'ul',
 			null,
 			this.props.tablist.map(function (tab) {
-				return React.createElement(Tab, { url: tab.url, name: tab.name });
+				return React.createElement(Tab, { key: tab.id, url: tab.url, name: tab.name });
 			})
 		);
 	}
 });
 
-ReactDOM.render(React.createElement(NavBar, null), document.getElementById('example'));
+var Tab = React.createClass({
+	displayName: 'Tab',
+
+	render: function render() {
+		return React.createElement(
+			'li',
+			{ className: 'tab' },
+			React.createElement(
+				'a',
+				{ href: this.props.url },
+				this.props.name
+			)
+		);
+	}
+});
+
+var ContentView = React.createClass({
+	displayName: 'ContentView',
+
+	render: function render() {
+		return React.createElement('div', { id: 'content-view' });
+	}
+});
+
+ReactDOM.render(React.createElement(AppView, null), document.getElementById('app'));

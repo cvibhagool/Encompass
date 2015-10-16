@@ -10,3 +10,7 @@ var ContentView = React.createClass({
     );
   }
 });
+
+module.exports = {
+  ContentView: ContentView
+}

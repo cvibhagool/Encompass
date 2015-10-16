@@ -1,18 +1,18 @@
-module.exports = function(grunt) {
 
+module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
     // concats our component files into bundle.js
-    concat: {
-      options: {
-        separator: ';',
-      },
-      dist: {
-        src: ['src/components/*.js'],
-        dest: 'src/build/bundle.js',
-      },
-    },
+    // concat: {
+    //   options: {
+    //     separator: ';',
+    //   },
+    //   dist: {
+    //     src: ['src/build/components/*.js'],
+    //     dest: 'public/bundle.js',
+    //   },
+    // },
 
     // runs our server using nodemon
     nodemon: {
@@ -65,15 +65,31 @@ module.exports = function(grunt) {
     // },
     
     // runs babel on our bundle.js and transpiles it into public dir
-    babel: {
-      options: {
-        sourceMap: true
-      },
+    // babel: {
+    //   options: {
+    //     sourceMap: false
+    //   },
+    //   dist: {
+    //     files: [{
+    //               expand: true,
+    //               cwd: 'src/components',
+    //               src: ['*.js'],
+    //               dest: 'src/build/components',
+    //               ext: '.js'
+    //             }]
+    //   }        
+    // },
+
+    browserify: {
       dist: {
         files: {
-          'src/build/bundle.js': 'public/bundle.js' 
+          'public/bundle.js': ['src/**/*.js']
+        },
+        options: {
+          transform: ['babelify'],
+          watch: true
         }
-      }        
+      }
     },
 
     // watches our component files and runs concat/babel on change
@@ -83,8 +99,7 @@ module.exports = function(grunt) {
           'src/**/*.js'
         ],
         tasks: [
-          'concat',
-          'babel'
+          'browserify'
         ]
       }
     },
@@ -95,6 +110,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-browserify');
+
 
   // grunt.loadNpmTasks('grunt-contrib-uglify');
   // grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -129,8 +146,7 @@ module.exports = function(grunt) {
 
   // our default task runner
   grunt.registerTask('default', [
-    'concat',
-    'babel'
+    'browserify'
   ]);
 
   // grunt.registerTask('deploy', [

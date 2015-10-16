@@ -1,11 +1,3 @@
-var tabList = [
-  { 'id': 1, 'name': 'Home', 'url': '/#/home' },
-  { 'id': 2, 'name': 'Company View', 'url': '/#/company' },
-  { 'id': 3, 'name': 'Search', 'url': '/#/search' },
-  { 'id': 4, 'name': 'Compensation Packages', 'url': '/#/compensation' }
-];
-
-
 var NavBar = React.createClass({
   changeTab: function(tab) {
     console.log('Navbar.changeTab');
@@ -55,3 +47,9 @@ var Tab = React.createClass({
     return (<li  className='tab'><a href={this.props.url} onClick={this.handleClick}>{this.props.name}</a></li>);
   }
 });
+
+module.exports = {
+  NavBar: NavBar,
+  Tabs: Tabs,
+  Tab: Tab
+}

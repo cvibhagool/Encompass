@@ -6,29 +6,47 @@ var tabList = [
 ];
 
 var AppView = React.createClass({
+
+  getInitialState: function() {
+    return {
+      tablist: tabList,
+      currentTab: 1
+    };
+  },
+
+  changeContent: function(tab) {
+    console.log('Changing content');
+    this.setState({ currentTab: tab.id });
+  },
+
   render: function() {
     return (
       <div id='app-view'>
-        <NavBar tablist={tabList} />
-        <ContentView/>
+        <NavBar tablist={this.state.tablist} changeContent={this.changeContent} />
+        <ContentView currentTab={this.state.currentTab} />
       </div>
     );
   }
-})
+});
 
 var NavBar = React.createClass({
+  changeTab: function(tab) {
+    console.log('Changing tab');
+    this.props.changeContent(tab);
+  },
+
   render: function() {
     return (
       <div id='nav-bar'>
-        <Tabs tablist={this.props.tablist} />
+        <Tabs tablist={this.props.tablist} changeTab={this.changeTab} />
       </div>
     );
   }
 });
 
 var Tabs = React.createClass({
-
-  handleClick: function() {
+  handleClick: function(tab) {
+    console.log('Handling click');
     this.props.changeTab(tab)
   },
   
@@ -49,11 +67,15 @@ var Tabs = React.createClass({
     );
   }
 });
-        
 
 var Tab = React.createClass({
+  handleClick: function(e){
+    e.preventDefault();
+    this.props.handleClick();
+  },
+
   render: function() {
-    return (<li  className='tab'><a href={this.props.url}>{this.props.name}</a></li>);
+    return (<li  className='tab'><a href={this.props.url} onClick={this.handleClick}>{this.props.name}</a></li>);
   }
 });
 
@@ -61,6 +83,7 @@ var ContentView = React.createClass({
   render: function() {
     return (
       <div id='content-view'>
+        <div className="content"> {this.props.currentTab === 1 ? <div className="home"> Stuff Here </div> : null }</div>
       </div>
     );
   }

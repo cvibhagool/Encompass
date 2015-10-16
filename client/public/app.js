@@ -5,12 +5,24 @@ var tabList = [{ 'id': 1, 'name': 'Home', 'url': '/#/home' }, { 'id': 2, 'name':
 var AppView = React.createClass({
   displayName: 'AppView',
 
+  getInitialState: function getInitialState() {
+    return {
+      tablist: tabList,
+      currentTab: 1
+    };
+  },
+
+  changeContent: function changeContent(tab) {
+    console.log('Changing content');
+    this.setState({ currentTab: tab.id });
+  },
+
   render: function render() {
     return React.createElement(
       'div',
       { id: 'app-view' },
-      React.createElement(NavBar, { tablist: tabList }),
-      React.createElement(ContentView, null)
+      React.createElement(NavBar, { tablist: this.state.tablist, changeContent: this.changeContent }),
+      React.createElement(ContentView, { currentTab: this.state.currentTab })
     );
   }
 });
@@ -18,11 +30,16 @@ var AppView = React.createClass({
 var NavBar = React.createClass({
   displayName: 'NavBar',
 
+  changeTab: function changeTab(tab) {
+    console.log('Changing tab');
+    this.props.changeContent(tab);
+  },
+
   render: function render() {
     return React.createElement(
       'div',
       { id: 'nav-bar' },
-      React.createElement(Tabs, { tablist: this.props.tablist })
+      React.createElement(Tabs, { tablist: this.props.tablist, changeTab: this.changeTab })
     );
   }
 });
@@ -30,7 +47,8 @@ var NavBar = React.createClass({
 var Tabs = React.createClass({
   displayName: 'Tabs',
 
-  handleClick: function handleClick() {
+  handleClick: function handleClick(tab) {
+    console.log('Handling click');
     this.props.changeTab(tab);
   },
 
@@ -52,13 +70,18 @@ var Tabs = React.createClass({
 var Tab = React.createClass({
   displayName: 'Tab',
 
+  handleClick: function handleClick(e) {
+    e.preventDefault();
+    this.props.handleClick();
+  },
+
   render: function render() {
     return React.createElement(
       'li',
       { className: 'tab' },
       React.createElement(
         'a',
-        { href: this.props.url },
+        { href: this.props.url, onClick: this.handleClick },
         this.props.name
       )
     );
@@ -69,7 +92,20 @@ var ContentView = React.createClass({
   displayName: 'ContentView',
 
   render: function render() {
-    return React.createElement('div', { id: 'content-view' });
+    return React.createElement(
+      'div',
+      { id: 'content-view' },
+      React.createElement(
+        'div',
+        { className: 'content' },
+        ' ',
+        this.props.currentTab === 1 ? React.createElement(
+          'div',
+          { className: 'home' },
+          ' Stuff Here '
+        ) : null
+      )
+    );
   }
 });
 

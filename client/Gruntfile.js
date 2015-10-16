@@ -2,14 +2,23 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    // concats our component files into bundle.js
     concat: {
       options: {
         separator: ';',
       },
       dist: {
         src: ['src/components/*.js'],
-        dest: 'build/bundle.js',
+        dest: 'src/build/bundle.js',
       },
+    },
+
+    // runs our server using nodemon
+    nodemon: {
+      dev: {
+        script: '../server/server.js'
+      }
     },
 
     // mochaTest: {
@@ -55,18 +64,19 @@ module.exports = function(grunt) {
     //   }
     // },
     
+    // runs babel on our bundle.js and transpiles it into public dir
     babel: {
       options: {
         sourceMap: true
       },
       dist: {
         files: {
-          'src/build/bundle.js': 'public/bundle.js'
+          'src/build/bundle.js': 'public/bundle.js' 
         }
-      }
+      }        
     },
 
-
+    // watches our component files and runs concat/babel on change
     watch: {
       scripts: {
         files: [
@@ -81,58 +91,52 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-babel');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // grunt.loadNpmTasks('grunt-contrib-uglify');
   // grunt.loadNpmTasks('grunt-contrib-jshint');
-  // grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-concat');
   // grunt.loadNpmTasks('grunt-contrib-cssmin');
   // grunt.loadNpmTasks('grunt-mocha-test');
-  // grunt.loadNpmTasks('grunt-nodemon');
 
-  grunt.registerTask('default', ['babel']);
   
-  // grunt.registerTask('server-dev', function (target) {
-  //   // Running nodejs in a different process and displaying output on the main console
-  //   var nodemon = grunt.util.spawn({
-  //        cmd: 'grunt',
-  //        grunt: true,
-  //        args: 'nodemon'
-  //   });
-  //   nodemon.stdout.pipe(process.stdout);
-  //   nodemon.stderr.pipe(process.stderr);
-
-  //   grunt.task.run([ 'watch' ]);
-  // });
 
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  grunt.registerTask('test', [
-    'mochaTest'
-  ]);
+  // our server grunt task runner
+  grunt.registerTask('server-dev', function (target) {
 
-  grunt.registerTask('build', [
-    'concat',
-    'uglify',
-    'jshint'
-  ]);
+    // Running nodejs in a different process and displaying output on the main console
+    var nodemon = grunt.util.spawn({
+         cmd: 'grunt',
+         grunt: true,
+         args: 'nodemon'
+    });
+    nodemon.stdout.pipe(process.stdout);
+    nodemon.stderr.pipe(process.stderr);
 
-  grunt.registerTask('upload', function(n) {
-    if(grunt.option('prod')) {
-      if (n) {
-        grunt.warn('build num must be specific!')
-      }
-    } else {
-      grunt.task.run([ 'server-dev' ]);
-    }
+    grunt.task.run([ 'watch' ]);
   });
 
-  grunt.registerTask('deploy', [
+
+  // grunt.registerTask('test', [
+  //   'mochaTest'
+  // ]);
+
+  // our default task runner
+  grunt.registerTask('default', [
     'concat',
-    'uglify',
-    'jshint',
-    'cssmin'
+    'babel'
   ]);
+
+  // grunt.registerTask('deploy', [
+  //   'concat',
+  //   'uglify',
+  //   'jshint',
+  //   'cssmin'
+  // ]);
 };

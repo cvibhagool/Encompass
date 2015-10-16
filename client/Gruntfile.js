@@ -86,8 +86,7 @@ module.exports = function(grunt) {
           'public/bundle.js': ['src/**/*.js']
         },
         options: {
-          transform: ['babelify'],
-          watch: true
+          transform: ['babelify']
         }
       }
     },

@@ -6,6 +6,7 @@ var tabList = [
 ];
 
 var NavBar = require('./NavbarFrame').NavBar;
+
 var ContentView = require('./ContentFrame').ContentView;
 
 var AppView = React.createClass({

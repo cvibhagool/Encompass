@@ -15,7 +15,7 @@ var AppView = React.createClass({
   },
 
   changeContent: function(tab) {
-    console.log('Changing content');
+    console.log('AppView.changeContent');
     this.setState({ currentTab: tab.id });
   },
 
@@ -31,7 +31,7 @@ var AppView = React.createClass({
 
 var NavBar = React.createClass({
   changeTab: function(tab) {
-    console.log('Changing tab');
+    console.log('Navbar.changeTab');
     this.props.changeContent(tab);
   },
 
@@ -46,7 +46,7 @@ var NavBar = React.createClass({
 
 var Tabs = React.createClass({
   handleClick: function(tab) {
-    console.log('Handling click');
+    console.log('Tabs.handleClick');
     this.props.changeTab(tab)
   },
   
@@ -83,7 +83,10 @@ var ContentView = React.createClass({
   render: function() {
     return (
       <div id='content-view'>
-        <div className="content"> {this.props.currentTab === 1 ? <div className="home"> Stuff Here </div> : null }</div>
+        <div className="content"> {this.props.currentTab === 1 ? <div className="home"> Home Here </div> : null }</div>
+        <div className="content"> {this.props.currentTab === 2 ? <div className="company"> Company Here </div> : null }</div>
+        <div className="content"> {this.props.currentTab === 3 ? <div className="search"> Search Here </div> : null }</div>
+        <div className="content"> {this.props.currentTab === 4 ? <div className="compensation"> Compensation Here </div> : null }</div>
       </div>
     );
   }

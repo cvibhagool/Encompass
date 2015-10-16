@@ -13,7 +13,7 @@ var AppView = React.createClass({
   },
 
   changeContent: function changeContent(tab) {
-    console.log('Changing content');
+    console.log('AppView.changeContent');
     this.setState({ currentTab: tab.id });
   },
 
@@ -31,7 +31,7 @@ var NavBar = React.createClass({
   displayName: 'NavBar',
 
   changeTab: function changeTab(tab) {
-    console.log('Changing tab');
+    console.log('Navbar.changeTab');
     this.props.changeContent(tab);
   },
 
@@ -48,7 +48,7 @@ var Tabs = React.createClass({
   displayName: 'Tabs',
 
   handleClick: function handleClick(tab) {
-    console.log('Handling click');
+    console.log('Tabs.handleClick');
     this.props.changeTab(tab);
   },
 
@@ -102,7 +102,37 @@ var ContentView = React.createClass({
         this.props.currentTab === 1 ? React.createElement(
           'div',
           { className: 'home' },
-          ' Stuff Here '
+          ' Home Here '
+        ) : null
+      ),
+      React.createElement(
+        'div',
+        { className: 'content' },
+        ' ',
+        this.props.currentTab === 2 ? React.createElement(
+          'div',
+          { className: 'company' },
+          ' Company Here '
+        ) : null
+      ),
+      React.createElement(
+        'div',
+        { className: 'content' },
+        ' ',
+        this.props.currentTab === 3 ? React.createElement(
+          'div',
+          { className: 'search' },
+          ' Search Here '
+        ) : null
+      ),
+      React.createElement(
+        'div',
+        { className: 'content' },
+        ' ',
+        this.props.currentTab === 4 ? React.createElement(
+          'div',
+          { className: 'compensation' },
+          ' Compensation Here '
         ) : null
       )
     );

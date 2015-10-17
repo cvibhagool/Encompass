@@ -7,6 +7,8 @@ data$total_funding <- gsub(",", "", data$last_funding_amount)
 data$total_funding <- as.numeric(gsub("\\$", "", data$total_funding))
 data$employees <- as.numeric(data$employees)
 
+industries <- unique(unlist(strsplit(as.character(data$industries), ",")))
+
 library(ggplot2)
 library(plyr)
 library(scales)
@@ -92,3 +94,25 @@ plotFundEmpStage <- ggplot(data.fundPerEmpStage, aes(x=stage, y=mean_ratio, fill
 
 plotFundEmpStage + scale_y_continuous(labels=comma)
 
+### funding/employee against growth_score
+plotFundEmp <- ggplot(na.omit(data), aes(x=growth_score, y=(total_funding/employees)),
+                      size=2, position=position_jitter(x=1,y=1)) +
+  geom_point() +
+  geom_jitter(color=alpha("black", 0.15)) +
+  geom_smooth(method=lm)
+
+
+# limit to more than 2m in total funding and less than 500m
+# plotFundEmp + scale_x_continuous(limits=c(2000000, 500000000), labels=comma) + scale_y_continuous(limits=c(0, 1000000))
+plotFundEmp + scale_x_continuous(labels=comma) + scale_y_continuous(limits=c(0, 1000000))
+
+# employee_mom vs growth_score
+plotFundEmp <- ggplot(na.omit(data), aes(x=growth_score, y=(employees_mom)),
+                      size=2, position=position_jitter(x=1,y=1)) +
+  geom_point() +
+  geom_jitter(color=alpha("black", 0.15)) +
+  geom_smooth(method=lm)
+
+
+# plot
+plotFundEmp + scale_x_continuous(labels=comma, limits=c(0,2500)) + scale_y_continuous(limits=c(-50,100))

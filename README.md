@@ -24,7 +24,6 @@ https://drive.google.com/drive/folders/0B5Rh0oxLUMclVE9pQkw3aTVYaFU
 
 ###Client Layout
 AppView.js
-
 ContentFrame.js
 
 navbar (folder)
@@ -76,4 +75,4 @@ content (folder)
 * Follows
 * Industries
 * Keywords
-* Business Models
+* Business Modelss

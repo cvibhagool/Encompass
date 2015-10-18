@@ -11,23 +11,56 @@ When setting up local environment, do the following:
 
 
 ** Client Layout **
-
 components
   AppView.js
   ContentFrame.js
 
-  Navbar (folder)
+  navbar (folder)
     Tabs.js
     Tab.js
 
-  Content (folder)
+  content (folder)
     SearchCompany.js
     CompanyProfile.js
-      FollowCompany.js
+      subview: FollowCompany.js
     UserProfile.js
-      MyOffers.js
-      MyCompanies.js
+      subview: MyOffers.js
+      subview: MyCompanies.js
     AddOffer.js
     Auth.js
     CompareOffer.js
     CompareCompany.js
+
+** New User Experience (NUX) **
+> Landing Page (Home.js)
+> Login/Signup (Auth.js)
+> Question: Where are you in your job search? (Question.js)
+  > Just Browsing: Search For A Company (SearchCompany.js)
+    > Follow This Company (FollowCompany.js)
+    > Companies You Follow (CompareCompany.js)
+  > Received an Offer: Enter Your Offer (AddOffer.js)
+    > Compare Your Offers (CompareOffer.js)
+> Company Summary (CompanyProfile.js)
+
+> Your Profile (UserProfile.js)
+  > My Offers (MyOffers.js)
+  > My Companies (MyCompanies.js)
+
+
+
+** Server Endpoints **
+GET user/profile
+POST/DELETE companies/offers
+GET /search
+
+
+** Database Tables **
+Companies
+Users
+Investors
+
+Offers
+Follows
+Industries
+Keywords
+Business Models

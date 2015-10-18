@@ -16,18 +16,22 @@
 
 ### Offer Information
 - POST /api/offer/ (Post an offer)
+
+An offer is a JSON with the following format:
   ```javascript
-  offer: {
-            user_id,
-            base_salary, 
-            equity,  //Equity should be a percentage of the company
-            vesting_start_date, 
-            vesting_end_date, 
-            vesting_cliff_date, 
-            vesting_cliff_shares, 
-            other_benefits,
-            last_financing_round_value
-            } 
+  {
+    offer: {
+          user_id,
+          base_salary, 
+          equity,  //Equity should be a percentage of the company
+          vesting_start_date, 
+          vesting_end_date, 
+          vesting_cliff_date, 
+          vesting_cliff_percent, //This percent should be the percent of offered equity which vests on the cliff (e.g., if 25% of the offered options vest on the cliff date, this should be 0.25) 
+          other_benefits,
+          last_financing_round_value
+        }
+  }
   ```
 - GET /api/offer/:offer\_id (Get an offer information by offer\_id.)
   

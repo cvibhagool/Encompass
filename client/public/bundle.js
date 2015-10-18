@@ -4,6 +4,7 @@
 var tabList = [{ 'id': 1, 'name': 'Home', 'url': '/#/home' }, { 'id': 2, 'name': 'Company View', 'url': '/#/company' }, { 'id': 3, 'name': 'Search', 'url': '/#/search' }, { 'id': 4, 'name': 'Compensation Packages', 'url': '/#/compensation' }];
 
 var NavBar = require('./NavbarFrame').NavBar;
+
 var ContentView = require('./ContentFrame').ContentView;
 
 var AppView = React.createClass({

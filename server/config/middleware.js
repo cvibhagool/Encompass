@@ -1,5 +1,5 @@
 var bodyParser = require('body-parser');
-
+var db = require('../models/db');
 module.exports = function (app, express) {
   
   //Handle CORS

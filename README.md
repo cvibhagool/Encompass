@@ -12,6 +12,7 @@ When setting up local environment, do the following:
 5. run the following command from the client dir: babel --watch src/ --out-dir public/
 
 ###Setting up the database:
+
 1. Install PostgreSQL, and create a database named 'encompass'
 2. Set variable 'resetDB' in server/models/db.js to true. This will wipe the database, and rebuild the tables.
 3. Set variable 'seedDB' in server/models/db.js to true. This will add the seed data from seedData.json

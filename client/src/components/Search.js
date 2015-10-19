@@ -20,16 +20,6 @@ var Search = React.createClass({
 
 
 
-
-
-
-
-
-
-
-
-
-
   
 });
 

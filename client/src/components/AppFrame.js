@@ -1,19 +1,12 @@
-var tabList = [
-  { 'id': 1, 'name': 'Home', 'url': '/#/home' },
-  { 'id': 2, 'name': 'Company View', 'url': '/#/company' },
-  { 'id': 3, 'name': 'Search', 'url': '/#/search' },
-  { 'id': 4, 'name': 'Compensation Packages', 'url': '/#/compensation' }
-];
-
 var NavBar = require('./NavbarFrame').NavBar;
-
 var ContentView = require('./ContentFrame').ContentView;
+var Tabs = require('./navbar/Tabs').Tabs;
 
 var AppView = React.createClass({
 
   getInitialState: function() {
     return {
-      tablist: tabList,
+      tablist: Tabs.tabList,
       currentTab: 1
     };
   },
@@ -32,8 +25,6 @@ var AppView = React.createClass({
     );
   }
 });
-
-ReactDOM.render(<AppView/>, document.getElementById('app'));
 
 module.exports = {
   AppView: AppView

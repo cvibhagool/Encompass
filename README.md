@@ -18,7 +18,6 @@ When setting up local environment, do the following:
       (from terminal) psql template1
       
       (in PostgreSQL) CREATE DATABASE encompass;
-      
       (in PostgreSQL) Press 'ctrl+D' to exit
 
 2. In server/models/db.js, set variable 'resetDB' to true. This will wipe the database, and rebuild the tables.

@@ -1,6 +1,6 @@
 //Seed data
 module.exports = function(){
-  var db = require('./db');
+  var db = require('../../models/index');
   var seedData = require('./seedData.json');
   //For each company data
 
@@ -59,7 +59,7 @@ module.exports = function(){
   for (var r = 0; r < seedData.length; r++){
     (function(i){
       var data = seedData[i];
-
+      var current_row = i;
       var company = cleanCompany(data);
       var industries = data.industries.split(',').map(function(x){return x.trim();}).filter(function(x){return (x !== "");});
       var investors = data.investors.split(',').map(function(x){return x.trim();}).filter(function(x){return (x !== "");});

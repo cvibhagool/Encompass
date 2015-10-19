@@ -5,21 +5,20 @@ A tool that helps all tech employees make better, more informed decisions
 When setting up local environment, do the following:
 
 ###When setting up local environment, do the following:
-1. npm install in root folder
-2. npm install in client folder
-3. npm install -g babel
-4. run the server (nodemon server/server.js)
-5. run the following command from the client dir: babel --watch src/ --out-dir public/
+1. `npm install` in root folder
+2. `npm install` in client folder
+3. type grunt `server-dev` in client folder
+  * this transpiles the JSX upon any change
 
 ###Setting up the database:
 
 1. Install PostgreSQL, and create a database named 'encompass' 
 
-      (from terminal) psql template1
+      (from terminal) `psql template1`
       
-      (in PostgreSQL) CREATE DATABASE encompass;
+      (in PostgreSQL) `CREATE DATABASE encompass;`
       
-      (in PostgreSQL) Press 'ctrl+D' to exit
+      (in PostgreSQL) Press `ctrl+D` to exit
 
 2. In server/models/db.js, set variable 'resetDB' to true. This will wipe the database, and rebuild the tables.
 3. In server/models/db.js, set variable 'seedDB' to true. This will add the seed data from seedData.json

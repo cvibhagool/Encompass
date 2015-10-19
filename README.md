@@ -15,7 +15,7 @@ When setting up local environment, do the following:
 
 1. Install PostgreSQL, and create a database named 'encompass' 
 
-      (from terminal) psql template 1
+      (from terminal) psql template1
       
       (in PostgreSQL) CREATE DATABASE encompass;
       

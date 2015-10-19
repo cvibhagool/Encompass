@@ -1,9 +1,14 @@
 var tabList = [
   { 'id': 1, 'name': 'Home', 'url': '/#/home' },
-  { 'id': 2, 'name': 'Company View', 'url': '/#/company' },
-  { 'id': 3, 'name': 'Search', 'url': '/#/search' },
-  { 'id': 4, 'name': 'Compensation Packages', 'url': '/#/compensation' }
+  { 'id': 2, 'name': 'My Profile', 'url': '/#/profile' },
+  { 'id': 3, 'name': 'Add Offer', 'url': '/#/addoffer' },
+  { 'id': 4, 'name': 'Search Startups', 'url': '/#/searchcompany' },
+  { 'id': 5, 'name': 'Login', 'url': '/#/login' },
+  { 'id': 6, 'name': 'Signup', 'url': '/#/signup' }
 ];
+
+var Tab = require('./Tab').Tab;
+
 
 var Tabs = React.createClass({
   handleClick: function(tab) {
@@ -14,7 +19,7 @@ var Tabs = React.createClass({
   render: function() {
     return (
       <ul>
-        { this.props.tablist.map(function(tab) {
+        { tabList.map(function(tab) {
           return (
             <Tab 
               key={tab.id} 

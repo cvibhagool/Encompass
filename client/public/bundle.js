@@ -1,94 +1,49 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
-
-var tabList = [{ 'id': 1, 'name': 'Home', 'url': '/#/home' }, { 'id': 2, 'name': 'My Profile', 'url': '/#/profile' }, { 'id': 3, 'name': 'Add Offer', 'url': '/#/addoffer' }, { 'id': 4, 'name': 'Search Startups', 'url': '/#/searchcompany' }, { 'id': 5, 'name': 'Login', 'url': '/#/login' }, { 'id': 6, 'name': 'Signup', 'url': '/#/signup' }];
-
 var NavBar = require('./NavbarFrame').NavBar;
-
 var ContentView = require('./ContentFrame').ContentView;
+var Tabs = require('./navbar/Tabs').Tabs;
 
-var AppView = React.createClass({
-  displayName: 'AppView',
+var AppView = React.createClass({displayName: "AppView",
 
-  getInitialState: function getInitialState() {
+  getInitialState: function() {
     return {
-      tablist: tabList,
+      tablist: Tabs.tabList,
       currentTab: 1
     };
   },
 
-  changeContent: function changeContent(tab) {
+  changeContent: function(tab) {
     console.log('AppView.changeContent');
     this.setState({ currentTab: tab.id });
   },
 
-  render: function render() {
-    return React.createElement(
-      'div',
-      { id: 'app-view' },
-      React.createElement(NavBar, { tablist: this.state.tablist, changeContent: this.changeContent }),
-      React.createElement(ContentView, { currentTab: this.state.currentTab })
+  render: function() {
+    return (
+      React.createElement("div", {id: "app-view"}, 
+        React.createElement(NavBar, {tablist: this.state.tablist, changeContent: this.changeContent}), 
+        React.createElement(ContentView, {currentTab: this.state.currentTab})
+      )
     );
   }
 });
 
-ReactDOM.render(React.createElement(AppView, null), document.getElementById('app'));
-
 module.exports = {
   AppView: AppView
-};
+}
 
-},{"./ContentFrame":2,"./NavbarFrame":3}],2:[function(require,module,exports){
-'use strict';
-
+},{"./ContentFrame":2,"./NavbarFrame":3,"./navbar/Tabs":7}],2:[function(require,module,exports){
 var SearchCompany = require('./content/SearchCompany').SearchCompany;
 
-var ContentView = React.createClass({
-  displayName: 'ContentView',
-
-  render: function render() {
-    return React.createElement(
-      'div',
-      { id: 'content-view' },
-      React.createElement(
-        'div',
-        { className: 'content' },
-        ' ',
-        this.props.currentTab === 1 ? React.createElement(
-          'div',
-          { className: 'home' },
-          ' Home Here '
-        ) : null
-      ),
-      React.createElement(
-        'div',
-        { className: 'content' },
-        ' ',
-        this.props.currentTab === 2 ? React.createElement(UserProfile, null) : null
-      ),
-      React.createElement(
-        'div',
-        { className: 'content' },
-        ' ',
-        this.props.currentTab === 3 ? React.createElement(AddOffer, null) : null
-      ),
-      React.createElement(
-        'div',
-        { className: 'content' },
-        ' ',
-        this.props.currentTab === 4 ? React.createElement(SearchCompany, null) : null
-      ),
-      React.createElement(
-        'div',
-        { className: 'content' },
-        ' ',
-        this.props.currentTab === 5 ? React.createElement(Login, null) : null
-      ),
-      React.createElement(
-        'div',
-        { className: 'content' },
-        ' ',
-        this.props.currentTab === 6 ? React.createElement(Signup, null) : null
+var ContentView = React.createClass({displayName: "ContentView",
+  render: function() {
+    return (
+      React.createElement("div", {id: "content-view"}, 
+        React.createElement("div", {className: "content"}, " ", this.props.currentTab === 1 ? React.createElement("div", {className: "home"}, " Home Here ") : null), 
+        React.createElement("div", {className: "content"}, " ", this.props.currentTab === 2 ? React.createElement(UserProfile, null) : null), 
+        React.createElement("div", {className: "content"}, " ", this.props.currentTab === 3 ? React.createElement(AddOffer, null) : null), 
+        React.createElement("div", {className: "content"}, " ", this.props.currentTab === 4 ? React.createElement(SearchCompany, null) : null), 
+        React.createElement("div", {className: "content"}, " ", this.props.currentTab === 5 ? React.createElement(Login, null) : null), 
+        React.createElement("div", {className: "content"}, " ", this.props.currentTab === 6 ? React.createElement(Signup, null) : null)
       )
     );
   }
@@ -96,412 +51,162 @@ var ContentView = React.createClass({
 
 module.exports = {
   ContentView: ContentView
-};
+}
 
-},{"./content/SearchCompany":16}],3:[function(require,module,exports){
-'use strict';
+},{"./content/SearchCompany":5}],3:[function(require,module,exports){
+var Tabs = require('./navbar/Tabs').Tabs;
 
-var NavBar = React.createClass({
-  displayName: 'NavBar',
-
-  changeTab: function changeTab(tab) {
+var NavBar = React.createClass({displayName: "NavBar",
+  changeTab: function(tab) {
     console.log('Navbar.changeTab');
     this.props.changeContent(tab);
   },
 
-  render: function render() {
-    return React.createElement(
-      'div',
-      { id: 'nav-bar' },
-      React.createElement(Tabs, { tablist: this.props.tablist, changeTab: this.changeTab })
-    );
-  }
-});
-
-var Tabs = React.createClass({
-  displayName: 'Tabs',
-
-  handleClick: function handleClick(tab) {
-    console.log('Tabs.handleClick');
-    this.props.changeTab(tab);
-  },
-
-  render: function render() {
-    return React.createElement(
-      'ul',
-      null,
-      this.props.tablist.map((function (tab) {
-        return React.createElement(Tab, {
-          key: tab.id,
-          url: tab.url,
-          handleClick: this.handleClick.bind(this, tab),
-          name: tab.name });
-      }).bind(this))
-    );
-  }
-});
-
-var Tab = React.createClass({
-  displayName: 'Tab',
-
-  handleClick: function handleClick(e) {
-    e.preventDefault();
-    this.props.handleClick();
-  },
-
-  render: function render() {
-    return React.createElement(
-      'li',
-      { className: 'tab' },
-      React.createElement(
-        'a',
-        { href: this.props.url, onClick: this.handleClick },
-        this.props.name
+  render: function() {
+    return (
+      React.createElement("div", {id: "nav-bar"}, 
+        React.createElement(Tabs, {changeTab: this.changeTab})
       )
     );
   }
 });
 
 module.exports = {
-  NavBar: NavBar,
-  Tabs: Tabs,
-  Tab: Tab
-};
+  NavBar: NavBar
+}
 
-},{}],4:[function(require,module,exports){
-// var SearchView = React.createClass({
-//   render: function() {
-//     return (<form><input type="text" value="Hello!" /></form>);
-//   };
-// });
-
-"use strict";
-
-var Search = React.createClass({
-  // getInitialState: function() {
-  //   return {value: 'Company Name'}
-  // },
-
-  // handleChange: function(event) {
-  //   this.setState({value: event.target.value});
-  // },
-
-  // render: function() {
-  //   var value = this.state.value;
-  //   return (<input type="text" onChange={this.props.handleChange} placeholder="asdf" />);
-  // }
-
-  displayName: "Search"
-});
-
-module.exports = {
-  Search: Search
-};
-
-},{}],5:[function(require,module,exports){
-'use strict';
-
-var NavBar = require('./NavbarFrame').NavBar;
-var ContentView = require('./ContentFrame').ContentView;
-var Tabs = require('./navbar/Tabs').Tabs;
-
-var AppView = React.createClass({
-  displayName: 'AppView',
-
-  getInitialState: function getInitialState() {
-    return {
-      tablist: Tabs.tabList,
-      currentTab: 1
-    };
-  },
-
-  changeContent: function changeContent(tab) {
-    console.log('AppView.changeContent');
-    this.setState({ currentTab: tab.id });
-  },
-
-  render: function render() {
-    return React.createElement(
-      'div',
-      { id: 'app-view' },
-      React.createElement(NavBar, { tablist: this.state.tablist, changeContent: this.changeContent }),
-      React.createElement(ContentView, { currentTab: this.state.currentTab })
-    );
-  }
-});
+},{"./navbar/Tabs":7}],4:[function(require,module,exports){
+var AppView = require('./AppFrame').AppView;
 
 ReactDOM.render(React.createElement(AppView, null), document.getElementById('app'));
 
-module.exports = {
-  AppView: AppView
-};
-
-},{"./ContentFrame":2,"./NavbarFrame":3,"./navbar/Tabs":19}],6:[function(require,module,exports){
-
-
-// POST request to server with all info listed above
-// update tables: users, offers, companies
-
-// GET request for metrics about the offer
-// so we can display the offer results on the page
-
-"use strict";
-
-var AddOffer = React.createClass({
-  displayName: "AddOffer",
-
-  render: function render() {
-    return React.createElement(
-      "form",
-      { className: "offerForm" },
-      "Startup: ",
-      React.createElement("input", { type: "text", placeholder: "Which Startup?" }),
-      "Salary: ",
-      React.createElement("input", { type: "number" }),
-      "Equity: ",
-      React.createElement("input", { type: "number" }),
-      "Benefits:",
-      React.createElement("input", { type: "checkbox", name: "food" }),
-      "Free Food",
-      React.createElement("input", { type: "checkbox", name: "healthcare" }),
-      "Free Healthcare Other Benefits: ",
-      React.createElement("input", { type: "number" }),
-      React.createElement("input", { type: "submit", value: "Post" })
-    );
-  }
-
-  // needs a form with:
-  // company name
-  // dynamic search (like crunchbase)
-  // salary (field type: number)
-  // equity (type: number (percentage))
-  // benefits (type: checkbox)
-  // free lunch
-  // free dinner
-  // healthcare (with dental and eyes?)
-  // (am i missing anything?)
-  // extra benefits not yet accounted for (type: number)
-
-  // note: in our formula to calculate the value of the offer, we should also include federal and state taxes
-});
-
-var PostOffer = React.createClass();
-
-module.exports = {
-  AddOffer: AddOffer
-};
-
-},{}],7:[function(require,module,exports){
-"use strict";
-
-// sign up and login form
-// oAuth and non-oAuth
-
-// var Auth = React.createClass({
-//   render: function() {
-//     return ()
-//   }
-// });
-
-// module.exports = {
-//   Auth: Auth
-// }
-
-},{}],8:[function(require,module,exports){
-"use strict";
-
-// this page will display all the info related to a given company
-// see questions here: https://docs.google.com/document/d/1JeDQ7p_NZVoJrM_smjaL2eK1zUoHidwTKYucVkefUgc/edit
-
-},{}],9:[function(require,module,exports){
-"use strict";
-
-// this page will display a table of all of a user's 'followed' companies,
-// along with the pertinent company data
-
-// above the table we add a search bar that says 'Add a Company'
-// GET request for company info
-// display info that is returned in the table
-
-},{}],10:[function(require,module,exports){
-"use strict";
-
-// this page will display a table of all a user's offers,
-// along with the pertinent offer data
-
-// above the table we add a search bar that says 'Add an Offer'
-// POST request of offer info
-// GET request of any data related to the offer
-// display info that is returned in the table
-
-},{}],11:[function(require,module,exports){
-"use strict";
-
-// i believe this page will be a subview -- a widget -- that gets embedded on each company page
-
-},{}],12:[function(require,module,exports){
-"use strict";
-
-// this is the main landing page; the homepage
-// should have info about our value proposition
-// cool graphs and charts to entice people to click
-// on click, navigate them to the login page
-
-// also include:
-// info about each of us
-// etc
-
-},{}],13:[function(require,module,exports){
-"use strict";
-
-// this is a subview of the UserProfile page.
-// it will be a view of all the companies you follow
-// only basic data should be displayed bc the user should be able to click on any company and get to their profile
-
-},{}],14:[function(require,module,exports){
-"use strict";
-
-// this is a subview of the UserProfile page.
-// it will be a view of all the offers the user follows
-
-},{}],15:[function(require,module,exports){
-"use strict";
-
-// this is the first page that new users see after they sign up
-// it will ask, where are you in your job search?
-// just starting
-// navigates user to SearchCompany page
-// received offers
-// navigates user to AddOffer page
-
-},{}],16:[function(require,module,exports){
+},{"./AppFrame":1}],5:[function(require,module,exports){
 // react does not regenerate the list items when the user deletes/retypes their search
 
-"use strict";
-
-var SearchCompany = React.createClass({
-  displayName: "SearchCompany",
+var SearchCompany = React.createClass({displayName: "SearchCompany",
 
   // initial state of search box will be blank
-  getInitialState: function getInitialState() {
-    return { searchString: '' };
+  getInitialState: function() {
+    return { searchString: ''};
   },
 
   // without handleChange, the default search box text will never change
-  handleChange: function handleChange(e) {
-    this.setState({ searchString: e.target.value });
+  handleChange: function(e) {
+    this.setState({searchString: e.target.value});
+
   },
 
   //
-  render: function render() {
+  render: function() {
     // this next line was in the tut but it seems to break things
     // http://tutorialzine.com/2014/07/5-practical-examples-for-learning-facebooks-react-framework/
 
     // var companies = this.props.companies;
 
     var searchString = this.state.searchString.trim().toLowerCase();
-
+    
     // as soon as user starts to type, filter the results
     if (searchString.length > 0) {
-      companies = companies.filter(function (l) {
+      companies = companies.filter(function(l) {
         return l.name.toLowerCase().match(searchString);
       });
     }
 
-    // search box + display the list of companies below the search box
-    return React.createElement(
-      "div",
-      null,
-      React.createElement("input", { type: "text",
-        value: this.state.searchString,
-        onChange: this.handleChange,
-        placeholder: "Search a Company" }),
-      React.createElement(
-        "ul",
-        null,
-        "// !! React yells that each child (li item) should have a unique key prop // but I already did include one here so I'm not sure whats wrong",
-        companies.map(function (lib) {
-          return React.createElement(
-            "li",
-            { key: lib.id },
-            lib.name
-          );
+    // search box + display the list of companies below the search box 
+    return React.createElement("div", null, 
+      React.createElement("input", {type: "text", 
+        value: this.state.searchString, 
+        onChange: this.handleChange, 
+        placeholder: "Search a Company"}), 
+
+      React.createElement("ul", null, 
+        "// !! React yells that each child (li item) should have a unique key prop" + ' ' +
+        "// but I already did include one here so I'm not sure whats wrong", 
+        companies.map(function(lib) {
+          return React.createElement("li", {key: lib.id}, lib.name)
         })
       )
-    );
+    )
   }
 });
 
 // here is where we store our company names for realtime search
-var companies = [{ name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/' }, { name: 'AngularJS', url: 'https://angularjs.org/' }, { name: 'jQuery', url: 'http://jquery.com/' }, { name: 'Prototype', url: 'http://www.prototypejs.org/' }, { name: 'React', url: 'http://facebook.github.io/react/' }, { name: 'Ember', url: 'http://emberjs.com/' }, { name: 'Knockout.js', url: 'http://knockoutjs.com/' }, { name: 'Dojo', url: 'http://dojotoolkit.org/' }, { name: 'Mootools', url: 'http://mootools.net/' }, { name: 'Underscore', url: 'http://documentcloud.github.io/underscore/' }, { name: 'Lodash', url: 'http://lodash.com/' }, { name: 'Moment', url: 'http://momentjs.com/' }, { name: 'Express', url: 'http://expressjs.com/' }, { name: 'Koa', url: 'http://koajs.com/' }];
+var companies = [
+    { name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/'},
+    { name: 'AngularJS', url: 'https://angularjs.org/'},
+    { name: 'jQuery', url: 'http://jquery.com/'},
+    { name: 'Prototype', url: 'http://www.prototypejs.org/'},
+    { name: 'React', url: 'http://facebook.github.io/react/'},
+    { name: 'Ember', url: 'http://emberjs.com/'},
+    { name: 'Knockout.js', url: 'http://knockoutjs.com/'},
+    { name: 'Dojo', url: 'http://dojotoolkit.org/'},
+    { name: 'Mootools', url: 'http://mootools.net/'},
+    { name: 'Underscore', url: 'http://documentcloud.github.io/underscore/'},
+    { name: 'Lodash', url: 'http://lodash.com/'},
+    { name: 'Moment', url: 'http://momentjs.com/'},
+    { name: 'Express', url: 'http://expressjs.com/'},
+    { name: 'Koa', url: 'http://koajs.com/'},
+];
 
 module.exports = {
   SearchCompany: SearchCompany
-};
+}
 
-},{}],17:[function(require,module,exports){
-"use strict";
-
-// this page will contain the MyOffers and MyCompanies subviews
-
-},{}],18:[function(require,module,exports){
-'use strict';
-
-var Tab = React.createClass({
-  displayName: 'Tab',
-
-  handleClick: function handleClick(e) {
+},{}],6:[function(require,module,exports){
+var Tab = React.createClass({displayName: "Tab",
+  handleClick: function(e){
     e.preventDefault();
     this.props.handleClick();
   },
 
-  render: function render() {
-    return React.createElement(
-      'li',
-      { className: 'tab' },
-      React.createElement(
-        'a',
-        { href: this.props.url, onClick: this.handleClick },
-        this.props.name
-      )
-    );
+  render: function() {
+    return (React.createElement("li", {className: "tab"}, React.createElement("a", {href: this.props.url, onClick: this.handleClick}, this.props.name)));
   }
 });
 
 module.exports = {
   Tab: Tab
-};
+}
 
-},{}],19:[function(require,module,exports){
-'use strict';
+},{}],7:[function(require,module,exports){
+var tabList = [
+  { 'id': 1, 'name': 'Home', 'url': '/#/home' },
+  { 'id': 2, 'name': 'My Profile', 'url': '/#/profile' },
+  { 'id': 3, 'name': 'Add Offer', 'url': '/#/addoffer' },
+  { 'id': 4, 'name': 'Search Startups', 'url': '/#/searchcompany' },
+  { 'id': 5, 'name': 'Login', 'url': '/#/login' },
+  { 'id': 6, 'name': 'Signup', 'url': '/#/signup' }
+];
 
-var tabList = [{ 'id': 1, 'name': 'Home', 'url': '/#/home' }, { 'id': 2, 'name': 'Company View', 'url': '/#/company' }, { 'id': 3, 'name': 'Search', 'url': '/#/search' }, { 'id': 4, 'name': 'Compensation Packages', 'url': '/#/compensation' }];
+var Tab = require('./Tab').Tab;
 
-var Tabs = React.createClass({
-  displayName: 'Tabs',
 
-  handleClick: function handleClick(tab) {
+var Tabs = React.createClass({displayName: "Tabs",
+  handleClick: function(tab) {
     console.log('Tabs.handleClick');
-    this.props.changeTab(tab);
+    this.props.changeTab(tab)
   },
-
-  render: function render() {
-    return React.createElement(
-      'ul',
-      null,
-      this.props.tablist.map((function (tab) {
-        return React.createElement(Tab, {
-          key: tab.id,
-          url: tab.url,
-          handleClick: this.handleClick.bind(this, tab),
-          name: tab.name });
-      }).bind(this))
+  
+  render: function() {
+    return (
+      React.createElement("ul", null, 
+         tabList.map(function(tab) {
+          return (
+            React.createElement(Tab, {
+              key: tab.id, 
+              url: tab.url, 
+              handleClick: this.handleClick.bind(this, tab), 
+              name: tab.name})
+          );
+        }.bind(this))
+      
+      )
     );
   }
 });
 
 module.exports = {
   Tabs: Tabs
-};
+}
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]);
+},{"./Tab":6}]},{},[4]);

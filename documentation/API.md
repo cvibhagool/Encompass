@@ -29,7 +29,8 @@ An offer is a JSON with the following format:
           vesting_cliff_date, 
           vesting_cliff_percent, //This percent should be the percent of offered equity which vests on the cliff (e.g., if 25% of the offered options vest on the cliff date, this should be 0.25) 
           other_benefits,
-          last_financing_round_value
+          last_financing_round_valuation,
+          estimated_exit_valuation
         }
   }
   ```

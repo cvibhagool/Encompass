@@ -83,10 +83,10 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'public/bundle.js': ['src/**/*.js']
+          'public/bundle.js': ['src/components/app.js']
         },
         options: {
-          transform: ['babelify']
+          transform: ['reactify']
         }
       }
     },

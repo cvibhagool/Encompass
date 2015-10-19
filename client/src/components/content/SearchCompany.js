@@ -1,6 +1,54 @@
+// react does not regenerate the list items when the user deletes/retypes their search
 
-var libraries = [
+var SearchCompany = React.createClass({
 
+  // initial state of search box will be blank
+  getInitialState: function() {
+    return { searchString: ''};
+  },
+
+  // without handleChange, the default search box text will never change
+  handleChange: function(e) {
+    this.setState({searchString: e.target.value});
+
+  },
+
+  //
+  render: function() {
+    // this next line was in the tut but it seems to break things
+    // http://tutorialzine.com/2014/07/5-practical-examples-for-learning-facebooks-react-framework/
+
+    // var companies = this.props.companies;
+
+    var searchString = this.state.searchString.trim().toLowerCase();
+    
+    // as soon as user starts to type, filter the results
+    if (searchString.length > 0) {
+      companies = companies.filter(function(l) {
+        return l.name.toLowerCase().match(searchString);
+      });
+    }
+
+    // search box + display the list of companies below the search box 
+    return <div>
+      <input type="text" 
+        value={this.state.searchString} 
+        onChange={this.handleChange} 
+        placeholder="Search a Company" />
+
+      <ul>
+        // !! React yells that each child (li item) should have a unique key prop
+        // but I already did include one here so I'm not sure whats wrong
+        {companies.map(function(lib) {
+          return <li key={lib.id}>{lib.name}</li>
+        })}
+      </ul>
+    </div>
+  }
+});
+
+// here is where we store our company names for realtime search
+var companies = [
     { name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/'},
     { name: 'AngularJS', url: 'https://angularjs.org/'},
     { name: 'jQuery', url: 'http://jquery.com/'},
@@ -15,46 +63,7 @@ var libraries = [
     { name: 'Moment', url: 'http://momentjs.com/'},
     { name: 'Express', url: 'http://expressjs.com/'},
     { name: 'Koa', url: 'http://koajs.com/'},
-
 ];
-
-
-var SearchCompany = React.createClass({
-
-  getInitialState: function() {
-    return { searchString: ''};
-  },
-
-  handleChange: function(e) {
-    this.setState({searchString: e.target.value});
-  },
-
-  render: function() {
-    // var libraries = this.props.items;
-    console.log('test')
-    console.log(libraries)
-    var searchString = this.state.searchString.trim().toLowerCase();
-    
-    console.log('test')
-    console.log(searchString)
-    
-    if (searchString.length > 0) {
-      libraries = libraries.filter(function(l) {
-        return l.name.toLowerCase().match(searchString);
-      });
-    }
-
-    return <div>
-      <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Search a Company" />
-      <ul>
-        {libraries.map(function(l) {
-          return <li key={libraries.id}>{l.name}</li>;
-        })}
-      </ul>
-    </div>
-  }
-});
-
 
 module.exports = {
   SearchCompany: SearchCompany

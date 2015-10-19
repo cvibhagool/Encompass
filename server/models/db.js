@@ -6,6 +6,16 @@ var sequelize = new Sequelize("encompass", "", "", {
     "logging": false,
   });
 
+var User = sequelize.define('User', {
+  username: Sequelize.STRING,
+  password: Sequelize.STRING
+});
+
+var Offer = sequelize.define('Offer', {
+  position: Sequelize.STRING,
+  salary: Sequelize.FLOAT
+});
+
 var Company = sequelize.define('Company', {
   name: Sequelize.STRING,
   website: Sequelize.STRING,
@@ -42,19 +52,29 @@ var Keyword = sequelize.define('Keyword', {
   name: Sequelize.STRING
 });
 
-//Company N:M Industry relation
+//User 1 => N Offer relation
+User.hasMany(Offer);
+//Offer 1 => 1 User relation
+Offer.belongsTo(User);
+//Offer 1 => 1 Company relation
+Offer.belongsTo(Company);
+//User N <=> M Follow Company relation
+Company.belongsToMany(User, {through: 'UserFollows'});
+User.belongsToMany(Company, {through: 'UserFollows'});
+
+//Company N <=> M Industry relation
 Company.belongsToMany(Industry, { through: 'CompanyIndustries'});
 Industry.belongsToMany(Company, { through: 'CompanyIndustries'});
 
-//Company N:M BusinessModel relation
+//Company N <=> M BusinessModel relation
 Company.belongsToMany(BusinessModel, { through: 'CompanyBusinessModels'});
 BusinessModel.belongsToMany(Company, { through: 'CompanyBusinessModels'});
 
-//Company N:M Investor relation
+//Company N <=> M Investor relation
 Company.belongsToMany(Investor, { through: 'CompanyInvestors'});
 Investor.belongsToMany(Company, { through: 'CompanyInvestors'});
 
-//Company N:M Keyword relation
+//Company N <=> M Keyword relation
 Company.belongsToMany(Keyword, { through: 'CompanyKeywords'});
 Keyword.belongsToMany(Company, { through: 'CompanyKeywords'});
 
@@ -63,6 +83,8 @@ var db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.User = User;
+db.Offer = Offer;
 db.Company = Company;
 db.BusinessModel = BusinessModel;
 db.Industry = Industry;

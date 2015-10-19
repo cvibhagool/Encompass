@@ -1,11 +1,12 @@
 var NavBar = require('./NavbarFrame').NavBar;
 var ContentView = require('./ContentFrame').ContentView;
+var Tabs = require('./navbar/Tabs').Tabs;
 
 var AppView = React.createClass({
 
   getInitialState: function() {
     return {
-      tablist: tabList,
+      tablist: Tabs.tabList,
       currentTab: 1
     };
   },

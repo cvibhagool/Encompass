@@ -7,7 +7,7 @@ When setting up local environment, do the following:
 ###When setting up local environment, do the following:
 1. `npm install` in root folder
 2. `npm install` in client folder
-3. type `grunt server-dev` in client folder
+3. type `grunt server-dev` (cd into client folder)
   * this transpiles the JSX upon any change
 
 ###Setting up the database:

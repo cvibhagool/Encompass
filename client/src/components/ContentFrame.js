@@ -5,9 +5,11 @@ var ContentView = React.createClass({
     return (
       <div id='content-view'>
         <div className="content"> {this.props.currentTab === 1 ? <div className="home"> Home Here </div> : null }</div>
-        <div className="content"> {this.props.currentTab === 2 ? <div className="company"> Company Here </div> : null }</div>
-        <div className="content"> {this.props.currentTab === 3 ? <SearchCompany /> : null }</div>
-        <div className="content"> {this.props.currentTab === 4 ? <div className="compensation"> Compensation Here </div> : null }</div>
+        <div className="content"> {this.props.currentTab === 2 ? <UserProfile /> : null }</div>
+        <div className="content"> {this.props.currentTab === 3 ? <AddOffer /> : null }</div>
+        <div className="content"> {this.props.currentTab === 4 ? <SearchCompany /> : null }</div>
+        <div className="content"> {this.props.currentTab === 5 ? <Login /> : null }</div>
+        <div className="content"> {this.props.currentTab === 6 ? <Signup /> : null }</div>
       </div>
     );
   }

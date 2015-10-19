@@ -21,10 +21,10 @@ When setting up local environment, do the following:
       
       (in PostgreSQL) Press 'ctrl+D' to exit
 
-2. Set variable 'resetDB' in server/models/db.js to true. This will wipe the database, and rebuild the tables.
-3. Set variable 'seedDB' in server/models/db.js to true. This will add the seed data from seedData.json
-4. Run server.js as usual. 1 and 2 will happen at server start.
-5. Be sure to set the two variables back to false, otherwise 1 and 2 will happen everytime server is started
+2. In server/models/db.js, set variable 'resetDB' to true. This will wipe the database, and rebuild the tables.
+3. In server/models/db.js, set variable 'seedDB' to true. This will add the seed data from seedData.json
+4. Run server (nodemone server/server.js). Steps 1 and 2 will happen at server start.
+5. Be sure to set the two variables back to false, otherwise 1 and 2 will happen everytime server is started.
 
 
 ###whiteboard photos:

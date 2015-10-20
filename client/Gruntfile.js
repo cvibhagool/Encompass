@@ -86,7 +86,7 @@ module.exports = function(grunt) {
           'public/bundle.js': ['src/components/app.js']
         },
         options: {
-          transform: ['reactify']
+          transform: ['babelify']
         }
       }
     },

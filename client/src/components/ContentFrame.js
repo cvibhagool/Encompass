@@ -1,3 +1,5 @@
+var UserProfile = require('./content/UserProfile').UserProfile;
+var AddOffer = require('./content/AddOffer').AddOffer;
 var SearchCompany = require('./content/SearchCompany').SearchCompany;
 
 var ContentView = React.createClass({

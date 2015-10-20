@@ -7,8 +7,7 @@ var passport = require('../auth/passport');
 module.exports = function (app, express) {
   //Function for authenticating routes
   var checkUser = function(req,res,next){
-      var user = req.user;
-      if( !user ) {
+      if( !req.user ) {
         res.sendStatus(403);
       } else {
         next();
@@ -42,7 +41,7 @@ module.exports = function (app, express) {
     console.log(req.method + ': ' + req.url);
     if (req.user){
       console.log("Authenticated");
-      console.log(req.user);
+      console.log("Username:",req.user.username, "Provider:", req.user.provider);
     } else {
       console.log("Unauthenticated");
     }

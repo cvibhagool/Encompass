@@ -30,3 +30,6 @@ server/db/index.js
 client/node_modules/
 node_modules/
 bower_components/
+
+#Oauth Secrets
+server/auth/oauth-config.json

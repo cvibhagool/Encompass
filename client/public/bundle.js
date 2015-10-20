@@ -130,7 +130,240 @@ var AppView = require('./AppFrame').AppView;
 ReactDOM.render(React.createElement(AppView, null), document.getElementById('app'));
 
 },{"./AppFrame":1}],5:[function(require,module,exports){
+'use strict';
 
+var AddOffer = React.createClass({
+  displayName: 'AddOffer',
+
+  getInitialState: function getInitialState() {
+    return {
+      type: 'info',
+      message: ''
+    };
+  },
+
+  // form submit callback
+  handleSubmit: function handleSubmit(e) {
+    e.preventDefault();
+
+    this.setState({ type: 'info', message: 'Sending...' }, this.sendFormData);
+  },
+
+  sendFormData: function sendFormData() {
+
+    // prepare form data for submitting it
+    var formData = {
+      company_name: ReactDOM.findDOMNode(this.refs.budget).value,
+      position: ReactDOM.findDOMNode(this.refs.position).value,
+      salary: ReactDOM.findDOMNode(this.refs.salary).value,
+      equity: ReactDOM.findDOMNode(this.refs.equity).value,
+      vesting_start_date: ReactDOM.findDOMNode(this.refs.vesting_start_date).value,
+      vesting_end_date: ReactDOM.findDOMNode(this.refs.vesting_end_date).value,
+      vesting_cliff_date: ReactDOM.findDOMNode(this.refs.vesting_cliff_date).value,
+      vesting_cliff_percent: ReactDOM.findDOMNode(this.refs.vesting_cliff_percent).value,
+      other_benefits: ReactDOM.findDOMNode(this.refs.other_benefits).value,
+      last_financing_round_valuation: ReactDOM.findDOMNode(this.refs.last_financing_round_valuation).value,
+      estimated_eit_valuation: ReactDOM.findDOMNode(this.refs.estimated_eit_valuation).value
+    };
+
+    // extract the checkbox values
+    formData.benefits = this.getSelected('benefits');
+
+    // send the form data
+    var xmlhttp = new XMLHttpRequest();
+    var _this = this;
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState === 4) {
+        var response = JSON.parse(xmlhttp.responseText);
+        if (xmlhttp === 200 && response.status === 'OK') {
+          _this.setState({ type: 'success', message: 'Offer submitted...' });
+        } else {
+          _this.setState({ type: 'danger', message: 'Offer not submitted...' });
+        }
+      }
+    };
+    xmlhttp.open('POST', 'send', true);
+    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xmlhttp.send(this.requestBuildQueryString(formData));
+  },
+
+  requestBuildQueryString: function requestBuildQueryString(params) {
+    var queryString = [];
+    for (var property in params) {
+      if (params.hasOwnProperty(property)) {
+        queryString.push(encodeURIComponent(property) + '=' + encodeURIComponent(params[property]));
+      }
+    }
+    return queryString.join('&');
+  },
+
+  getSelected: function getSelected(fieldName) {
+    var i;
+    var fields = document.getElementByName(fieldName);
+    var selectedFields = [];
+    for (i = 0; i < fields.length; i++) {
+      if (fields[i].checked === true) {
+        selectedFields.push(fields[i].value);
+      }
+    }
+    return selectedFields.join(', ');
+  },
+
+  render: function render() {
+    if (this.state.type && this.state.message) {
+      var classString = 'alert alert-' + this.state.type;
+      var status = React.createElement(
+        'div',
+        { id: 'status', className: classString, ref: 'status' },
+        this.state.message
+      );
+    }
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h1',
+        { id: 'heading' },
+        'Add Your Offer'
+      ),
+      status,
+      React.createElement(
+        'form',
+        { action: '', onSubmit: this.handleSubmit },
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'company_name' },
+            'Startup Name *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'company_name', ref: 'company_name', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'position' },
+            'Position *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'position', ref: 'position', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'salary' },
+            'Salary *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'salary', ref: 'salary', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'equity' },
+            'Equity *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'equity', ref: 'equity', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'vesting_start_date' },
+            'Vesting Start Date *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'vesting_start_date', ref: 'vesting_start_date', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'vesting_end_date' },
+            'Vesting End Date *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'vesting_end_date', ref: 'vesting_end_date', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'vesting_cliff_date' },
+            'Vesting Cliff Date *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'vesting_cliff_date', ref: 'vesting_cliff_date', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'vesting_cliff_percent' },
+            'Vesting Cliff Percent *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'vesting_cliff_percent', ref: 'vesting_cliff_percent', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'last_financing_round_valuation' },
+            'Most Recent Valuation *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'last_financing_round_valuation', ref: 'last_financing_round_valuation', type: 'text' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { htmlFor: 'estimated_eit_valuation' },
+            'Estimated Exit Valuation *'
+          ),
+          React.createElement('input', { className: 'form-control', name: 'estimated_eit_valuation', ref: 'estimated_eit_valuation', type: 'text' })
+        ),
+        React.createElement(
+          'h3',
+          null,
+          'What additional benefits do you receive?'
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'label',
+            { className: 'checkbox-inline' },
+            React.createElement('input', { name: 'benefits', type: 'checkbox', value: 'food' }),
+            'Food'
+          ),
+          React.createElement(
+            'label',
+            { className: 'checkbox-inline' },
+            React.createElement('input', { name: 'healthcare', type: 'checkbox', value: 'healthcare' }),
+            'Healthcare'
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-group' },
+          React.createElement(
+            'button',
+            { className: 'btn btn-primary', type: 'submit' },
+            'Add Offer'
+          )
+        )
+      )
+    );
+  }
+});
 
 // POST request to server with all info listed above
 // update tables: users, offers, companies
@@ -138,31 +371,90 @@ ReactDOM.render(React.createElement(AppView, null), document.getElementById('app
 // GET request for metrics about the offer
 // so we can display the offer results on the page
 
-"use strict";
+// var AddOffer = React.createClass({
 
-var AddOffer = React.createClass({
-  displayName: "AddOffer",
+//   handleSubmit: function(e) {
+//     $.ajax({
+//       url: this.props.url,
+//       dataType: 'json',
+//       type: 'POST',
+//       data: comment,
+//       success: function(data) {
+//         this.setState({data: data});
+//         console.log('POST')
+//       }.bind(this),
+//       error: function(xhr, status, err) {
+//         console.error(this.props.url, status, err.toString());
+//       }.bind(this)
+//     });
 
-  render: function render() {
-    return React.createElement(
-      "form",
-      { className: "offerForm" },
-      "Startup: ",
-      React.createElement("input", { type: "text", placeholder: "Which Startup?" }),
-      "Salary: ",
-      React.createElement("input", { type: "number" }),
-      "Equity: ",
-      React.createElement("input", { type: "number" }),
-      "Benefits:",
-      React.createElement("input", { type: "checkbox", name: "food" }),
-      "Free Food",
-      React.createElement("input", { type: "checkbox", name: "healthcare" }),
-      "Free Healthcare Other Benefits: ",
-      React.createElement("input", { type: "number" }),
-      React.createElement("input", { type: "submit", value: "Post" })
-    );
-  }
-});
+//     e.preventDefault();
+//     var company = this.refs.company.value.trim();
+//     if (!company) {
+//       return;
+//     }
+
+//     this.refs.company.value = '';
+//     return;
+//   },
+
+//   render: function() {
+//     return (
+
+//       <form className="form-inline" onSubmit={this.handleSubmit}>
+//         <div className="form-group">
+//           <div>
+//             <label htmlFor="company">Startup:</label>
+//             <input type="text" className="form-control" id="company" placeholder="Which Startup?" ref="company" />
+//           </div>
+
+//           <label className="sr-only" htmlFor="salary">Salary (in dollars)</label>
+
+//           <div className="input-group">
+//             <div className="input-group-addon">$</div>
+//             <input type="number" className="form-control" id="salary" />
+//             <div className="input-group-addon">.00</div>
+//           </div>
+
+//           <label className="sr-only" htmlFor="equity">Equity Percentage</label>
+
+//           <div className="input-group">
+//             <input type="number" className="form-control" id="equity" />
+//             <div className="input-group-addon">%</div>
+//           </div>
+
+//           Benefits:
+//           <div className="checkbox">
+//             <label>
+//               <input type="checkbox" value="" /> Food
+//             </label>
+//             <label>
+//               <input type="checkbox" /> Healthcare
+//             </label>
+//           </div>
+
+//         </div>
+//         <button type="submit" className="btn btn-primary" value="Post">Submit Offer</button>
+//       </form>      
+//     )
+//   }
+// });
+
+// var Offers = React.createClass({
+//   getOffers: function() {
+//     $.ajax({
+//       url: this.props.url,
+//       dataType: 'json',
+//       cache: false,
+//       success: function(data) {
+//         this.setState({data: data});
+//       }.bind(this),
+//       error: function(xhr, status, err) {
+//         console.error(this.props.url, status, err.toString());
+//       }.bind(this)
+//     });
+//   }
+// });
 
 // var PostOffer = React.createClass()
 

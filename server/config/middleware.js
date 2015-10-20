@@ -13,7 +13,7 @@ module.exports = function (app, express) {
 
   //Serve up static files in client folder and other middleware
   app.use(bodyParser.json());
-  app.use(express.static(__dirname + '/../../client'));
+  app.use(express.static(__dirname + '/../../client/public'));
 
   //For debugging. Log every request
   app.use(function (req, res, next) {

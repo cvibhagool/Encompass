@@ -1,6 +1,7 @@
 var AddOffer = React.createClass({
-  
+    
   sendFormData: function(formData) {
+    console.log('sendFormData!!!!!')
     $.ajax({
       url: '/api/offer',
       dataType: 'json',
@@ -34,42 +35,42 @@ var AddOffer = React.createClass({
 
           <div className="form-group">
             <label htmlFor="salary">Salary *</label>
-            <input className="form-control" name="salary" ref="salary" type="text" />
+            <input className="form-control" name="salary" ref="salary" type="number" />
           </div>
 
           <div className="form-group">
             <label htmlFor="equity">Equity *</label>
-            <input className="form-control" name="equity" ref="equity" type="text" />
+            <input className="form-control" name="equity" ref="equity" type="number" />
           </div>
 
           <div className="form-group">
             <label htmlFor="vesting_start_date">Vesting Start Date *</label>
-            <input className="form-control" name="vesting_start_date" ref="vesting_start_date" type="text" />
+            <input className="form-control" name="vesting_start_date" ref="vesting_start_date" type="date" />
           </div>
 
           <div className="form-group">
             <label htmlFor="vesting_end_date">Vesting End Date *</label>
-            <input className="form-control" name="vesting_end_date" ref="vesting_end_date" type="text" />
+            <input className="form-control" name="vesting_end_date" ref="vesting_end_date" type="date" />
           </div>
 
           <div className="form-group">
             <label htmlFor="vesting_cliff_date">Vesting Cliff Date *</label>
-            <input className="form-control" name="vesting_cliff_date" ref="vesting_cliff_date" type="text" />
+            <input className="form-control" name="vesting_cliff_date" ref="vesting_cliff_date" type="date" />
           </div>
 
           <div className="form-group">
             <label htmlFor="vesting_cliff_percent">Vesting Cliff Percent *</label>
-            <input className="form-control" name="vesting_cliff_percent" ref="vesting_cliff_percent" type="text" />
+            <input className="form-control" name="vesting_cliff_percent" ref="vesting_cliff_percent" type="number" />
           </div>
 
           <div className="form-group">
             <label htmlFor="last_financing_round_valuation">Most Recent Valuation *</label>
-            <input className="form-control" name="last_financing_round_valuation" ref="last_financing_round_valuation" type="text" />
+            <input className="form-control" name="last_financing_round_valuation" ref="last_financing_round_valuation" type="number" />
           </div>
 
           <div className="form-group">
             <label htmlFor="estimated_eit_valuation">Estimated Exit Valuation *</label>
-            <input className="form-control" name="estimated_eit_valuation" ref="estimated_eit_valuation" type="text" />
+            <input className="form-control" name="estimated_eit_valuation" ref="estimated_eit_valuation" type="number" />
           </div>
 
           <h3>What additional benefits do you receive?</h3>

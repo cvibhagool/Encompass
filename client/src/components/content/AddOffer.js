@@ -1,7 +1,12 @@
 var AddOffer = React.createClass({
-    
-  sendFormData: function(formData) {
+
+  handleFormSubmit: function(formData) {
+    var offers = this.state.data;
+    var newOffers = offers.concat([formData]);
+    this.setState({data: newOffers});
+    console.log(formData)
     console.log('sendFormData!!!!!')
+
     $.ajax({
       url: '/api/offer',
       dataType: 'json',
@@ -17,12 +22,58 @@ var AddOffer = React.createClass({
     });
   },
 
+  getInitialState: function() {
+    return {data: []};
+  },
+
+  render: function() {
+    return (
+      <div>
+        <h1>Offers</h1>
+        <AddOfferForm onFormSubmit={this.handleFormSubmit} />
+      </div>
+    )
+  }
+});
+
+var AddOfferForm = React.createClass({
+
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var company_name = this.refs.company_name.value.trim();
+    var position = this.refs.position.value.trim();
+    this.props.onFormSubmit({
+      company_name: company_name,
+      position: position,
+      salary: this.refs.salary.value,
+      equity: this.refs.equity.value,
+      vesting_start_date: this.refs.vesting_start_date.value,
+      vesting_end_date: this.refs.vesting_end_date.value,
+      vesting_cliff_date: this.refs.vesting_cliff_date.value,
+      vesting_cliff_percent: this.refs.vesting_cliff_percent.value,
+      last_financing_round_valuation: this.refs.last_financing_round_valuation.value,
+      estimated_eit_valuation: this.refs.estimated_eit_valuation.value
+      // benefits: this.refs.benefits.value
+    });
+    this.refs.company_name.value = '';
+    this.refs.position.value = '';
+    this.refs.salary.value = '';
+    this.refs.equity.value = '';
+    this.refs.vesting_start_date.value = '';
+    this.refs.vesting_end_date.value = '';
+    this.refs.vesting_cliff_date.value = '';
+    this.refs.vesting_cliff_percent.value = '';
+    this.refs.last_financing_round_valuation.value = '';
+    this.refs.estimated_eit_valuation.value = ''; 
+    // this.refs.benefits.value = '';
+  },
+
   render: function() {
     return (
       <div>
         <h1 id="heading">Add Your Offer</h1>
         {status}
-        <form action="" onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="company_name">Startup Name *</label>
             <input className="form-control" name="company_name" ref="company_name" type="text" />
@@ -76,11 +127,11 @@ var AddOffer = React.createClass({
           <h3>What additional benefits do you receive?</h3>
           <div className="form-group">
             <label className="checkbox-inline"><input name="benefits" type="checkbox" value="food" />Food</label>
-            <label className="checkbox-inline"><input name="healthcare" type="checkbox" value="healthcare" />Healthcare</label>
+            <label className="checkbox-inline"><input name="benefits" type="checkbox" value="healthcare" />Healthcare</label>
           </div>
 
           <div className="form-group">
-            <button className="btn btn-primary" type="submit">Add Offer</button>
+            <button className="btn btn-primary" type="submit" value="Post">Add Offer</button>
           </div>
         </form>
       </div>
@@ -89,6 +140,7 @@ var AddOffer = React.createClass({
 });
 
 module.exports = {
-  AddOffer: AddOffer
+  AddOffer: AddOffer,
+  AddOfferForm: AddOfferForm
 }
 

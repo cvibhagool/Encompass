@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var db = require('../models/db.js');
+var db = require('../models/index.js');
 var authenticator = require('../authenticator');
 
 //Local login route

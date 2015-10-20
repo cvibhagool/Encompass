@@ -24,7 +24,7 @@ var AddOffer = React.createClass({
   }
 });
 
-var PostOffer = React.createClass()
+// var PostOffer = React.createClass()
 
     // note: in our formula to calculate the value of the offer, we should also include federal and state taxes
 

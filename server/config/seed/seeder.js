@@ -1,6 +1,6 @@
 //Seed data
 module.exports = function(){
-  var db = require('./db');
+  var db = require('../../models/index');
   var seedData = require('./seedData.json');
   //For each company data
 
@@ -32,6 +32,10 @@ module.exports = function(){
     }
   };
 
+  var cleanList = function(val){
+    return val.split(',').map(function(x){return x.trim();}).filter(function(x){return (x !== "");});
+  };
+
   var cleanCompany = function(data){
     var company = {};
 
@@ -61,10 +65,10 @@ module.exports = function(){
       var data = seedData[i];
 
       var company = cleanCompany(data);
-      var industries = data.industries.split(',').map(function(x){return x.trim();}).filter(function(x){return (x !== "");});
-      var investors = data.investors.split(',').map(function(x){return x.trim();}).filter(function(x){return (x !== "");});
-      var keywords = data.keywords.split(',').map(function(x){return x.trim();}).filter(function(x){return (x !== "");});
-      var business_models = data.business_models.split(',').map(function(x){return x.trim();}).filter(function(x){return (x !== "");});
+      var industries = cleanList(data.industries);
+      var investors = cleanList(data.investors);
+      var keywords = cleanList(data.keywords);
+      var business_models = cleanList(data.business_models);
 
       db.Company.findOrCreate({ where : company })
       .then(function(companies){
@@ -107,7 +111,7 @@ module.exports = function(){
         }
       });
     })(r);
-    //return;
+
   }
 };
 

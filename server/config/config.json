@@ -1,0 +1,14 @@
+{
+  "development": {
+    "database": "encompass",
+    "username": "",
+    "password": "",
+    "host": "localhost",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "production": {
+    "database": "",
+    "logging": false
+  }
+}

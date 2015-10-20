@@ -1,15 +1,22 @@
 var router = require('express').Router();
 var db = require('../models/index.js');
-var authenticator = require('../authenticator');
+var passport = require('../auth/passport');
 
-//Local login route
-router.route('/login')
-  .post( authenticator.authenticate('local', 
-    { failureRedirect: '/login' }),
-    function(req,res) {
-      req.session.userid = req.user.id;
-      res.end();
-});
+var callBackFunctionGenerator = function (provider) {
+  return function(req, res, next) {
+    passport.authenticate(provider, function(err, user) {
+      if (err) { return next(err); }
+      if (!user) {
+        return res.status(401).send('Could not find any user with that username');
+      } else {
+        //Auto login user
+        req.login(user, function(err){
+          return res.redirect('/');
+        });
+      }
+    })(req, res, next);
+  };
+};
 
 //Local signup Route
 router.route('/signup')
@@ -18,7 +25,8 @@ router.route('/signup')
     db.User.findOrCreate({
       where: {
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        provider: 'local'
       }
     }).spread(function (user, created) {
       if (!created) {
@@ -27,7 +35,10 @@ router.route('/signup')
       } else {
         console.log('User created');
       }
-      res.json(user);
+      //Auto login user
+      req.login(user, function(err){
+        return res.redirect('/');
+      });
     });
 });
 
@@ -58,10 +69,17 @@ router.route('/delete')
     });
   });
 
+//Logout route
 router.route('/logout')
   .get(function (req, res) {
     req.logout();
     res.send("Logged out", 401);
 });
+
+//Local Strategy
+router.post('/local', callBackFunctionGenerator('local'));
+//Facebook Strategy
+router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook/callback', callBackFunctionGenerator('facebook'));
 
 module.exports = router;

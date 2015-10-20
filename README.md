@@ -22,8 +22,8 @@ When setting up local environment, do the following:
 
 2. In server/models/db.js, set variable 'resetDB' to true. This will wipe the database, and rebuild the tables.
 3. In server/models/db.js, set variable 'seedDB' to true. This will add the seed data from seedData.json
-4. Run server (nodemone server/server.js). Steps 1 and 2 will happen at server start.
-5. Be sure to set the two variables back to false, otherwise 1 and 2 will happen everytime server is started.
+4. Run server (nodemone server/server.js). Steps 2 and 3 will happen at server start.
+5. Be sure to set the two variables back to false, otherwise 2 and 3 will happen everytime server is started.
 
 
 ###whiteboard photos:
@@ -71,7 +71,12 @@ content (folder)
 * GET user/profile
 * POST/DELETE companies/offers
 * GET /search
-
+* Authentication
+  * Local Strategy
+    * POST auth/signup
+    * POST auth/local
+  * OAuth Strategy
+    * GET auth/facebook
 
 ###Database Tables
 * Companies

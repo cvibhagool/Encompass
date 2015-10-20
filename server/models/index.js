@@ -2,7 +2,7 @@ var fs = require("fs");
 var path = require("path");
 var Sequelize = require('sequelize');
 var environment = process.env.NODE_ENV || 'development';
-var config = require('../config/config.json')[environment];
+var config = require('../config/db/config.json')[environment];
 var sequelize;
 var seeder = require("../config/seed/seeder");
 

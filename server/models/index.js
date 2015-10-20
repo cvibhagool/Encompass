@@ -2,7 +2,7 @@ var fs = require("fs");
 var path = require("path");
 var Sequelize = require('sequelize');
 var environment = process.env.NODE_ENV || 'development';
-var config = require('../config/config.json')[environment];
+var config = require('../config/db/config.json')[environment];
 var sequelize;
 var seeder = require("../config/seed/seeder");
 
@@ -32,7 +32,7 @@ db.Sequelize = Sequelize;
 
 module.exports = db;
 
-var resetDB = false; //Set this to true to drop and recreate database
+var resetDB = true; //Set this to true to drop and recreate database
 var seedDB = false; //Set this to true to seed companies data
 if (resetDB){
   console.log("Resetting Database.....");

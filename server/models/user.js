@@ -4,12 +4,22 @@ var Promise = require('bluebird');
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     username: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     password: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
+    },
+    provider: {
+      type: DataTypes.STRING
+    },
+    profile_id:{
+      type: DataTypes.STRING
+    },
+    token:{
+      type: DataTypes.STRING
+    },
+    email:{
+      type: DataTypes.STRING
     }
   }, {  
     hooks: {
@@ -35,8 +45,11 @@ module.exports = function(sequelize, DataTypes) {
         var cipher = Promise.promisify(bcrypt.hash);
         return cipher(this.get('password'), null, null).bind(this)
           .then(function(hash) {
-            this.set('password', hash);
-            this.save();
+            if (this.get('provider') === 'local'){
+              this.set('password', hash);
+              console.log(hash);
+              this.save();
+            }
         });
       }
     }

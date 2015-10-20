@@ -16,9 +16,14 @@
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^2.10.2",
     "body-parser": "^1.14.1",
+    "chai": "^3.3.0",
     "express": "^4.13.3",
+    "mocha": "^2.3.3",
+    "passport": "^0.3.0",
+    "passport-local": "^1.0.0",
     "pg": "^4.4.3",
     "pg-hstore": "^2.3.2",
+    "request": "^2.65.0",
     "sequelize": "^3.12.1"
   },
   "devDependencies": {

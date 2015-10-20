@@ -1,34 +1,34 @@
 module.exports = function(sequelize, DataTypes) {
   var Offer = sequelize.define('Offer', {
     position: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     salary: {
-      type: Sequelize.FLOAT
+      type: DataTypes.FLOAT
     },
     equity: {
-      type: Sequelize.FLOAT
+      type: DataTypes.FLOAT
     },
     vesting_start_date : {
-      type: Sequelize.DATEONLY
+      type: DataTypes.DATEONLY
     },
     vesting_end_date : {
-      type: Sequelize.DATEONLY
+      type: DataTypes.DATEONLY
     },
     vesting_cliff_date : {
-      type: Sequelize.DATEONLY
+      type: DataTypes.DATEONLY
     },
     vesting_cliff_percent : {
-      type: Sequelize.FLOAT
+      type: DataTypes.FLOAT
     },
     other_benefits : {
-      type: Sequelize.FLOAT
+      type: DataTypes.FLOAT
     },
     last_financing_round_valuation : {
-      type: Sequelize.FLOAT
+      type: DataTypes.FLOAT
     },
     estimated_exit_valuation : {
-      type: Sequelize.FLOAT
+      type: DataTypes.FLOAT
     }
   }, {  
     classMethods: {

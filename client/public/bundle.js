@@ -9975,8 +9975,8 @@ var ChartFrame = React.createClass({
   displayName: "ChartFrame",
 
   getInitialState: function getInitialState() {
-    var height = 500;
-    var width = 500;
+    var height = 499;
+    var width = 1094;
     return {
       svgHeight: height,
       svgWidth: width
@@ -9988,7 +9988,8 @@ var ChartFrame = React.createClass({
 
     return React.createElement("svg", { style: svgStyle,
       height: this.state.svgHeight,
-      width: this.state.svgWidth });
+      width: this.state.svgWidth,
+      dangerouslySetInnerHTML: { __html: "<image height=" + this.state.svgHeight + " width=" + this.state.svgWidth + " xlink:href=" + this.props.source + " />" } });
   }
 });
 
@@ -9997,13 +9998,13 @@ var Landing = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      data: [1, 2, 3, 4]
+      sources: ['images/mom-employees.png', 'images/funding-employee-funding.png', 'images/funding-employee-growth.png']
     };
   },
 
   drawCharts: function drawCharts() {
-    var charts = this.state.data.map(function (datum) {
-      return React.createElement(ChartFrame, null);
+    var charts = this.state.sources.map(function (source) {
+      return React.createElement(ChartFrame, { source: source });
     });
     return charts;
   },

@@ -2,8 +2,8 @@ var d3 = require('d3');
 
 var ChartFrame = React.createClass({
   getInitialState: function() {
-    var height = 500;
-    var width = 500;
+    var height = 499;
+    var width = 1094;
     return {
       svgHeight: height,
       svgWidth: width
@@ -16,24 +16,25 @@ var ChartFrame = React.createClass({
     return (
         <svg style={svgStyle} 
           height={this.state.svgHeight}
-          width={this.state.svgWidth}></svg>
+          width={this.state.svgWidth}
+          dangerouslySetInnerHTML={{__html: "<image height=" + this.state.svgHeight + 
+            " width=" + this.state.svgWidth + " xlink:href=" + this.props.source + " />"}}>
+        </svg>
     )
-          
   }
 });
-
 
 
 var Landing = React.createClass({
   getInitialState: function() {
     return {
-      data: [1, 2, 3, 4]
+      sources: ['images/mom-employees.png', 'images/funding-employee-funding.png', 'images/funding-employee-growth.png']
     }   
   },
 
   drawCharts: function() {
-    var charts = this.state.data.map(function(datum) {
-      return (<ChartFrame />);
+    var charts = this.state.sources.map(function(source) {
+      return (<ChartFrame source={source}/>);
     });
     return charts;
   },

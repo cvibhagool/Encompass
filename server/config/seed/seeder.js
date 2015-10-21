@@ -24,7 +24,6 @@ module.exports = function(){
   };
 
   var cleanPercent = function(val){
-    console.log(val);
     if ((val === null) || (val === undefined) || (val === "")){
       return undefined;
     }

@@ -34,8 +34,5 @@ bower_components/
 #Oauth Secrets
 server/auth/oauth-config.json
 
-#Scraper
-data_scraper/
-
 #Seed data
-server/config/seed/seedData.json
+#server/config/seed/seedData.json

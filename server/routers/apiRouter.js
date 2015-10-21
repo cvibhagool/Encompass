@@ -41,7 +41,7 @@ router.route('/offer')
     }).then(function (company) {
       db.Offer.findOrCreate({
         where: {
-          CompanyId: company.id,
+          // CompanyId: company.id,
           position: req.body.position,
           salary: req.body.salary,
           equity: req.body.equity,

@@ -9539,13 +9539,14 @@ module.exports = {
   AppView: AppView
 };
 
-},{"./ContentFrame":3,"./NavbarFrame":4,"./navbar/Tabs":11}],3:[function(require,module,exports){
+},{"./ContentFrame":3,"./NavbarFrame":4,"./navbar/Tabs":12}],3:[function(require,module,exports){
 'use strict';
 
 var UserProfile = require('./content/UserProfile').UserProfile;
 var AddOffer = require('./content/AddOffer').AddOffer;
 var SearchCompany = require('./content/SearchCompany').SearchCompany;
 var Landing = require('./content/Landing.js');
+var CompanyProfile = require('./content/CompanyProfile').CompanyProfile;
 
 var ContentView = React.createClass({
   displayName: 'ContentView',
@@ -9570,25 +9571,31 @@ var ContentView = React.createClass({
         'div',
         { className: 'content' },
         ' ',
-        this.props.currentTab === 3 ? React.createElement(AddOffer, null) : null
+        this.props.currentTab === 3 ? React.createElement(CompanyProfile, null) : null
       ),
       React.createElement(
         'div',
         { className: 'content' },
         ' ',
-        this.props.currentTab === 4 ? React.createElement(SearchCompany, null) : null
+        this.props.currentTab === 4 ? React.createElement(AddOffer, null) : null
       ),
       React.createElement(
         'div',
         { className: 'content' },
         ' ',
-        this.props.currentTab === 5 ? React.createElement(Login, null) : null
+        this.props.currentTab === 5 ? React.createElement(SearchCompany, null) : null
       ),
       React.createElement(
         'div',
         { className: 'content' },
         ' ',
-        this.props.currentTab === 6 ? React.createElement(Signup, null) : null
+        this.props.currentTab === 6 ? React.createElement(Login, null) : null
+      ),
+      React.createElement(
+        'div',
+        { className: 'content' },
+        ' ',
+        this.props.currentTab === 7 ? React.createElement(Signup, null) : null
       )
     );
   }
@@ -9598,7 +9605,7 @@ module.exports = {
   ContentView: ContentView
 };
 
-},{"./content/AddOffer":6,"./content/Landing.js":7,"./content/SearchCompany":8,"./content/UserProfile":9}],4:[function(require,module,exports){
+},{"./content/AddOffer":6,"./content/CompanyProfile":7,"./content/Landing.js":8,"./content/SearchCompany":9,"./content/UserProfile":10}],4:[function(require,module,exports){
 'use strict';
 
 var Tabs = require('./navbar/Tabs').Tabs;
@@ -9624,7 +9631,7 @@ module.exports = {
   NavBar: NavBar
 };
 
-},{"./navbar/Tabs":11}],5:[function(require,module,exports){
+},{"./navbar/Tabs":12}],5:[function(require,module,exports){
 'use strict';
 
 var AppView = require('./AppFrame').AppView;
@@ -9637,89 +9644,81 @@ ReactDOM.render(React.createElement(AppView, null), document.getElementById('app
 var AddOffer = React.createClass({
   displayName: 'AddOffer',
 
+  handleFormSubmit: function handleFormSubmit(formData) {
+    var offers = this.state.data;
+    var newOffers = offers.concat([formData]);
+    this.setState({ data: newOffers });
+    console.log(formData);
+    console.log('sendFormData!!!!!');
+
+    $.ajax({
+      url: '/api/offer',
+      dataType: 'json',
+      type: 'POST',
+      data: formData,
+      success: (function (data) {
+        console.log('Success!!!!');
+        this.setState({ data: data });
+      }).bind(this),
+      error: (function (xhr, status, err) {
+        console.log('errorosdfsdrororor');
+        console.error(this.props.url, status, err.toString());
+      }).bind(this)
+    });
+  },
+
   getInitialState: function getInitialState() {
-    return {
-      type: 'info',
-      message: ''
-    };
-  },
-
-  // form submit callback
-  handleSubmit: function handleSubmit(e) {
-    e.preventDefault();
-
-    this.setState({ type: 'info', message: 'Sending...' }, this.sendFormData);
-  },
-
-  sendFormData: function sendFormData() {
-
-    // prepare form data for submitting it
-    var formData = {
-      company_name: ReactDOM.findDOMNode(this.refs.budget).value,
-      position: ReactDOM.findDOMNode(this.refs.position).value,
-      salary: ReactDOM.findDOMNode(this.refs.salary).value,
-      equity: ReactDOM.findDOMNode(this.refs.equity).value,
-      vesting_start_date: ReactDOM.findDOMNode(this.refs.vesting_start_date).value,
-      vesting_end_date: ReactDOM.findDOMNode(this.refs.vesting_end_date).value,
-      vesting_cliff_date: ReactDOM.findDOMNode(this.refs.vesting_cliff_date).value,
-      vesting_cliff_percent: ReactDOM.findDOMNode(this.refs.vesting_cliff_percent).value,
-      other_benefits: ReactDOM.findDOMNode(this.refs.other_benefits).value,
-      last_financing_round_valuation: ReactDOM.findDOMNode(this.refs.last_financing_round_valuation).value,
-      estimated_eit_valuation: ReactDOM.findDOMNode(this.refs.estimated_eit_valuation).value
-    };
-
-    // extract the checkbox values
-    formData.benefits = this.getSelected('benefits');
-
-    // send the form data
-    var xmlhttp = new XMLHttpRequest();
-    var _this = this;
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState === 4) {
-        var response = JSON.parse(xmlhttp.responseText);
-        if (xmlhttp === 200 && response.status === 'OK') {
-          _this.setState({ type: 'success', message: 'Offer submitted...' });
-        } else {
-          _this.setState({ type: 'danger', message: 'Offer not submitted...' });
-        }
-      }
-    };
-    xmlhttp.open('POST', 'send', true);
-    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xmlhttp.send(this.requestBuildQueryString(formData));
-  },
-
-  requestBuildQueryString: function requestBuildQueryString(params) {
-    var queryString = [];
-    for (var property in params) {
-      if (params.hasOwnProperty(property)) {
-        queryString.push(encodeURIComponent(property) + '=' + encodeURIComponent(params[property]));
-      }
-    }
-    return queryString.join('&');
-  },
-
-  getSelected: function getSelected(fieldName) {
-    var i;
-    var fields = document.getElementByName(fieldName);
-    var selectedFields = [];
-    for (i = 0; i < fields.length; i++) {
-      if (fields[i].checked === true) {
-        selectedFields.push(fields[i].value);
-      }
-    }
-    return selectedFields.join(', ');
+    return { data: [] };
   },
 
   render: function render() {
-    if (this.state.type && this.state.message) {
-      var classString = 'alert alert-' + this.state.type;
-      var status = React.createElement(
-        'div',
-        { id: 'status', className: classString, ref: 'status' },
-        this.state.message
-      );
-    }
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h1',
+        null,
+        'Offers'
+      ),
+      React.createElement(AddOfferForm, { onFormSubmit: this.handleFormSubmit })
+    );
+  }
+});
+
+var AddOfferForm = React.createClass({
+  displayName: 'AddOfferForm',
+
+  handleSubmit: function handleSubmit(e) {
+    e.preventDefault();
+    var company_name = this.refs.company_name.value.trim();
+    var position = this.refs.position.value.trim();
+    this.props.onFormSubmit({
+      company_name: company_name,
+      position: position,
+      salary: this.refs.salary.value,
+      equity: this.refs.equity.value,
+      vesting_start_date: this.refs.vesting_start_date.value,
+      vesting_end_date: this.refs.vesting_end_date.value,
+      vesting_cliff_date: this.refs.vesting_cliff_date.value,
+      vesting_cliff_percent: this.refs.vesting_cliff_percent.value,
+      last_financing_round_valuation: this.refs.last_financing_round_valuation.value,
+      estimated_eit_valuation: this.refs.estimated_eit_valuation.value
+      // benefits: this.refs.benefits.value
+    });
+    this.refs.company_name.value = '';
+    this.refs.position.value = '';
+    this.refs.salary.value = '';
+    this.refs.equity.value = '';
+    this.refs.vesting_start_date.value = '';
+    this.refs.vesting_end_date.value = '';
+    this.refs.vesting_cliff_date.value = '';
+    this.refs.vesting_cliff_percent.value = '';
+    this.refs.last_financing_round_valuation.value = '';
+    this.refs.estimated_eit_valuation.value = '';
+    // this.refs.benefits.value = '';
+  },
+
+  render: function render() {
     return React.createElement(
       'div',
       null,
@@ -9731,7 +9730,7 @@ var AddOffer = React.createClass({
       status,
       React.createElement(
         'form',
-        { action: '', onSubmit: this.handleSubmit },
+        { onSubmit: this.handleSubmit },
         React.createElement(
           'div',
           { className: 'form-group' },
@@ -9760,7 +9759,7 @@ var AddOffer = React.createClass({
             { htmlFor: 'salary' },
             'Salary *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'salary', ref: 'salary', type: 'text' })
+          React.createElement('input', { className: 'form-control', name: 'salary', ref: 'salary', type: 'number' })
         ),
         React.createElement(
           'div',
@@ -9770,7 +9769,7 @@ var AddOffer = React.createClass({
             { htmlFor: 'equity' },
             'Equity *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'equity', ref: 'equity', type: 'text' })
+          React.createElement('input', { className: 'form-control', name: 'equity', ref: 'equity', type: 'number' })
         ),
         React.createElement(
           'div',
@@ -9780,7 +9779,7 @@ var AddOffer = React.createClass({
             { htmlFor: 'vesting_start_date' },
             'Vesting Start Date *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'vesting_start_date', ref: 'vesting_start_date', type: 'text' })
+          React.createElement('input', { className: 'form-control', name: 'vesting_start_date', ref: 'vesting_start_date', type: 'date' })
         ),
         React.createElement(
           'div',
@@ -9790,7 +9789,7 @@ var AddOffer = React.createClass({
             { htmlFor: 'vesting_end_date' },
             'Vesting End Date *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'vesting_end_date', ref: 'vesting_end_date', type: 'text' })
+          React.createElement('input', { className: 'form-control', name: 'vesting_end_date', ref: 'vesting_end_date', type: 'date' })
         ),
         React.createElement(
           'div',
@@ -9800,7 +9799,7 @@ var AddOffer = React.createClass({
             { htmlFor: 'vesting_cliff_date' },
             'Vesting Cliff Date *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'vesting_cliff_date', ref: 'vesting_cliff_date', type: 'text' })
+          React.createElement('input', { className: 'form-control', name: 'vesting_cliff_date', ref: 'vesting_cliff_date', type: 'date' })
         ),
         React.createElement(
           'div',
@@ -9810,7 +9809,7 @@ var AddOffer = React.createClass({
             { htmlFor: 'vesting_cliff_percent' },
             'Vesting Cliff Percent *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'vesting_cliff_percent', ref: 'vesting_cliff_percent', type: 'text' })
+          React.createElement('input', { className: 'form-control', name: 'vesting_cliff_percent', ref: 'vesting_cliff_percent', type: 'number' })
         ),
         React.createElement(
           'div',
@@ -9820,7 +9819,7 @@ var AddOffer = React.createClass({
             { htmlFor: 'last_financing_round_valuation' },
             'Most Recent Valuation *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'last_financing_round_valuation', ref: 'last_financing_round_valuation', type: 'text' })
+          React.createElement('input', { className: 'form-control', name: 'last_financing_round_valuation', ref: 'last_financing_round_valuation', type: 'number' })
         ),
         React.createElement(
           'div',
@@ -9830,7 +9829,7 @@ var AddOffer = React.createClass({
             { htmlFor: 'estimated_eit_valuation' },
             'Estimated Exit Valuation *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'estimated_eit_valuation', ref: 'estimated_eit_valuation', type: 'text' })
+          React.createElement('input', { className: 'form-control', name: 'estimated_eit_valuation', ref: 'estimated_eit_valuation', type: 'number' })
         ),
         React.createElement(
           'h3',
@@ -9849,7 +9848,7 @@ var AddOffer = React.createClass({
           React.createElement(
             'label',
             { className: 'checkbox-inline' },
-            React.createElement('input', { name: 'healthcare', type: 'checkbox', value: 'healthcare' }),
+            React.createElement('input', { name: 'benefits', type: 'checkbox', value: 'healthcare' }),
             'Healthcare'
           )
         ),
@@ -9858,7 +9857,7 @@ var AddOffer = React.createClass({
           { className: 'form-group' },
           React.createElement(
             'button',
-            { className: 'btn btn-primary', type: 'submit' },
+            { className: 'btn btn-primary', type: 'submit', value: 'Post' },
             'Add Offer'
           )
         )
@@ -9867,106 +9866,117 @@ var AddOffer = React.createClass({
   }
 });
 
-// POST request to server with all info listed above
-// update tables: users, offers, companies
-
-// GET request for metrics about the offer
-// so we can display the offer results on the page
-
-// var AddOffer = React.createClass({
-
-//   handleSubmit: function(e) {
-//     $.ajax({
-//       url: this.props.url,
-//       dataType: 'json',
-//       type: 'POST',
-//       data: comment,
-//       success: function(data) {
-//         this.setState({data: data});
-//         console.log('POST')
-//       }.bind(this),
-//       error: function(xhr, status, err) {
-//         console.error(this.props.url, status, err.toString());
-//       }.bind(this)
-//     });
-
-//     e.preventDefault();
-//     var company = this.refs.company.value.trim();
-//     if (!company) {
-//       return;
-//     }
-
-//     this.refs.company.value = '';
-//     return;
-//   },
-
-//   render: function() {
-//     return (
-
-//       <form className="form-inline" onSubmit={this.handleSubmit}>
-//         <div className="form-group">
-//           <div>
-//             <label htmlFor="company">Startup:</label>
-//             <input type="text" className="form-control" id="company" placeholder="Which Startup?" ref="company" />
-//           </div>
-
-//           <label className="sr-only" htmlFor="salary">Salary (in dollars)</label>
-
-//           <div className="input-group">
-//             <div className="input-group-addon">$</div>
-//             <input type="number" className="form-control" id="salary" />
-//             <div className="input-group-addon">.00</div>
-//           </div>
-
-//           <label className="sr-only" htmlFor="equity">Equity Percentage</label>
-
-//           <div className="input-group">
-//             <input type="number" className="form-control" id="equity" />
-//             <div className="input-group-addon">%</div>
-//           </div>
-
-//           Benefits:
-//           <div className="checkbox">
-//             <label>
-//               <input type="checkbox" value="" /> Food
-//             </label>
-//             <label>
-//               <input type="checkbox" /> Healthcare
-//             </label>
-//           </div>
-
-//         </div>
-//         <button type="submit" className="btn btn-primary" value="Post">Submit Offer</button>
-//       </form>      
-//     )
-//   }
-// });
-
-// var Offers = React.createClass({
-//   getOffers: function() {
-//     $.ajax({
-//       url: this.props.url,
-//       dataType: 'json',
-//       cache: false,
-//       success: function(data) {
-//         this.setState({data: data});
-//       }.bind(this),
-//       error: function(xhr, status, err) {
-//         console.error(this.props.url, status, err.toString());
-//       }.bind(this)
-//     });
-//   }
-// });
-
-// var PostOffer = React.createClass()
-
-// note: in our formula to calculate the value of the offer, we should also include federal and state taxes
-
 module.exports = {
-  AddOffer: AddOffer
+  AddOffer: AddOffer,
+  AddOfferForm: AddOfferForm
 };
 
 },{}],7:[function(require,module,exports){
+// this page will display all the info related to a given company
+// see questions here: https://docs.google.com/document/d/1JeDQ7p_NZVoJrM_smjaL2eK1zUoHidwTKYucVkefUgc/edit
+
+'use strict';
+
+var CompanyProfile = React.createClass({
+  displayName: 'CompanyProfile',
+
+  getInitialState: function getInitialState() {
+    return {
+      id: '',
+      name: '',
+      website: '',
+      growth_score: '',
+      mindshare_score: '',
+      custom_score: '',
+      weekly_momentum: '',
+      employees: '',
+      employees_mom: '',
+      monthly_unique: '',
+      monthly_unique_mom: '',
+      founding_date: '',
+      stage: '',
+      total_funding: '',
+      last_funding_date: '',
+      city: '',
+      state: '',
+      country: '',
+      createdAt: '',
+      updatedAt: ''
+    };
+  },
+
+  componentDidMount: function componentDidMount() {
+    $.ajax({
+      url: '/api/company/1',
+      dataType: 'json',
+      success: (function (data) {
+        console.log("SUCCESS: ");
+        console.log(data);
+        this.setState({
+          id: data.id,
+          name: data.name,
+          website: data.website,
+          growth_score: data.growth_score,
+          mindshare_score: data.mindshare_score,
+          custom_score: data.custom_score,
+          weekly_momentum: data.weekly_momentum,
+          employees: data.employees,
+          employees_mom: data.employees_mom,
+          monthly_unique: data.monthly_unique,
+          monthly_unique_mom: data.monthly_unique_mom,
+          founding_date: data.founding_date,
+          stage: data.stage,
+          total_funding: data.total_funding,
+          last_funding_date: data.last_funding_date,
+          city: data.city,
+          state: data.state,
+          country: data.country,
+          createdAt: data.createdAt,
+          updatedAt: data.updatedAt
+        });
+      }).bind(this),
+      error: (function (xhr, status, err) {
+        console.log('ERROR');
+      }).bind(this)
+    });
+  },
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      this.state
+    )
+    // <div>{this.state.id}</div>,
+    // <div>{this.state.name}</div>,
+    // <div>{this.state.website}</div>,
+    // <div>{this.state.growth_score}</div>,
+    // <div>{this.state.mindshare_score}</div>,
+    // <div>{this.state.custom_score}</div>,
+    // <div>{this.state.weekly_momentum}</div>,
+    // <div>{this.state.employees}</div>,
+    // <div>{this.state.employees_mom}</div>,
+    // <div>{this.state.monthly_unique}</div>,
+    // <div>{this.state.monthly_unique_mom}</div>,
+    // <div>{this.state.founding_date}</div>,
+    // <div>{this.state.stage}</div>,
+    // <div>{this.state.total_funding}</div>,
+    // <div>{this.state.last_funding_date}</div>,
+    // <div>{this.state.city}</div>,
+    // <div>{this.state.state}</div>,
+    // <div>{this.state.country}</div>,
+    // <div>{this.state.createdAt}</div>,
+    // <div>{this.state.updatedAt}</div>
+    ;
+  }
+
+});
+
+module.exports = {
+  CompanyProfile: CompanyProfile
+};
+
+},{}],8:[function(require,module,exports){
 "use strict";
 
 var d3 = require('d3');
@@ -10030,7 +10040,7 @@ var Landing = React.createClass({
 
 module.exports = Landing;
 
-},{"d3":1}],8:[function(require,module,exports){
+},{"d3":1}],9:[function(require,module,exports){
 // react does not regenerate the list items when the user deletes/retypes their search
 
 "use strict";
@@ -10095,7 +10105,7 @@ module.exports = {
   SearchCompany: SearchCompany
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // this page will contain the MyOffers and MyCompanies subviews
 
 "use strict";
@@ -10117,7 +10127,7 @@ module.exports = {
   UserProfile: UserProfile
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 var Tab = React.createClass({
@@ -10145,10 +10155,10 @@ module.exports = {
   Tab: Tab
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
-var tabList = [{ 'id': 1, 'name': 'Home', 'url': '/#/home' }, { 'id': 2, 'name': 'My Profile', 'url': '/#/profile' }, { 'id': 3, 'name': 'Add Offer', 'url': '/#/addoffer' }, { 'id': 4, 'name': 'Search Startups', 'url': '/#/searchcompany' }, { 'id': 5, 'name': 'Login', 'url': '/#/login' }, { 'id': 6, 'name': 'Signup', 'url': '/#/signup' }];
+var tabList = [{ 'id': 1, 'name': 'Home', 'url': '/#/home' }, { 'id': 2, 'name': 'My Profile', 'url': '/#/profile' }, { 'id': 3, 'name': 'Company (to be removed from header)', 'url': '/#/company' }, { 'id': 4, 'name': 'Add Offer', 'url': '/#/addoffer' }, { 'id': 5, 'name': 'Search Startups', 'url': '/#/searchcompany' }, { 'id': 6, 'name': 'Login', 'url': '/#/login' }, { 'id': 7, 'name': 'Signup', 'url': '/#/signup' }];
 
 var Tab = require('./Tab').Tab;
 
@@ -10179,4 +10189,4 @@ module.exports = {
   Tabs: Tabs
 };
 
-},{"./Tab":10}]},{},[5]);
+},{"./Tab":11}]},{},[5]);

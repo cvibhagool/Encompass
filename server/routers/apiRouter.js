@@ -34,7 +34,6 @@ router.route('/user/profile/:userName')
 router.route('/offer')
   // Creates new offer
   .post(function (req, res) {
-    console.log(req.body.company_name);
     db.Company.findOne({
       where: {
         name: req.body.company_name //Note that this property is not in the schema, as company name is not stored since we have company IDs.

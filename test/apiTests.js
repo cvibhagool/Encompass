@@ -58,7 +58,7 @@ describe('Encompass API Integration Tests', function () {
       vesting_cliff_percent : 0.25,
       other_benefits : 20000,
       last_financing_round_valuation : 10000000,
-      estimated_eit_valuation : 1000000000
+      estimated_exit_valuation : 1000000000
     };
 
     var requestParams = {

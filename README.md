@@ -77,6 +77,9 @@ content (folder)
     * POST auth/local
   * OAuth Strategy
     * GET auth/facebook
+* Company Data
+  * GET data/company?fields[]=field1&fields[]=field2.....&fields[]=fieldN
+    * Example: GET data/company?fields[]=name&fields[]=employees will return [{name:"Apple",employees:"9001"},....]
 
 ###Database Tables
 * Companies

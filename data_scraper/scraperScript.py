@@ -13,8 +13,8 @@ print "Logging In"
 browser.get("https://www.mattermark.com/app/")
 username = browser.find_element_by_id("email")
 password = browser.find_element_by_name("password")
-username.send_keys("cvibhagool@gmail.com")
-password.send_keys("welcome")
+username.send_keys("your_email_here")
+password.send_keys("your_password_here")
 browser.find_element_by_xpath("//input[@value='Sign In']").click()
 
 urls = ["https://mattermark.com/app/data?state=CA&country=USA&sortBy=cached_growth_score&sortDirection=desc&offset=" + str(offset) for offset in range(0,47132,50)]

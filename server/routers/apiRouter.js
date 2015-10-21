@@ -36,29 +36,31 @@ router.route('/offer')
   .post(function (req, res) {
     db.Company.findOne({
       where: {
-        name: req.body.company_name //Note that this property is not in the schema, as company name is not stored since we have company IDs.
+        name: req.body.company_name
       }
-    }).then(function (company) {
-      db.Offer.findOrCreate({
-        where: {
-          // CompanyId: company.id,
-          position: req.body.position,
-          salary: req.body.salary,
-          equity: req.body.equity,
-          vesting_start_date : req.body.vesting_start_date,
-          vesting_end_date : req.body.vesting_end_date,
-          vesting_cliff_date : req.body.vesting_cliff_date,
-          vesting_cliff_percent : req.body.vesting_cliff_percent,
-          other_benefits : req.body.other_benefits,
-          last_financing_round_valuation : req.body.last_financing_round_valuation,
-          estimated_exit_valuation : req.body.estimated_exit_valuation
-        }
-      }).spread(function (offer, created) {
-        if (!created) {
-          console.log('The current user already has an offer for the same position at the same company!');
-        } else {
-          console.log('Offer has been saved to the database');
-        }
+    })
+    .then(function (company) {
+      if (!company){
+        console.log('Company does not exist!');
+        return res.end();
+      }
+      //Build a model instance, but not save it to database yet.
+      var newOffer = db.Offer.build({
+        position: req.body.position,
+        salary: req.body.salary,
+        equity: req.body.equity,
+        vesting_start_date : req.body.vesting_start_date,
+        vesting_end_date : req.body.vesting_end_date,
+        vesting_cliff_date : req.body.vesting_cliff_date,
+        vesting_cliff_percent : req.body.vesting_cliff_percent,
+        other_benefits : req.body.other_benefits,
+        last_financing_round_valuation : req.body.last_financing_round_valuation,
+        estimated_exit_valuation : req.body.estimated_exit_valuation
+      });
+      newOffer.setCompany(company);
+      newOffer.save()
+      .then(function (offer) {
+        console.log('Offer has been saved to the database');
         res.json(offer);
       });
     });

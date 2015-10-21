@@ -1,11 +1,8 @@
-// this page will display all the info related to a given company
-// see questions here: https://docs.google.com/document/d/1JeDQ7p_NZVoJrM_smjaL2eK1zUoHidwTKYucVkefUgc/edit
-
 var CompanyProfile = React.createClass({
 
   getInitialState: function() {
     return {
-      id: '',
+      id: '867678',
       name: '',
       website: '',
       growth_score: '',
@@ -35,28 +32,30 @@ var CompanyProfile = React.createClass({
       success: function(data) {
         console.log("SUCCESS: ")
         console.log(data)
-        this.setState({
-          id: data.id,
-          name: data.name,
-          website: data.website,
-          growth_score: data.growth_score,
-          mindshare_score: data.mindshare_score,
-          custom_score: data.custom_score,
-          weekly_momentum: data.weekly_momentum,
-          employees: data.employees,
-          employees_mom: data.employees_mom,
-          monthly_unique: data.monthly_unique,
-          monthly_unique_mom: data.monthly_unique_mom,
-          founding_date: data.founding_date,
-          stage: data.stage,
-          total_funding: data.total_funding,
-          last_funding_date: data.last_funding_date,
-          city: data.city,
-          state: data.state,
-          country: data.country,
-          createdAt: data.createdAt,
-          updatedAt: data.updatedAt
-        });
+        this.setState({data:data});
+        // this.setState({
+        //   id: data.id,
+        //   name: data.name,
+        //   website: data.website,
+        //   growth_score: data.growth_score,
+        //   mindshare_score: data.mindshare_score,
+        //   custom_score: data.custom_score,
+        //   weekly_momentum: data.weekly_momentum,
+        //   employees: data.employees,
+        //   employees_mom: data.employees_mom,
+        //   monthly_unique: data.monthly_unique,
+        //   monthly_unique_mom: data.monthly_unique_mom,
+        //   founding_date: data.founding_date,
+        //   stage: data.stage,
+        //   total_funding: data.total_funding,
+        //   last_funding_date: data.last_funding_date,
+        //   city: data.city,
+        //   state: data.state,
+        //   country: data.country,
+        //   createdAt: data.createdAt,
+        //   updatedAt: data.updatedAt
+        // });
+        console.log(this.state);
       }.bind(this),
       error: function(xhr, status, err) {
         console.log('ERROR')
@@ -65,8 +64,9 @@ var CompanyProfile = React.createClass({
   },
 
   render: function() {
+    console.log('state', this.state);
     return (
-      <div>{this.state}</div>
+      <div>{this.state.data}</div>
       // <div>{this.state.id}</div>,
       // <div>{this.state.name}</div>,
       // <div>{this.state.website}</div>,

@@ -53,7 +53,7 @@ var AddOfferForm = React.createClass({
       vesting_cliff_date: this.refs.vesting_cliff_date.value,
       vesting_cliff_percent: this.refs.vesting_cliff_percent.value,
       last_financing_round_valuation: this.refs.last_financing_round_valuation.value,
-      estimated_eit_valuation: this.refs.estimated_eit_valuation.value
+      estimated_exit_valuation: this.refs.estimated_exit_valuation.value
       // benefits: this.refs.benefits.value
     });
     this.refs.company_name.value = '';
@@ -65,7 +65,7 @@ var AddOfferForm = React.createClass({
     this.refs.vesting_cliff_date.value = '';
     this.refs.vesting_cliff_percent.value = '';
     this.refs.last_financing_round_valuation.value = '';
-    this.refs.estimated_eit_valuation.value = ''; 
+    this.refs.estimated_exit_valuation.value = ''; 
     // this.refs.benefits.value = '';
   },
 
@@ -121,8 +121,8 @@ var AddOfferForm = React.createClass({
           </div>
 
           <div className="form-group">
-            <label htmlFor="estimated_eit_valuation">Estimated Exit Valuation *</label>
-            <input className="form-control" name="estimated_eit_valuation" ref="estimated_eit_valuation" type="number" />
+            <label htmlFor="estimated_exit_valuation">Estimated Exit Valuation *</label>
+            <input className="form-control" name="estimated_exit_valuation" ref="estimated_exit_valuation" type="number" />
           </div>
 
           <h3>What additional benefits do you receive?</h3>

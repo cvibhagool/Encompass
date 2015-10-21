@@ -9702,7 +9702,7 @@ var AddOfferForm = React.createClass({
       vesting_cliff_date: this.refs.vesting_cliff_date.value,
       vesting_cliff_percent: this.refs.vesting_cliff_percent.value,
       last_financing_round_valuation: this.refs.last_financing_round_valuation.value,
-      estimated_eit_valuation: this.refs.estimated_eit_valuation.value
+      estimated_exit_valuation: this.refs.estimated_exit_valuation.value
       // benefits: this.refs.benefits.value
     });
     this.refs.company_name.value = '';
@@ -9714,7 +9714,7 @@ var AddOfferForm = React.createClass({
     this.refs.vesting_cliff_date.value = '';
     this.refs.vesting_cliff_percent.value = '';
     this.refs.last_financing_round_valuation.value = '';
-    this.refs.estimated_eit_valuation.value = '';
+    this.refs.estimated_exit_valuation.value = '';
     // this.refs.benefits.value = '';
   },
 
@@ -9826,10 +9826,10 @@ var AddOfferForm = React.createClass({
           { className: 'form-group' },
           React.createElement(
             'label',
-            { htmlFor: 'estimated_eit_valuation' },
+            { htmlFor: 'estimated_exit_valuation' },
             'Estimated Exit Valuation *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'estimated_eit_valuation', ref: 'estimated_eit_valuation', type: 'number' })
+          React.createElement('input', { className: 'form-control', name: 'estimated_exit_valuation', ref: 'estimated_exit_valuation', type: 'number' })
         ),
         React.createElement(
           'h3',
@@ -9872,9 +9872,6 @@ module.exports = {
 };
 
 },{}],7:[function(require,module,exports){
-// this page will display all the info related to a given company
-// see questions here: https://docs.google.com/document/d/1JeDQ7p_NZVoJrM_smjaL2eK1zUoHidwTKYucVkefUgc/edit
-
 'use strict';
 
 var CompanyProfile = React.createClass({
@@ -9882,7 +9879,7 @@ var CompanyProfile = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      id: '',
+      id: '867678',
       name: '',
       website: '',
       growth_score: '',
@@ -9912,28 +9909,30 @@ var CompanyProfile = React.createClass({
       success: (function (data) {
         console.log("SUCCESS: ");
         console.log(data);
-        this.setState({
-          id: data.id,
-          name: data.name,
-          website: data.website,
-          growth_score: data.growth_score,
-          mindshare_score: data.mindshare_score,
-          custom_score: data.custom_score,
-          weekly_momentum: data.weekly_momentum,
-          employees: data.employees,
-          employees_mom: data.employees_mom,
-          monthly_unique: data.monthly_unique,
-          monthly_unique_mom: data.monthly_unique_mom,
-          founding_date: data.founding_date,
-          stage: data.stage,
-          total_funding: data.total_funding,
-          last_funding_date: data.last_funding_date,
-          city: data.city,
-          state: data.state,
-          country: data.country,
-          createdAt: data.createdAt,
-          updatedAt: data.updatedAt
-        });
+        this.setState({ data: data });
+        // this.setState({
+        //   id: data.id,
+        //   name: data.name,
+        //   website: data.website,
+        //   growth_score: data.growth_score,
+        //   mindshare_score: data.mindshare_score,
+        //   custom_score: data.custom_score,
+        //   weekly_momentum: data.weekly_momentum,
+        //   employees: data.employees,
+        //   employees_mom: data.employees_mom,
+        //   monthly_unique: data.monthly_unique,
+        //   monthly_unique_mom: data.monthly_unique_mom,
+        //   founding_date: data.founding_date,
+        //   stage: data.stage,
+        //   total_funding: data.total_funding,
+        //   last_funding_date: data.last_funding_date,
+        //   city: data.city,
+        //   state: data.state,
+        //   country: data.country,
+        //   createdAt: data.createdAt,
+        //   updatedAt: data.updatedAt
+        // });
+        console.log(this.state);
       }).bind(this),
       error: (function (xhr, status, err) {
         console.log('ERROR');
@@ -9942,10 +9941,11 @@ var CompanyProfile = React.createClass({
   },
 
   render: function render() {
+    console.log('state', this.state);
     return React.createElement(
       'div',
       null,
-      this.state
+      this.state.data
     )
     // <div>{this.state.id}</div>,
     // <div>{this.state.name}</div>,

@@ -3,6 +3,7 @@ var AddOffer = require('./content/AddOffer').AddOffer;
 var SearchCompany = require('./content/SearchCompany').SearchCompany;
 var Landing = require('./content/Landing.js');
 var CompanyProfile = require('./content/CompanyProfile').CompanyProfile;
+var companies = require('../constants/companies')
 
 var ContentView = React.createClass({
   render: function() {
@@ -12,7 +13,7 @@ var ContentView = React.createClass({
         <div className="content"> {this.props.currentTab === 2 ? <UserProfile /> : null }</div>
         <div className="content"> {this.props.currentTab === 3 ? <CompanyProfile /> : null }</div>
         <div className="content"> {this.props.currentTab === 4 ? <AddOffer /> : null }</div>
-        <div className="content"> {this.props.currentTab === 5 ? <SearchCompany /> : null }</div>
+        <div className="content"> {this.props.currentTab === 5 ? <SearchCompany companies={companies} /> : null }</div>
         <div className="content"> {this.props.currentTab === 6 ? <Login /> : null }</div>
         <div className="content"> {this.props.currentTab === 7 ? <Signup /> : null }</div>
       </div>

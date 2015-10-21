@@ -21,13 +21,37 @@ module.exports = function(sequelize, DataTypes) {
     employees:{
       type: DataTypes.FLOAT
     },
+    employees_month_ago:{
+      type: DataTypes.FLOAT
+    },
+    employees_added_in_month:{
+      type: DataTypes.FLOAT
+    },
     employees_mom:{
+      type: DataTypes.FLOAT
+    },
+    employees_6_months_ago:{
+      type: DataTypes.FLOAT
+    },
+    employees_added_in_6_months:{
+      type: DataTypes.FLOAT
+    },
+    employees_6_months_growth:{
       type: DataTypes.FLOAT
     },
     monthly_unique:{
       type: DataTypes.FLOAT
     },
     monthly_unique_mom:{
+      type: DataTypes.FLOAT
+    },
+    employees_added_since_last_funding:{
+      type: DataTypes.FLOAT
+    },
+    new_person_months_since_last_funding:{
+      type: DataTypes.FLOAT
+    },
+    new_funding_employee_growth:{
       type: DataTypes.FLOAT
     },
     founding_date:{

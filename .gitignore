@@ -35,4 +35,4 @@ bower_components/
 server/auth/oauth-config.json
 
 #Seed data
-#server/config/seed/seedData.json
+server/config/seed/seedData.json

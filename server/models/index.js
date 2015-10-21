@@ -32,8 +32,8 @@ db.Sequelize = Sequelize;
 
 module.exports = db;
 
-var resetDB = false; //Set this to true to drop and recreate database
-var seedDB = false; //Set this to true to seed companies data
+var resetDB = true; //Set this to true to drop and recreate database
+var seedDB = true; //Set this to true to seed companies data
 if (resetDB){
   console.log("Resetting Database.....");
 }

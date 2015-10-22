@@ -1,13 +1,27 @@
+var webpack = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
+var config = require('./webpack.config');
+
 var express = require('express');
 
-//Creates and initializes an express application
 var app = express();
-var port = process.env.PORT || 3000;
+var port = 3000;
 
-//Passes app and express to middlewares
+var compiler = webpack(config);
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+app.use(webpackHotMiddleware(compiler));
+
 require('./config/middleware.js')(app, express);
 
-app.listen(port);
-console.log("Server started on port", port);
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
 
-module.exports = app;
+app.listen(port, function(error) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port);
+  }
+});

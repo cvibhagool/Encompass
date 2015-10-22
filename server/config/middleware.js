@@ -53,12 +53,12 @@ module.exports = function (app, express) {
     next();
   });
 
-  //Serve up static files in client folder and other middleware
-  app.use(express.static(__dirname + '/../../client/public'));
+  // //Serve up static files in client folder and other middleware
+  // app.use(express.static(__dirname + '/../../client/public'));
 
-  app.get('/', function (req, res) {
-    res.render('index.html');
-  });
+  // app.get('/', function (req, res) {
+  //   res.render('index.html');
+  // });
 
   //Load and setup API router
   var apiRouter = require('../routers/apiRouter');

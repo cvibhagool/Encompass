@@ -22,7 +22,6 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 dist/
-server/db/index.js
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
@@ -31,8 +30,8 @@ client/node_modules/
 node_modules/
 bower_components/
 
-#Oauth Secrets
-server/auth/oauth-config.json
+#Oauth Secret
+oauth-config.json
 
 #Seed data
-server/config/seed/seedData.json
+seedData.json

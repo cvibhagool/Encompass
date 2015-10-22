@@ -66,47 +66,54 @@ content (folder)
 
 
 ###Server Endpoints
-* GET user/profile
-* POST/DELETE companies/offers
-* GET /search
+* User
+ * GET `user/profile`
+* Offer
+ * POST/DELETE `companies/offers`
+* Search
+ * GET `/search`
 * Authentication
-  * Local Strategy
-    * POST auth/signup
-    * POST auth/local
-  * OAuth Strategy
-    * GET auth/facebook
+ * Local Strategy
+   * POST `auth/signup`
+   * POST `auth/local`
+ * OAuth Strategy
+   * GET `auth/facebook`
 * Company Data
-  * GET data/company?fields[]=field1&fields[]=field2.....&fields[]=fieldN
+  * GET `data/company?fields[]=field1&fields[]=field2.....&fields[]=fieldN`
     * Fields params must be included in every request, including the requests for filtered data.
-    * Example: GET data/company?fields[]=name&fields[]=employees will return [{name:"Apple",employees:"9001"},....]
+    * Example: GET `data/company?fields[]=name&fields[]=employees` will return `[{name:"Apple",employees:"9001"},....]`
   * Include industry(s) or filter by industry
-    * GET data/company?industry=all or data/company?industry=finance
-    * Example filtered output: [{name:"Pied Piper",industries:[{name:"Finance"}]},....]
+    * GET `data/company?industry=all` or `data/company?industry=finance`
+    * Example filtered output: `[{name:"Pied Piper",industries:[{name:"Finance"}]},....]`
   * Include keyword(s) or filter by keyword
-    * GET data/company?keyword=all or data/company?keyword=DIY
-    * Example filtered output: [{name:"Pied Piper",keywords:[{name:"DIY"}]},....]
+    * GET `data/company?keyword=all or data/company?keyword=DIY`
+    * Example filtered output: `[{name:"Pied Piper",keywords:[{name:"DIY"}]},....]`
   * Include businessmodel(s) or filter by businessmodel
-    * GET data/company?businessmodel=all or data/company?businessmodel=B2B
-    * Example filtered output: [{name:"Pied Piper",businessmodels:[{name:"B2B"}]},....]
+    * GET `data/company?businessmodel=all` or `data/company?businessmodel=B2B`
+    * Example filtered output: `[{name:"Pied Piper",businessmodels:[{name:"B2B"}]},....]`
   * Include investor(s) or filter by investor
-    * GET data/company?investor=all or data/company?investor='Sequoia Capital'
-    * Example filtered output: [{name:"Pied Piper",investors:[{name:"Sequoia Capital"}]},....]
+    * GET `data/company?investor=all` or `data/company?investor='Sequoia Capital'`
+    * Example filtered output: `[{name:"Pied Piper",investors:[{name:"Sequoia Capital"}]},....]`
   * Note that fields can be combined with filters
 * Industry Data
-  * GET data/industry return all investors
+  * GET `data/industry` return all investors
 * Keyword Data
-  * GET data/keyword return all keywords
+  * GET `data/keyword` return all keywords
 * BusinessModel Data
-  * GET data/businessmodel return all businessmodels
+  * GET `data/businessmodel` return all businessmodels
 * Investors
-  * GET data/investor return all investors
+  * GET `data/investor` return all investors
 
 ###Database Tables
-* Companies
-* Users
-* Investors
-* Offers
-* Follows
-* Industries
-* Keywords
-* BusinessModels
+* `BusinessModels`
+* `Companies`
+* `CompanyBusinessModels`
+* `CompanyIndustries`
+* `CompanyInvestors`
+* `CompanyKeywords`
+* `Industries`
+* `Investors`
+* `Keywords`
+* `Offers`
+* `UserFollows`
+* `Users`

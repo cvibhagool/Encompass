@@ -1,0 +1,16 @@
+export default [
+  { id: '1', name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/'},
+  { id: 'angularjs', name: 'AngularJS', url: 'https://angularjs.org/'},
+  { id: 'jquery', name: 'jQuery', url: 'http://jquery.com/'},
+  { id: 'prototype', name: 'Prototype', url: 'http://www.prototypejs.org/'},
+  { id: 'react', name: 'React', url: 'http://facebook.github.io/react/'},
+  { id: 'ember', name: 'Ember', url: 'http://emberjs.com/'},
+  { id: 'knockout', name: 'Knockout.js', url: 'http://knockoutjs.com/'},
+  { id: 'dojo', name: 'Dojo', url: 'http://dojotoolkit.org/'},
+  { id: 'mootools', name: 'Mootools', url: 'http://mootools.net/'},
+  { id: 'underscore', name: 'Underscore', url: 'http://documentcloud.github.io/underscore/'},
+  { id: 'lodash', name: 'Lodash', url: 'http://lodash.com/'},
+  { id: 'moment', name: 'Moment', url: 'http://momentjs.com/'},
+  { id: 'express', name: 'Express', url: 'http://expressjs.com/'},
+  { id: 'koa', name: 'Koa', url: 'http://koajs.com/'},
+];

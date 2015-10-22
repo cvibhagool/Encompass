@@ -13,21 +13,15 @@ var SearchCompany = React.createClass({
 
   },
 
-  //
   render: function() {
-    // this next line was in the tut but it seems to break things
-    // http://tutorialzine.com/2014/07/5-practical-examples-for-learning-facebooks-react-framework/
-
-    // var companies = this.props.companies;
 
     var searchString = this.state.searchString.trim().toLowerCase();
-    
+
     // as soon as user starts to type, filter the results
-    if (searchString.length > 0) {
-      companies = companies.filter(function(l) {
-        return l.name.toLowerCase().match(searchString);
-      });
-    }
+    var filteredCompanies = searchString.length > 0 ? this.props.companies.filter(function(l) {
+      return l.name.toLowerCase().match(searchString);
+    }) : this.props.companies
+    var that = this;
 
     // search box + display the list of companies below the search box 
     return <div>
@@ -37,33 +31,29 @@ var SearchCompany = React.createClass({
         placeholder="Search a Company" />
 
       <ul>
-        // !! React yells that each child (li item) should have a unique key prop
-        // but I already did include one here so I'm not sure whats wrong
-        {companies.map(function(lib) {
-          return <li key={lib.id}>{lib.name}</li>
+        {filteredCompanies.map(function(company) {
+          return <CompanyItem changeCompany={that.props.changeCompany} key={company.id} company={company} />
         })}
       </ul>
     </div>
   }
 });
 
-// here is where we store our company names for realtime search
-var companies = [
-    { name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/'},
-    { name: 'AngularJS', url: 'https://angularjs.org/'},
-    { name: 'jQuery', url: 'http://jquery.com/'},
-    { name: 'Prototype', url: 'http://www.prototypejs.org/'},
-    { name: 'React', url: 'http://facebook.github.io/react/'},
-    { name: 'Ember', url: 'http://emberjs.com/'},
-    { name: 'Knockout.js', url: 'http://knockoutjs.com/'},
-    { name: 'Dojo', url: 'http://dojotoolkit.org/'},
-    { name: 'Mootools', url: 'http://mootools.net/'},
-    { name: 'Underscore', url: 'http://documentcloud.github.io/underscore/'},
-    { name: 'Lodash', url: 'http://lodash.com/'},
-    { name: 'Moment', url: 'http://momentjs.com/'},
-    { name: 'Express', url: 'http://expressjs.com/'},
-    { name: 'Koa', url: 'http://koajs.com/'},
-];
+var CompanyItem = React.createClass({
+  
+  handleClick: function(e) {
+    e.preventDefault();
+    this.props.changeCompany(this.props.company.id)
+  },
+
+  render: function() {
+    return (
+      <li>
+        <a href='#' onClick={this.handleClick}>{this.props.company.name}</a>
+      </li>
+    )
+  }
+});
 
 module.exports = {
   SearchCompany: SearchCompany

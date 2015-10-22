@@ -9507,7 +9507,7 @@
 'use strict';
 
 var NavBar = require('./NavbarFrame').NavBar;
-var ContentView = require('./ContentFrame').ContentView;
+var ContentFrame = require('./ContentFrame').ContentFrame;
 var Tabs = require('./navbar/Tabs').Tabs;
 
 var AppView = React.createClass({
@@ -9515,8 +9515,8 @@ var AppView = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      tablist: Tabs.tabList,
-      currentTab: 1
+      currentTab: 1,
+      currentCompany: null
     };
   },
 
@@ -9525,12 +9525,17 @@ var AppView = React.createClass({
     this.setState({ currentTab: tab.id });
   },
 
+  changeCompany: function changeCompany(id) {
+    console.log('AppView.changeCompany');
+    this.setState({ currentCompany: id, currentTab: 3 });
+  },
+
   render: function render() {
     return React.createElement(
       'div',
       { id: 'app-view' },
-      React.createElement(NavBar, { tablist: this.state.tablist, changeContent: this.changeContent }),
-      React.createElement(ContentView, { currentTab: this.state.currentTab })
+      React.createElement(NavBar, { tablist: Tabs.tabList, changeContent: this.changeContent }),
+      React.createElement(ContentFrame, { changeCompany: this.changeCompany, currentCompany: this.state.currentCompany, currentTab: this.state.currentTab })
     );
   }
 });
@@ -9547,9 +9552,10 @@ var AddOffer = require('./content/AddOffer').AddOffer;
 var SearchCompany = require('./content/SearchCompany').SearchCompany;
 var Landing = require('./content/Landing.js');
 var CompanyProfile = require('./content/CompanyProfile').CompanyProfile;
+var companies = require('../constants/companies');
 
-var ContentView = React.createClass({
-  displayName: 'ContentView',
+var ContentFrame = React.createClass({
+  displayName: 'ContentFrame',
 
   render: function render() {
     return React.createElement(
@@ -9571,7 +9577,7 @@ var ContentView = React.createClass({
         'div',
         { className: 'content' },
         ' ',
-        this.props.currentTab === 3 ? React.createElement(CompanyProfile, null) : null
+        this.props.currentTab === 3 ? React.createElement(CompanyProfile, { companyId: this.props.currentCompany }) : null
       ),
       React.createElement(
         'div',
@@ -9583,7 +9589,7 @@ var ContentView = React.createClass({
         'div',
         { className: 'content' },
         ' ',
-        this.props.currentTab === 5 ? React.createElement(SearchCompany, null) : null
+        this.props.currentTab === 5 ? React.createElement(SearchCompany, { changeCompany: this.props.changeCompany, companies: companies }) : null
       ),
       React.createElement(
         'div',
@@ -9602,10 +9608,10 @@ var ContentView = React.createClass({
 });
 
 module.exports = {
-  ContentView: ContentView
+  ContentFrame: ContentFrame
 };
 
-},{"./content/AddOffer":6,"./content/CompanyProfile":7,"./content/Landing.js":8,"./content/SearchCompany":9,"./content/UserProfile":10}],4:[function(require,module,exports){
+},{"../constants/companies":13,"./content/AddOffer":6,"./content/CompanyProfile":7,"./content/Landing.js":8,"./content/SearchCompany":9,"./content/UserProfile":10}],4:[function(require,module,exports){
 'use strict';
 
 var Tabs = require('./navbar/Tabs').Tabs;
@@ -9702,7 +9708,7 @@ var AddOfferForm = React.createClass({
       vesting_cliff_date: this.refs.vesting_cliff_date.value,
       vesting_cliff_percent: this.refs.vesting_cliff_percent.value,
       last_financing_round_valuation: this.refs.last_financing_round_valuation.value,
-      estimated_eit_valuation: this.refs.estimated_eit_valuation.value
+      estimated_exit_valuation: this.refs.estimated_exit_valuation.value
       // benefits: this.refs.benefits.value
     });
     this.refs.company_name.value = '';
@@ -9714,7 +9720,7 @@ var AddOfferForm = React.createClass({
     this.refs.vesting_cliff_date.value = '';
     this.refs.vesting_cliff_percent.value = '';
     this.refs.last_financing_round_valuation.value = '';
-    this.refs.estimated_eit_valuation.value = '';
+    this.refs.estimated_exit_valuation.value = '';
     // this.refs.benefits.value = '';
   },
 
@@ -9826,10 +9832,10 @@ var AddOfferForm = React.createClass({
           { className: 'form-group' },
           React.createElement(
             'label',
-            { htmlFor: 'estimated_eit_valuation' },
+            { htmlFor: 'estimated_exit_valuation' },
             'Estimated Exit Valuation *'
           ),
-          React.createElement('input', { className: 'form-control', name: 'estimated_eit_valuation', ref: 'estimated_eit_valuation', type: 'number' })
+          React.createElement('input', { className: 'form-control', name: 'estimated_exit_valuation', ref: 'estimated_exit_valuation', type: 'number' })
         ),
         React.createElement(
           'h3',
@@ -9872,68 +9878,24 @@ module.exports = {
 };
 
 },{}],7:[function(require,module,exports){
-// this page will display all the info related to a given company
-// see questions here: https://docs.google.com/document/d/1JeDQ7p_NZVoJrM_smjaL2eK1zUoHidwTKYucVkefUgc/edit
-
 'use strict';
 
 var CompanyProfile = React.createClass({
   displayName: 'CompanyProfile',
 
   getInitialState: function getInitialState() {
-    return {
-      id: '',
-      name: '',
-      website: '',
-      growth_score: '',
-      mindshare_score: '',
-      custom_score: '',
-      weekly_momentum: '',
-      employees: '',
-      employees_mom: '',
-      monthly_unique: '',
-      monthly_unique_mom: '',
-      founding_date: '',
-      stage: '',
-      total_funding: '',
-      last_funding_date: '',
-      city: '',
-      state: '',
-      country: '',
-      createdAt: '',
-      updatedAt: ''
-    };
+    return { data: [] };
   },
 
   componentDidMount: function componentDidMount() {
+    console.log('/api/company/' + this.props.companyId);
     $.ajax({
-      url: '/api/company/1',
+      url: '/api/company/' + this.props.companyId,
       dataType: 'json',
       success: (function (data) {
         console.log("SUCCESS: ");
         console.log(data);
-        this.setState({
-          id: data.id,
-          name: data.name,
-          website: data.website,
-          growth_score: data.growth_score,
-          mindshare_score: data.mindshare_score,
-          custom_score: data.custom_score,
-          weekly_momentum: data.weekly_momentum,
-          employees: data.employees,
-          employees_mom: data.employees_mom,
-          monthly_unique: data.monthly_unique,
-          monthly_unique_mom: data.monthly_unique_mom,
-          founding_date: data.founding_date,
-          stage: data.stage,
-          total_funding: data.total_funding,
-          last_funding_date: data.last_funding_date,
-          city: data.city,
-          state: data.state,
-          country: data.country,
-          createdAt: data.createdAt,
-          updatedAt: data.updatedAt
-        });
+        this.setState({ data: [data.id, data.name, data.website, data.growth_score, data.mindshare_score, data.custom_score, data.weekly_momentum, data.employees, data.employees_mom, data.monthly_unique, data.monthly_unique_mom, data.founding_date, data.stage, data.total_funding, data.last_funding_date, data.city, data.state, data.country, data.createdAt, data.updatedAt] });
       }).bind(this),
       error: (function (xhr, status, err) {
         console.log('ERROR');
@@ -9942,32 +9904,18 @@ var CompanyProfile = React.createClass({
   },
 
   render: function render() {
+    console.log('this.state.data', this.state.data);
     return React.createElement(
-      'div',
+      'ul',
       null,
-      this.state
-    )
-    // <div>{this.state.id}</div>,
-    // <div>{this.state.name}</div>,
-    // <div>{this.state.website}</div>,
-    // <div>{this.state.growth_score}</div>,
-    // <div>{this.state.mindshare_score}</div>,
-    // <div>{this.state.custom_score}</div>,
-    // <div>{this.state.weekly_momentum}</div>,
-    // <div>{this.state.employees}</div>,
-    // <div>{this.state.employees_mom}</div>,
-    // <div>{this.state.monthly_unique}</div>,
-    // <div>{this.state.monthly_unique_mom}</div>,
-    // <div>{this.state.founding_date}</div>,
-    // <div>{this.state.stage}</div>,
-    // <div>{this.state.total_funding}</div>,
-    // <div>{this.state.last_funding_date}</div>,
-    // <div>{this.state.city}</div>,
-    // <div>{this.state.state}</div>,
-    // <div>{this.state.country}</div>,
-    // <div>{this.state.createdAt}</div>,
-    // <div>{this.state.updatedAt}</div>
-    ;
+      this.state.data.map((function (item, i) {
+        return React.createElement(
+          'li',
+          { key: i },
+          item
+        );
+      }).bind(this))
+    );
   }
 
 });
@@ -10058,21 +10006,15 @@ var SearchCompany = React.createClass({
     this.setState({ searchString: e.target.value });
   },
 
-  //
   render: function render() {
-    // this next line was in the tut but it seems to break things
-    // http://tutorialzine.com/2014/07/5-practical-examples-for-learning-facebooks-react-framework/
-
-    // var companies = this.props.companies;
 
     var searchString = this.state.searchString.trim().toLowerCase();
 
     // as soon as user starts to type, filter the results
-    if (searchString.length > 0) {
-      companies = companies.filter(function (l) {
-        return l.name.toLowerCase().match(searchString);
-      });
-    }
+    var filteredCompanies = searchString.length > 0 ? this.props.companies.filter(function (l) {
+      return l.name.toLowerCase().match(searchString);
+    }) : this.props.companies;
+    var that = this;
 
     // search box + display the list of companies below the search box
     return React.createElement(
@@ -10085,21 +10027,34 @@ var SearchCompany = React.createClass({
       React.createElement(
         "ul",
         null,
-        "// !! React yells that each child (li item) should have a unique key prop // but I already did include one here so I'm not sure whats wrong",
-        companies.map(function (lib) {
-          return React.createElement(
-            "li",
-            { key: lib.id },
-            lib.name
-          );
+        filteredCompanies.map(function (company) {
+          return React.createElement(CompanyItem, { changeCompany: that.props.changeCompany, key: company.id, company: company });
         })
       )
     );
   }
 });
 
-// here is where we store our company names for realtime search
-var companies = [{ name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/' }, { name: 'AngularJS', url: 'https://angularjs.org/' }, { name: 'jQuery', url: 'http://jquery.com/' }, { name: 'Prototype', url: 'http://www.prototypejs.org/' }, { name: 'React', url: 'http://facebook.github.io/react/' }, { name: 'Ember', url: 'http://emberjs.com/' }, { name: 'Knockout.js', url: 'http://knockoutjs.com/' }, { name: 'Dojo', url: 'http://dojotoolkit.org/' }, { name: 'Mootools', url: 'http://mootools.net/' }, { name: 'Underscore', url: 'http://documentcloud.github.io/underscore/' }, { name: 'Lodash', url: 'http://lodash.com/' }, { name: 'Moment', url: 'http://momentjs.com/' }, { name: 'Express', url: 'http://expressjs.com/' }, { name: 'Koa', url: 'http://koajs.com/' }];
+var CompanyItem = React.createClass({
+  displayName: "CompanyItem",
+
+  handleClick: function handleClick(e) {
+    e.preventDefault();
+    this.props.changeCompany(this.props.company.id);
+  },
+
+  render: function render() {
+    return React.createElement(
+      "li",
+      null,
+      React.createElement(
+        "a",
+        { href: "#", onClick: this.handleClick },
+        this.props.company.name
+      )
+    );
+  }
+});
 
 module.exports = {
   SearchCompany: SearchCompany
@@ -10189,4 +10144,13 @@ module.exports = {
   Tabs: Tabs
 };
 
-},{"./Tab":11}]},{},[5]);
+},{"./Tab":11}],13:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = [{ id: '1', name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/' }, { id: 'angularjs', name: 'AngularJS', url: 'https://angularjs.org/' }, { id: 'jquery', name: 'jQuery', url: 'http://jquery.com/' }, { id: 'prototype', name: 'Prototype', url: 'http://www.prototypejs.org/' }, { id: 'react', name: 'React', url: 'http://facebook.github.io/react/' }, { id: 'ember', name: 'Ember', url: 'http://emberjs.com/' }, { id: 'knockout', name: 'Knockout.js', url: 'http://knockoutjs.com/' }, { id: 'dojo', name: 'Dojo', url: 'http://dojotoolkit.org/' }, { id: 'mootools', name: 'Mootools', url: 'http://mootools.net/' }, { id: 'underscore', name: 'Underscore', url: 'http://documentcloud.github.io/underscore/' }, { id: 'lodash', name: 'Lodash', url: 'http://lodash.com/' }, { id: 'moment', name: 'Moment', url: 'http://momentjs.com/' }, { id: 'express', name: 'Express', url: 'http://expressjs.com/' }, { id: 'koa', name: 'Koa', url: 'http://koajs.com/' }];
+module.exports = exports['default'];
+
+},{}]},{},[5]);

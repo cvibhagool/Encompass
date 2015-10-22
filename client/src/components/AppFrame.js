@@ -1,13 +1,13 @@
 var NavBar = require('./NavbarFrame').NavBar;
-var ContentView = require('./ContentFrame').ContentView;
+var ContentFrame = require('./ContentFrame').ContentFrame;
 var Tabs = require('./navbar/Tabs').Tabs;
 
 var AppView = React.createClass({
 
   getInitialState: function() {
     return {
-      tablist: Tabs.tabList,
-      currentTab: 1
+      currentTab: 1,
+      currentCompany: null,
     };
   },
 
@@ -16,11 +16,16 @@ var AppView = React.createClass({
     this.setState({ currentTab: tab.id });
   },
 
+  changeCompany: function(id) {
+    console.log('AppView.changeCompany');
+    this.setState({ currentCompany: id, currentTab: 3 });
+  },
+
   render: function() {
     return (
       <div id='app-view'>
-        <NavBar tablist={this.state.tablist} changeContent={this.changeContent} />
-        <ContentView currentTab={this.state.currentTab} />
+        <NavBar tablist={Tabs.tabList} changeContent={this.changeContent} />
+        <ContentFrame changeCompany={this.changeCompany} currentCompany={this.state.currentCompany} currentTab={this.state.currentTab} />
       </div>
     );
   }

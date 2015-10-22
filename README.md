@@ -22,6 +22,8 @@ When setting up local environment, do the following:
 
 2. `npm run dbreset` to drop the database and rebuild the tables.
 3. `npm run seed` to seed the database. This takes a while.
+4. Run server (node server/server.js). Steps 2 and 3 will happen at server start.
+5. Be sure to set the two variables back to false, otherwise 2 and 3 will happen everytime server is started.
 
 
 ###whiteboard photos:

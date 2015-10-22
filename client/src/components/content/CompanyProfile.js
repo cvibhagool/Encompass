@@ -1,13 +1,13 @@
 var CompanyProfile = React.createClass({
 
   getInitialState: function() {
-    // getInitialState
     return {data: []};
   },
 
   componentDidMount: function() {
+    console.log('/api/company/' + this.props.companyId)
     $.ajax({
-      url: '/api/company/1',
+      url: '/api/company/' + this.props.companyId,
       dataType: 'json',
       success: function(data) {
         console.log("SUCCESS: ")

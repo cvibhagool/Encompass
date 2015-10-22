@@ -48,8 +48,12 @@ module.exports = function (app, express) {
     next();
   });
 
-  // //Serve up static files in client folder and other middleware
-  // app.use(express.static(__dirname + '/../../client/public'));
+  //Serve up static files in client folder and other middleware
+  app.use(express.static(__dirname + '/../../public'));
+
+  app.get("/", function(req, res) {
+    res.sendFile(__dirname + '../../public/index.html');
+  });
 
   // app.get('/', function (req, res) {
   //   res.render('index.html');

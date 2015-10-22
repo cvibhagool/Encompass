@@ -5,7 +5,7 @@
     "password": "",
     "host": "localhost",
     "dialect": "postgres",
-    "logging": true
+    "logging": false
   },
   "production": {
     "database": "",

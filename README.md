@@ -5,10 +5,8 @@ A tool that helps all tech employees make better, more informed decisions
 When setting up local environment, do the following:
 
 ###When setting up local environment, do the following:
-1. `npm install` in root folder
-2. `npm install` in client folder
-3. type `grunt server-dev` (cd into client folder)
-  * this transpiles the JSX upon any change
+1. `npm install` in the 'server' folder
+2. `npm start` in the 'server' folder
 
 ###Setting up the database:
 

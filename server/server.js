@@ -9,10 +9,12 @@ var app = express();
 var port = 3000;
 
 var compiler = webpack(config);
+
+//Backend middleware
+require('./backend/config/middleware.js')(app, express);
+//Webpack middleware
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
 app.use(webpackHotMiddleware(compiler));
-
-require('./backend/config/middleware.js')(app, express);
 
 app.listen(port, function(error) {
   if (error) {

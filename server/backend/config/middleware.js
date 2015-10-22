@@ -4,6 +4,12 @@ var session = require('express-session');
 var db = require('../models/index');
 var passport = require('../auth/passport');
 
+//Sync the database on server start
+db.sequelize.sync({force: false})
+.then(function(){
+  console.log("Database synced!");
+});
+
 module.exports = function (app, express) {
   //Function for authenticating routes
   var checkUser = function(req,res,next){

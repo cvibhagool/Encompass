@@ -31,6 +31,7 @@
     "body-parser": "^1.14.1",
     "chai": "^3.3.0",
     "cookie-parser": "^1.4.0",
+    "d3": "^3.5.6",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
     "isomorphic-fetch": "^2.1.1",

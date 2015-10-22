@@ -83,16 +83,16 @@ content (folder)
     * Example: GET data/company?fields[]=name&fields[]=employees will return [{name:"Apple",employees:"9001"},....]
   * Include industry(s) or filter by industry
     * GET data/company?industry=all or data/company?industry=finance
-    * Example filtered output: [{name:"Pied Piper",industries:"Finance"},....]
+    * Example filtered output: [{name:"Pied Piper",industries:[{name:"Finance"}]},....]
   * Include keyword(s) or filter by keyword
     * GET data/company?keyword=all or data/company?keyword=DIY
-    * Example filtered output: [{name:"Pied Piper",keywords:"DIY"},....]
+    * Example filtered output: [{name:"Pied Piper",keywords:[{name:"DIY"}]},....]
   * Include businessmodel(s) or filter by businessmodel
     * GET data/company?businessmodel=all or data/company?businessmodel=B2B
-    * Example filtered output: [{name:"Pied Piper",businessmodels:"B2B"},....]
+    * Example filtered output: [{name:"Pied Piper",businessmodels:[{name:"B2B"}]},....]
   * Include investor(s) or filter by investor
     * GET data/company?investor=all or data/company?investor='Sequoia Capital'
-    * Example filtered output: [{name:"Pied Piper",investors:"Sequoia Capital"},....]
+    * Example filtered output: [{name:"Pied Piper",investors:[{name:"Sequoia Capital"}]},....]
   * Note that fields can be combined with filters
 * Industry Data
   * GET data/industry return all investors

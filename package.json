@@ -5,7 +5,9 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "mocha test/**/*.js"
+    "test": "mocha test/**/*.js",
+    "dbreset": "node scripts/dbreset.js",
+    "seed": "node scripts/seed.js"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,6 @@ var Sequelize = require('sequelize');
 var environment = process.env.NODE_ENV || 'development';
 var config = require('../config/db/config.json')[environment];
 var sequelize;
-var seeder = require("../config/seed/seeder");
 
 if (environment === 'production') {
   sequelize = new Sequelize(config.database);
@@ -31,20 +30,3 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
-
-var resetDB = false; //Set this to true to drop and recreate database
-var seedDB = false; //Set this to true to seed companies data
-if (resetDB){
-  console.log("Resetting Database.....");
-}
-sequelize.sync({force: resetDB})
-.then(function(){
-  if (resetDB){
-    console.log("Database reset finished!");
-  }
-  console.log("Database synced!");
-  if (seedDB){
-    console.log("Seeding database");
-    seeder();
-  }
-});

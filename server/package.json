@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "Redux async example",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dbreset": "node scripts/dbreset.js",
+    "seed": "node scripts/seed.js"
   },
   "repository": {
     "type": "git",

@@ -12,11 +12,7 @@ var compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
 app.use(webpackHotMiddleware(compiler));
 
-require('./config/middleware.js')(app, express);
-
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
+require('./backend/config/middleware.js')(app, express);
 
 app.listen(port, function(error) {
   if (error) {

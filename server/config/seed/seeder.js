@@ -13,12 +13,24 @@ module.exports = function(){
   };
 
   var cleanNumber = function(val){
+    if (typeof val === 'number'){
+      return parseFloat(val);
+    }
+    if (!val){
+      return undefined;
+    }
     var newVal = parseFloat(val.replace(',','').replace('$',''));
     return newVal ? newVal : undefined;
   };
 
   var cleanPercent = function(val){
+    if ((val === null) || (val === undefined) || (val === "")){
+      return undefined;
+    }
     var newVal = parseFloat(val.replace('%','')/100);
+    if (newVal === 0){
+      return newVal;
+    }
     return newVal ? newVal : undefined;
   };
 
@@ -46,9 +58,17 @@ module.exports = function(){
     company.custom_score = cleanNumber(data.custom_score);
     company.weekly_momentum = cleanNumber(data.weekly_momentum);
     company.employees = cleanNumber(data.employees);
+    company.employees_month_ago = cleanNumber(data.employees_month_ago);
+    company.employees_added_in_month = cleanNumber(data.employees_added_in_month);
     company.employees_mom = cleanPercent(data.employees_mom);
+    company.employees_6_months_ago = cleanNumber(data.employees_6_months_ago);
+    company.employees_added_in_6_months = cleanNumber(data.employees_added_in_6_months);
+    company.employees_6_months_growth = cleanPercent(data.employees_6_months_growth);
     company.monthly_unique = cleanNumber(data.monthly_unique);
     company.monthly_unique_mom = cleanPercent(data.monthly_unique_mom);
+    company.employees_added_since_last_funding = cleanNumber(data.employees_added_since_last_funding);
+    company.new_person_months_since_last_funding = cleanNumber(data.new_person_months_since_last_funding);
+    company.new_funding_employee_growth = cleanNumber(data.new_funding_employee_growth);
     company.founding_date = cleanDate(data.founding_date);
     company.stage = cleanString(data.stage);
     company.total_funding = cleanNumber(data.total_funding);

@@ -33,3 +33,6 @@ bower_components/
 
 #Oauth Secrets
 server/auth/oauth-config.json
+
+#Seed data
+server/config/seed/seedData.json

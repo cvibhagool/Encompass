@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { showPage } from '../actions';
+import { showPage, fetchApiData } from '../actions';
 import NavBar from './NavBar';
 import ContentPage from './ContentPage'
 
@@ -37,36 +37,21 @@ class App extends Component {
 
   render() {
     //This gets injected by the connect() call
-    const { dispatch, pageReducer} = this.props;
+    const { dispatch, page, api} = this.props;
     return (
       <div id='app-view'>
         <NavBar onTabClick={tabName => dispatch(showPage(tabName))} />
-        <ContentPage pageState={pageReducer}/>
+        <ContentPage fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} apiState={api} pageState={page}/>
       </div>
     );
   }
 }
 
 App.propTypes = {
-  
+  dispatch: PropTypes.func.isRequired
 };
 
 function selectStateProperties(state) {
-
-  // const { selectedReddit, postsByReddit } = state;
-  // const {
-  //   isFetching,
-  //   lastUpdated,
-  //   items: posts
-  // } = postsByReddit[selectedReddit] || {
-  //   isFetching: true,
-  //   items: []
-  // };
-
-  // return {
-  //   visibleTodos: selectTodos(state.todos, state.visibilityFilter),
-  //   visibilityFilter: state.visibilityFilter
-  // };
 
   return state;
 }

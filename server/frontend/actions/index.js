@@ -1,4 +1,3 @@
-import fetch  from 'isomorphic-fetch';
 import $      from 'jquery';
 
 export const SHOW_PAGE = 'SHOW_PAGE';

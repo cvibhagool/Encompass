@@ -8,15 +8,14 @@ export default class UserProfile extends Component {
   }
 
   render() {
-  	const { apiData, isFetching } = this.props; 
-    console.log(apiData);
+  	const { apiData, isFetching } = this.props;
     return (
     	<div>
     		{isFetching &&
     		  	<h2>Loading...</h2>
     		}
     		{apiData && Object.keys(apiData).map(function(key, value) {
-    			<div>{key}: {value}</div>; 
+    			return <div key={key}>{key}: {value}</div>; 
     		})}
     	</div>
     );

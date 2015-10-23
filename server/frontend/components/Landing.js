@@ -23,7 +23,6 @@ export default class Landing extends Component {
   render() {
     return (
       <div>  
-      <div>Landing Test</div>
       <Parallel data={this.state.data} />
       </div>
     );

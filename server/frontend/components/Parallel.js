@@ -17,11 +17,13 @@ export default class Parallel extends Component {
       var industries = company.Industries;
       for (var j = 0; j < industries.length; j++) {
         intermediate[industries[j].name] = intermediate[industries[j].name] || {
+          industryCount: 0,
           employees_mom: {count:0, sum: 0}, 
           employees: {count:0, sum: 0}, 
           total_funding: {count: 0, sum: 0}
         };
         var industry = intermediate[industries[j].name];
+        industry.industryCount++;
         if (company['employees_mom'] !== null) {
           var emom = company['employees_mom'];
           industry['employees_mom'].count++;
@@ -45,6 +47,7 @@ export default class Parallel extends Component {
     for (var industry in intermediate) {
       var summary = {};
       summary['Industry'] = industry;
+      summary['Companies'] = intermediate[industry]['industryCount'];
       summary['Funding'] = intermediate[industry]['total_funding'].sum / intermediate[industry]['total_funding'].count;
       summary['Employees_MoM'] = intermediate[industry]['employees_mom'].sum / intermediate[industry]['employees_mom'].count;
       summary['Employees'] = intermediate[industry]['employees'].sum / intermediate[industry]['employees'].count;      
@@ -88,15 +91,13 @@ export default class Parallel extends Component {
   render() {
 
     
-    var divStyle = {width: "1300px", height: "600px"};
+    var divStyle = {width: "1600px", height: "800px"};
 
 
 
     return (
       <div>
-        "hellow parcords"
         <div style={divStyle} id="example" className="parcoords" ref={(ref) =>  this.doD3(ReactDOM.findDOMNode(ref))}></div>
-        
       </div>
     )
 

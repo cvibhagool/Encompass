@@ -51,7 +51,7 @@ module.exports = function (app, express) {
     } else {
       console.log("Unauthenticated");
     }
-    console.log("Request Body",req.body);
+    console.log("Request Body:",req.body);
     next();
   });
 

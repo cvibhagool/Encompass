@@ -47,7 +47,6 @@ module.exports = function(sequelize, DataTypes) {
           .then(function(hash) {
             if (this.get('provider') === 'local'){
               this.set('password', hash);
-              console.log(hash);
               this.save();
             }
         });

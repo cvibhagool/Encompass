@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import {
   SHOW_PAGE,
   REQUEST_API_DATA,
-  RECEIVE_API_DATA
+  RECEIVE_API_DATA,
   SEND_API_DATA,
   SEND_API_DATA_SUCCESS,
   SEND_API_DATA_FAILURE

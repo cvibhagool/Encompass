@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server.js",
     "dbreset": "node scripts/dbreset.js",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",

@@ -1,10 +1,12 @@
-import fetch from 'isomorphic-fetch';
+import fetch  from 'isomorphic-fetch';
+import $      from 'jquery';
 
 export const SHOW_PAGE = 'SHOW_PAGE';
-// export const REQUEST_POSTS = 'REQUEST_POSTS';
-// export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-// export const SELECT_REDDIT = 'SELECT_REDDIT';
-// export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT';
+export const REQUEST_API_DATA = 'REQUEST_API_DATA';
+export const RECEIVE_API_DATA = 'RECEIVE_API_DATA';
+export const SEND_API_DATA = 'SEND_API_DATA';
+export const SEND_API_DATA_SUCCESS = 'SEND_API_DATA_SUCCESS';
+export const SEND_API_DATA_FAILURE = 'SEND_API_DATA_FAILURE';
 
 export function showPage(text) {
   return {
@@ -13,38 +15,82 @@ export function showPage(text) {
   };
 }
 
-// export function invalidateReddit(reddit) {
-//   return {
-//     type: INVALIDATE_REDDIT,
-//     reddit
-//   };
-// }
+function requestApiData(apiPath) {
+  return {
+    type: REQUEST_API_DATA,
+    apiPath
+  };
+}
 
-// function requestPosts(reddit) {
-//   return {
-//     type: REQUEST_POSTS,
-//     reddit
-//   };
-// }
+function receiveApiData(apiPath, json) {
+  return {
+    type: RECEIVE_API_DATA,
+    apiPath: apiPath,
+    apiData: json,
+    receivedAt: Date.now()
+  };
+}
 
-// function receivePosts(reddit, json) {
-//   return {
-//     type: RECEIVE_POSTS,
-//     reddit: reddit,
-//     posts: json.data.children.map(child => child.data),
-//     receivedAt: Date.now()
-//   };
-// }
+export function fetchApiData(apiPath) {
+  return dispatch => {
+    dispatch(requestApiData(apiPath));
+    return fetch(`http://127.0.0.1:3000${apiPath}`)
+      .then(response => response.json())
+      .then(json =>
+        // console.log('About to dispatch receiveApiData') 
+        // console.log(json)
+          dispatch(receiveApiData(apiPath, json))
+        );
+  };
+}
 
-// function fetchPosts(reddit) {
-//   return dispatch => {
-//     dispatch(requestPosts(reddit));
-//     return fetch(`http://www.reddit.com/r/${reddit}.json`)
-//       .then(response => response.json())
-//       .then(json => dispatch(receivePosts(reddit, json)));
-//   };
-// }
+function sendApiData(apiPath, json) {
+  return {
+    type: SEND_API_DATA,
+    apiPath: apiPath,
+    apiData: json, 
+  };
+}
 
+function sendApiDataSuccess(apiPath, json) {
+  return {
+    type: SEND_API_DATA_SUCCESS,
+    apiPath: apiPath,
+    apiData: json,
+    transmitedAt: Date.now()
+  }
+}
+
+function sendApiDataFailure(apiPath, json) {
+  return {
+    type: SEND_API_DATA_FAILURE,
+    apiPath: apiPath,
+    apiData: json,
+    failedAt: Date.now()
+  }
+}
+
+export function postApiData(apiPath, json) {
+  console.log(apiPath)
+  return dispatch => {
+    dispatch(sendApiData(apiPath, json));
+    $.ajax({
+      url: 'http://localhost:3000' + apiPath,
+      dataType: 'json',
+      type: 'POST',
+      data: json,
+      success: function(data) {
+        console.log('post success: ')
+        dispatch(sendApiDataSuccess(apiPath, json));
+      },
+      error: function(xhr, status, err) {
+        console.log('post failure: ')
+        console.log(err)
+        dispatch(sendApiDataFailure(apiPath, json));
+      }
+    });
+  }
+}
 // function shouldFetchPosts(state, reddit) {
 //   const posts = state.postsByReddit[reddit];
 //   if (!posts) {

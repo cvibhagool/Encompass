@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "Redux async example",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dbreset": "node scripts/dbreset.js",
+    "seed": "node scripts/seed.js"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "express": "^4.13.3",
     "express-session": "^1.11.3",
     "isomorphic-fetch": "^2.1.1",
+    "jquery": "^2.1.4",
     "mocha": "^2.3.3",
     "passport": "^0.3.0",
     "passport-facebook": "^2.0.0",

@@ -47,7 +47,7 @@ router.route('/company')
   var investorArray;
   var investor = req.query.investor;
   if (investor){
-    investorArray = {model: db.investor, attributes: ['name'], where: {}, through: {attributes: []}};
+    investorArray = {model: db.Investor, attributes: ['name'], where: {}, through: {attributes: []}};
     if (investor !== 'all'){
       investorArray.where = {name: investor};
     }
@@ -67,6 +67,25 @@ router.route('/company')
 });
 
 //Industry data API
+router.route('/industry/company')
+.get(function (req, res) {
+  if (!req.query.fields){
+    return res.status(404).send('Fields input empty. Try again');
+  }
+  var includeArray = [];
+
+  db.Industry.findAll({
+    attributes: ['name'],
+    include: {model: db.Company, attributes: req.query.fields, where: {}, through: {attributes: []}}
+  }).then(function(industries){
+    res.json(industries);
+  })
+  .catch(function(error){
+    console.log(error);
+    res.status(404).send('Bad fields or other params input. Try again!');
+  });
+});
+
 router.route('/industry')
 .get(function (req, res) {
   db.Industry.findAll({
@@ -81,6 +100,25 @@ router.route('/industry')
 });
 
 //Keyword data API
+router.route('/keyword/company')
+.get(function (req, res) {
+  if (!req.query.fields){
+    return res.status(404).send('Fields input empty. Try again');
+  }
+  var includeArray = [];
+
+  db.Keyword.findAll({
+    attributes: ['name'],
+    include: {model: db.Company, attributes: req.query.fields, where: {}, through: {attributes: []}}
+  }).then(function(keywords){
+    res.json(keywords);
+  })
+  .catch(function(error){
+    console.log(error);
+    res.status(404).send('Bad fields or other params input. Try again!');
+  });
+});
+
 router.route('/keyword')
 .get(function (req, res) {
   db.Keyword.findAll({
@@ -95,6 +133,25 @@ router.route('/keyword')
 });
 
 //Businessmodel data API
+router.route('/businessmodel/company')
+.get(function (req, res) {
+  if (!req.query.fields){
+    return res.status(404).send('Fields input empty. Try again');
+  }
+  var includeArray = [];
+
+  db.BusinessModel.findAll({
+    attributes: ['name'],
+    include: {model: db.Company, attributes: req.query.fields, where: {}, through: {attributes: []}}
+  }).then(function(businessmodels){
+    res.json(businessmodels);
+  })
+  .catch(function(error){
+    console.log(error);
+    res.status(404).send('Bad fields or other params input. Try again!');
+  });
+});
+
 router.route('/businessmodel')
 .get(function (req, res) {
   db.BusinessModel.findAll({
@@ -109,6 +166,25 @@ router.route('/businessmodel')
 });
 
 //Investor data API
+router.route('/investor/company')
+.get(function (req, res) {
+  if (!req.query.fields){
+    return res.status(404).send('Fields input empty. Try again');
+  }
+  var includeArray = [];
+
+  db.Investor.findAll({
+    attributes: ['name'],
+    include: {model: db.Company, attributes: req.query.fields, where: {}, through: {attributes: []}}
+  }).then(function(investors){
+    res.json(investors);
+  })
+  .catch(function(error){
+    console.log(error);
+    res.status(404).send('Bad fields or other params input. Try again!');
+  });
+});
+
 router.route('/investor')
 .get(function (req, res) {
   db.Investor.findAll({

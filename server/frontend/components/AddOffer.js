@@ -21,10 +21,7 @@ export default class AddOffer extends Component {
       estimated_exit_valuation: this.refs.estimated_exit_valuation.value
       // benefits: this.refs.benefits.value
     }
-    console.log(formData)
-    this.props.postApiData({
-      formData
-    }, '/api/offer');
+    this.props.postApiData('/api/offer', formData);
 
     this.refs.company_name.value = '';
     this.refs.position.value = '';
@@ -40,8 +37,6 @@ export default class AddOffer extends Component {
   }
 
   render () {
-    console.log('render - AddOfferForm')
-    console.log(this)
     return (
       <div>
         <h1 id="heading">Add Your Offer</h1>

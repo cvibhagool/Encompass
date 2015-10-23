@@ -96,13 +96,17 @@ content (folder)
     * Example filtered output: `[{name:"Pied Piper",investors:[{name:"Sequoia Capital"}]},....]`
   * Note that fields can be combined with filters
 * Industry Data
-  * GET `data/industry` return all investors
+  * GET `data/industry` return all industries
+  * GET `data/industry/company?fields[]=field1&fields[]=field2.....&fields[]=fieldN`
 * Keyword Data
   * GET `data/keyword` return all keywords
+  * GET `data/keyword/company?fields[]=field1&fields[]=field2.....&fields[]=fieldN`
 * BusinessModel Data
   * GET `data/businessmodel` return all businessmodels
+  * GET `data/businessmodel/company?fields[]=field1&fields[]=field2.....&fields[]=fieldN`
 * Investors
   * GET `data/investor` return all investors
+  * GET `data/investor/company?fields[]=field1&fields[]=field2.....&fields[]=fieldN`
 
 ###Database Tables
 * `BusinessModels`

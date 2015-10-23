@@ -2,52 +2,13 @@ import React, { PropTypes, Component } from 'react';
 
 export default class AddOffer extends Component {
  
-  handleFormSubmit (formData) {
-    var offers = this.state.data;
-    var newOffers = offers.concat([formData]);
-    this.setState({data: newOffers});
-    console.log('handFormSubmit invoked with this data: ')
-    console.log(this)
-
-    $.ajax({
-      url: '/api/offer',
-      dataType: 'json',
-      type: 'POST',
-      data: formData,
-      success: function(data) {
-        console.log('AddOffer Success')
-        this.setState({data: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log('AddOffer Error')
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  }
-
   getInitialState () {
-    console.log(this)
     return {data: []};
   }
 
-  render () {
-    console.log(this)
-    return (
-      <div>
-        <h1>Offers</h1>
-        <AddOfferForm onFormSubmit={this.handleFormSubmit.bind(this)} />
-      </div>
-    )
-  }
-};
-
-
-export default class AddOfferForm extends Component {
-
   handleSubmit (e) {
     e.preventDefault();
-    console.log(this)
-    this.props.onFormSubmit({
+    let formData = {
       company_name: this.refs.company_name.value.trim(),
       position: this.refs.position.value.trim(),
       salary: this.refs.salary.value,
@@ -59,7 +20,11 @@ export default class AddOfferForm extends Component {
       last_financing_round_valuation: this.refs.last_financing_round_valuation.value,
       estimated_exit_valuation: this.refs.estimated_exit_valuation.value
       // benefits: this.refs.benefits.value
-    });
+    }
+    console.log(formData)
+    this.props.postApiData({
+      formData
+    }, '/api/offer');
 
     this.refs.company_name.value = '';
     this.refs.position.value = '';
@@ -75,6 +40,7 @@ export default class AddOfferForm extends Component {
   }
 
   render () {
+    console.log('render - AddOfferForm')
     console.log(this)
     return (
       <div>

@@ -40,28 +40,8 @@ export function fetchApiData(apiPath) {
         // console.log('About to dispatch receiveApiData') 
         // console.log(json)
           dispatch(receiveApiData(apiPath, json))
-        );
-
-function receiveApiData(apiPath, json) {
-  return {
-    type: RECEIVE_API_DATA,
-    apiPath: apiPath,
-    apiData: json,
-    receivedAt: Date.now()
-  };
-}
-
-export function fetchApiData(apiPath) {
-  return dispatch => {
-    dispatch(requestApiData(apiPath));
-    return fetch(`http://127.0.0.1:3000${apiPath}`)
-      .then(response => response.json())
-      .then(json =>
-        // console.log('About to dispatch receiveApiData') 
-        // console.log(json)
-          dispatch(receiveApiData(apiPath, json))
-        );
-  };
+      );
+  }
 }
 
 function sendApiData(apiPath, json) {

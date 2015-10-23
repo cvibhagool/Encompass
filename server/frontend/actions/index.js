@@ -4,6 +4,8 @@ import $      from 'jquery';
 export const SHOW_PAGE = 'SHOW_PAGE';
 export const REQUEST_API_DATA = 'REQUEST_API_DATA';
 export const RECEIVE_API_DATA = 'RECEIVE_API_DATA';
+export const RECEIVE_API_DATA_SUCCESS = 'RECEIVE_API_DATA_SUCCESS';
+export const RECEIVE_API_DATA_FAILURE = 'RECEIVE_API_DATA_FAILURE';
 export const SEND_API_DATA = 'SEND_API_DATA';
 export const SEND_API_DATA_SUCCESS = 'SEND_API_DATA_SUCCESS';
 export const SEND_API_DATA_FAILURE = 'SEND_API_DATA_FAILURE';
@@ -22,25 +24,41 @@ function requestApiData(apiPath) {
   };
 }
 
-function receiveApiData(apiPath, json) {
+function receiveApiDataSuccess(apiPath, json) {
   return {
-    type: RECEIVE_API_DATA,
+    type: RECEIVE_API_DATA_SUCCESS,
     apiPath: apiPath,
     apiData: json,
     receivedAt: Date.now()
   };
 }
 
+function receiveApiDataFailure(apiPath, json) {
+  return {
+    type: RECEIVE_API_DATA_FAILURE,
+    apiPath: apiPath,
+    apiData: json,
+    failedAt: Date.now()
+  };
+}
+
 export function fetchApiData(apiPath) {
   return dispatch => {
     dispatch(requestApiData(apiPath));
-    return fetch(`http://localhost:3000${apiPath}`)
-      .then(response => response.json())
-      .then(json =>
-        // console.log('About to dispatch receiveApiData') 
-        // console.log(json)
-          dispatch(receiveApiData(apiPath, json))
-      );
+    $.ajax({
+      url: 'http://localhost:3000' + apiPath,
+      dataType: 'json',
+      type: 'GET',
+      success: function(data) {
+        console.log('GET success:');
+        dispatch(receiveApiDataSuccess(apiPath, data));
+      },
+      error: function(xhr, status, err) {
+        console.log('GET failure:');
+        console.log(err);
+        dispatch(receiveApiDataFailure(apiPath, data));
+      }
+    });   
   }
 }
 
@@ -57,7 +75,7 @@ function sendApiDataSuccess(apiPath, json) {
     type: SEND_API_DATA_SUCCESS,
     apiPath: apiPath,
     apiData: json,
-    transmitedAt: Date.now()
+    postedAt: Date.now()
   }
 }
 
@@ -71,8 +89,6 @@ function sendApiDataFailure(apiPath, json) {
 }
 
 export function postApiData(apiPath, json) {
-  console.log(typeof json)
-  console.log(json)
   return dispatch => {
     dispatch(sendApiData(apiPath, json));
     $.ajax({
@@ -81,13 +97,13 @@ export function postApiData(apiPath, json) {
       type: 'POST',
       data: json,
       success: function(data) {
-        console.log('post success: ')
-        dispatch(sendApiDataSuccess(apiPath, json));
+        console.log('POST success:')
+        dispatch(sendApiDataSuccess(apiPath, data));
       },
       error: function(xhr, status, err) {
-        console.log('post failure: ')
+        console.log('POST failure:')
         console.log(err)
-        dispatch(sendApiDataFailure(apiPath, json));
+        dispatch(sendApiDataFailure(apiPath, data));
       }
     });
   }

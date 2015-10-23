@@ -22,7 +22,6 @@ var callBackFunctionGenerator = function (provider) {
 //Local signup Route
 router.route('/signup')
   .post(function (req, res) {
-    console.log('Signing up user...');
     db.User.findOrCreate({
       where: {
         username: req.body.username,

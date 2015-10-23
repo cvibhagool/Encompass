@@ -16,29 +16,6 @@ export default class CompanyProfile extends Component {
       dataType: 'json',
       success: function(data) {
         this.setState({data: data})
-        //   [
-        //   data.id,
-        //   data.name,
-        //   data.website,
-        //   data.growth_score,
-        //   data.mindshare_score,
-        //   data.custom_score,
-        //   data.weekly_momentum,
-        //   data.employees,
-        //   data.employees_mom,
-        //   data.monthly_unique,
-        //   data.monthly_unique_mom,
-        //   data.founding_date,
-        //   data.stage,
-        //   data.total_funding,
-        //   data.last_funding_date,
-        //   data.city,
-        //   data.state,
-        //   data.country,
-        //   data.createdAt,
-        //   data.updatedAt
-        // ]
-      // })
       }.bind(this),
       error: function(xhr, status, err) {
         console.log('Error:');
@@ -48,7 +25,6 @@ export default class CompanyProfile extends Component {
   }
 
   render() {
-    console.log(this.state.data)
     return (
       <ul>
         { _.map(this.state.data, function(val, ind) {

@@ -16,12 +16,12 @@ export default class Parallel extends Component {
       var company = apiData[i];
       var industries = company.Industries;
       for (var j = 0; j < industries.length; j++) {
-        intermediate[industries[j]] = intermediate[industries[j]] || {
+        intermediate[industries[j].name] = intermediate[industries[j].name] || {
           employees_mom: {count:0, sum: 0}, 
           employees: {count:0, sum: 0}, 
           total_funding: {count: 0, sum: 0}
         };
-        var industry = intermediate[industries[j]];
+        var industry = intermediate[industries[j].name];
         if (company['employees_mom'] !== null) {
           var emom = company['employees_mom'];
           industry['employees_mom'].count++;
@@ -51,12 +51,10 @@ export default class Parallel extends Component {
       out.push(summary);
     }
 
-    console.log('inter ', intermediate);
     return out;
   }
 
   doD3(d3Node) {
-    console.log('special', d3Node);
         
     d3.json('http://localhost:3000/data/company?industry=all&fields[]=employees_mom&fields[]=employees&fields[]=total_funding', function(data) {
       var colorgen = d3.scale.ordinal()
@@ -68,9 +66,6 @@ export default class Parallel extends Component {
 
       var color = function(d) { return colorgen(d.Industry); };
 
-      console.log('length: ', summaryData.length);
-      console.log(data[0]);
-
       var parcoords = d3.parcoords()(d3Node)
         .data(summaryData)
         //.hideAxis(["name"])
@@ -80,7 +75,8 @@ export default class Parallel extends Component {
         .margin({ top: 24, left: 150, bottom: 12, right: 0 })
         .mode("queue")
         .render()
-        .brushMode("1D-axes");  // enable brushing
+        .brushMode("1D-axes")
+        .reorderable();  
 
       parcoords.svg.selectAll("text")
         .style("font", "10px sans-serif");
@@ -92,7 +88,7 @@ export default class Parallel extends Component {
   render() {
 
     
-    var divStyle = {width: "1300px", height: "1080px"};
+    var divStyle = {width: "1300px", height: "600px"};
 
 
 

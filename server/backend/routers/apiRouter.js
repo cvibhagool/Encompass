@@ -45,7 +45,7 @@ router.route('/offer')
         return res.end();
       }
       //Build a model instance, but not save it to database yet.
-      var newOffer = db.Offer.build({
+      var newOffer = db.Offer.create({
         position: req.body.position,
         salary: req.body.salary,
         equity: req.body.equity,
@@ -56,12 +56,17 @@ router.route('/offer')
         other_benefits : req.body.other_benefits,
         last_financing_round_valuation : req.body.last_financing_round_valuation,
         estimated_exit_valuation : req.body.estimated_exit_valuation
-      });
-      newOffer.setCompany(company);
-      newOffer.save()
-      .then(function (offer) {
+      }).then(function(newOffer){
+        //Associate offer to a company
+        newOffer.setCompany(company);
+        //Associate offer to a logged in user
+        if (req.user){
+          newOffer.setUser(req.user);
+        } else {
+          console.log("Warning.. Offer created without a user");
+        }
         console.log('Offer has been saved to the database');
-        res.json(offer);
+        res.json(newOffer);
       });
     });
 });

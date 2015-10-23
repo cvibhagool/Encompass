@@ -4,7 +4,6 @@ import { TabList } from '../constants';
 
 export default class Tabs extends Component {
   handleClick(tab) {
-    console.log('Tabs.handleClick');
     this.props.changeTab(tab);
   }
 

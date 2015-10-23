@@ -6,7 +6,7 @@ import App from './containers/App';
 import configureStore from './store/configureStore';
 
 //Set the initial state and initialize the store with the initial state
-const initialState = {pageReducer: {currentPage: 1}};
+const initialState = {page: {currentPage: 1}};
 const store = configureStore(initialState);
 
 render(

@@ -6,6 +6,9 @@ import SearchCompany from '../components/SearchCompany';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 
+// to be deleted
+import CompanyProfile from '../components/CompanyProfile.js';
+
 export default class ContentPage extends Component {
   getApiData(apiPath) {
     this.props.fetchApiData(apiPath);
@@ -29,6 +32,8 @@ export default class ContentPage extends Component {
         <div className="content" > {this.props.pageState.currentPage === 5 ? <Login postApiData={this.postApiData.bind(this)}/> : null }</div>
         
         <div className="content" > {this.props.pageState.currentPage === 6 ? <Signup postApiData={this.postApiData.bind(this)}/> : null }</div>
+
+        <div className="content" > {this.props.pageState.currentPage === 7 ? <CompanyProfile /> : null }</div>
       </div>
     );
   }

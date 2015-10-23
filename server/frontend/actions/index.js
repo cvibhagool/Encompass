@@ -34,7 +34,7 @@ function receiveApiData(apiPath, json) {
 export function fetchApiData(apiPath) {
   return dispatch => {
     dispatch(requestApiData(apiPath));
-    return fetch(`http://127.0.0.1:3000${apiPath}`)
+    return fetch(`http://localhost:3000${apiPath}`)
       .then(response => response.json())
       .then(json =>
         // console.log('About to dispatch receiveApiData') 
@@ -49,7 +49,7 @@ function sendApiData(apiPath, json) {
     type: SEND_API_DATA,
     apiPath: apiPath,
     apiData: json, 
-  };
+  }
 }
 
 function sendApiDataSuccess(apiPath, json) {
@@ -71,7 +71,8 @@ function sendApiDataFailure(apiPath, json) {
 }
 
 export function postApiData(apiPath, json) {
-  console.log(apiPath)
+  console.log(typeof json)
+  console.log(json)
   return dispatch => {
     dispatch(sendApiData(apiPath, json));
     $.ajax({
@@ -91,21 +92,4 @@ export function postApiData(apiPath, json) {
     });
   }
 }
-// function shouldFetchPosts(state, reddit) {
-//   const posts = state.postsByReddit[reddit];
-//   if (!posts) {
-//     return true;
-//   }
-//   if (posts.isFetching) {
-//     return false;
-//   }
-//   return posts.didInvalidate;
-// }
 
-// export function fetchPostsIfNeeded(reddit) {
-//   return (dispatch, getState) => {
-//     if (shouldFetchPosts(getState(), reddit)) {
-//       return dispatch(fetchPosts(reddit));
-//     }
-//   };
-// }

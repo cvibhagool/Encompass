@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import * as parcoords from './lib/d3.parcoords.js';
 
+import {CircularProgress} from 'material-ui';
+
 export default class Parallel extends Component {
   constructor() {
     super();
-    this.state = {}
+    this.state = {dataLoaded: false}
   }
 
   summarize(apiData) {
@@ -60,6 +62,9 @@ export default class Parallel extends Component {
   doD3(d3Node) {
         
     d3.json('http://localhost:3000/data/company?industry=all&fields[]=employees_mom&fields[]=employees&fields[]=total_funding', function(data) {
+     
+      this.setState({dataLoaded: true});  
+        
       var colorgen = d3.scale.ordinal()
         .range(["#a6cee3","#1f78b4","#b2df8a","#33a02c",
             "#fb9a99","#e31a1c","#fdbf6f","#ff7f00",
@@ -82,7 +87,7 @@ export default class Parallel extends Component {
         .reorderable();  
 
       parcoords.svg.selectAll("text")
-        .style("font", "10px sans-serif");
+        .style("font", "10px");
       
     }.bind(this));
 
@@ -94,10 +99,11 @@ export default class Parallel extends Component {
     var divStyle = {width: "1600px", height: "800px"};
 
 
-
     return (
       <div>
-        <div style={divStyle} id="example" className="parcoords" ref={(ref) =>  this.doD3(ReactDOM.findDOMNode(ref))}></div>
+        <div style={divStyle} id="example" className="parcoords" ref={(ref) =>  this.doD3(ReactDOM.findDOMNode(ref))}>
+          {!this.state.dataLoaded ? <CircularProgress mode="indeterminate" size={1.5} /> : ''}
+        </div>
       </div>
     )
 

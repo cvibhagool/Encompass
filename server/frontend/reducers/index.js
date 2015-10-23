@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
   SHOW_PAGE,
   REQUEST_API_DATA,
-  RECEIVE_API_DATA,
+  RECEIVE_API_DATA_SUCCESS,
+  RECEIVE_API_DATA_FAILURE,
   SEND_API_DATA,
   SEND_API_DATA_SUCCESS,
   SEND_API_DATA_FAILURE
@@ -30,11 +31,17 @@ function api(state = {
 				isFetching: true
 			});
 
-		case RECEIVE_API_DATA:
+		case RECEIVE_API_DATA_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: false,
 				apiData: action.apiData
 			});
+
+		case RECEIVE_API_DATA_FAILURE:
+			return Object.assign({}, state, {
+				isFetching: false,
+				apiData: null
+			})
 
 		case SEND_API_DATA:
 	  	return Object.assign({}, state, {

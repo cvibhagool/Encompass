@@ -11,7 +11,8 @@ var callBackFunctionGenerator = function (provider) {
       } else {
         //Auto login user
         req.login(user, function(err){
-          return res.redirect('/');
+          var userJSON = {username: user.username};
+          res.json(userJSON);
         });
       }
     })(req, res, next);
@@ -37,7 +38,8 @@ router.route('/signup')
       }
       //Auto login user
       req.login(user, function(err){
-        return res.redirect('/');
+        var userJSON = {username: user.username};
+        res.json(userJSON);
       });
     });
 });

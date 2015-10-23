@@ -26,7 +26,7 @@ export default class ContentPage extends Component {
         
         <div className="content" > {this.props.pageState.currentPage === 4 ? <SearchCompany /> : null }</div>
         
-        <div className="content" > {this.props.pageState.currentPage === 5 ? <Login /> : null }</div>
+        <div className="content" > {this.props.pageState.currentPage === 5 ? <Login postApiData={this.postApiData.bind(this)}/> : null }</div>
         
         <div className="content" > {this.props.pageState.currentPage === 6 ? <Signup /> : null }</div>
       </div>

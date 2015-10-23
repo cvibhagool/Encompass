@@ -11,14 +11,14 @@ export default class Landing extends Component {
     this.state = {data: []}
   }
 
-  componentDidMount() {
-    d3.json('http://localhost:3000/data/company?fields[]=employees_mom&fields[]=employees', function(error, data) {
-      if (error) console.log(error);
+  // componentDidMount() {
+  //   d3.csv('nutrients.csv', function(error, data) {
+  //     if (error) console.log(error);
 
-      this.setState({data: data});
-      console.log(data.length);
-    }.bind(this));
-  }
+  //     this.setState({data: data});
+  //     console.log('in Landing: ', data.length);
+  //   }.bind(this));
+  // }
 
   render() {
     return (

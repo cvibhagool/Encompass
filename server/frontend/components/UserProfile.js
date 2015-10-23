@@ -14,9 +14,10 @@ export default class UserProfile extends Component {
     		{isFetching &&
     		  	<h2>Loading...</h2>
     		}
-    		{apiData && Object.keys(apiData).map(function(key) {
-    			return <div key={key}>{key}: {apiData[key]}</div>; 
-    		})}
+    		{apiData && _.map(apiData, function(val, ind) {
+            return <div key={ind}>{ind}: {val}</div>; 
+          })
+        }
     	</div>
     );
   }

@@ -3,6 +3,9 @@ import {
   SHOW_PAGE,
   REQUEST_API_DATA,
   RECEIVE_API_DATA
+  SEND_API_DATA,
+  SEND_API_DATA_SUCCESS,
+  SEND_API_DATA_FAILURE
 } from '../actions';
 
 function page(state = {}, action) {
@@ -32,6 +35,23 @@ function api(state = {
 				isFetching: false,
 				apiData: action.apiData
 			});
+
+		case SEND_API_DATA:
+	  	return Object.assign({}, state, {
+	  		isSending: true
+	  	});
+
+	  case SEND_API_DATA_SUCCESS:
+	  	return Object.assign({}, state, {
+	  		isSending: false,
+	  		apiData: action.apiData
+	  	});
+
+	  case SEND_API_DATA_FAILURE:
+	  	return Object.assign({}, state, {
+	  		isSending: false,
+	  		apiData: null
+	  	});
 
 		default:
 			return state;

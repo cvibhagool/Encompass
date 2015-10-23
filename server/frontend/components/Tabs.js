@@ -1,26 +1,31 @@
 import React, { PropTypes, Component } from 'react';
-import Tab from './Tab';
+//import ETab from './Tab';
 import { TabList } from '../constants';
+import { Tab, Tabs } from 'material-ui';
 
-export default class Tabs extends Component {
+
+export default class ETabs extends Component {
   handleClick(tab) {
     this.props.changeTab(tab);
   }
 
   render() {
     return (
-      <ul>
+      <div>  
+      <Tabs>
         { TabList.map(function(tab) {
           return (
             <Tab 
               key={tab.id} 
               url={tab.url} 
-              handleClick={this.handleClick.bind(this, tab)} 
-              name={tab.name} />
+              onClick={this.handleClick.bind(this, tab)} 
+              label={tab.name}></Tab>
+              
           );
         }.bind(this))
       }
-      </ul>
+      </Tabs>
+      </div>
     );
   }
 }

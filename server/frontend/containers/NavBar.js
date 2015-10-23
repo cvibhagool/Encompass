@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import Tabs from '../components/Tabs';
+import ETabs from '../components/Tabs';
 
 export default class NavBar extends Component {
   changeTab(tab) {
@@ -9,7 +9,7 @@ export default class NavBar extends Component {
   render() {
     return (
       <div id='nav-bar'>
-        <Tabs changeTab={this.changeTab.bind(this)} />
+        <ETabs changeTab={this.changeTab.bind(this)} />
       </div>
     );
   }

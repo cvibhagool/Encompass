@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
-var app = require('../server/server.js');
+var app = require('../server.js');
+var db = require('../backend/models/index');
 var request = require('request');
 
 
@@ -7,37 +8,41 @@ var newOfferId;
 var uberId;
 
 describe('Encompass API Integration Tests', function () {
+  // Allow higher timeout
+  this.timeout(100000);
 
-  beforeEach(function () {
-    //  
-  });
-
-  afterEach(function () {
-    //
+  //Seed the Test Database
+  before(function (done) {
+    var company = {name: 'Pied Piper'};
+    db.Company.findOrCreate({ where : company })
+    .then(function(){
+      done();
+    });
   });
 
   it('can create a user via POST request at /auth/signup', function (done) {
+    this.timeout(100000);
     var requestParams = {
       method: 'POST',
       uri: 'http://localhost:3000/auth/signup',
       json: {
-        username: 'new',
-        password: '1234'}
+        username: 'Richard Hendricks',
+        password: '123456'}
     };
-
     request(requestParams, function(error, res, body) {
-        //Right now returns an error because no index.html is served.  Currently just assume that this POST request works
+        expect(res.body.username).to.equal('Richard Hendricks');
         done();
       });
   });
 
   it('can delete a user via DELETE request at /auth/delete', function (done) {
+    this.timeout(100000);
     var requestParams = {
       method: 'DELETE',
       uri: 'http://localhost:3000/auth/delete',
       json: {
-        username: 'new',
-        password: '1234'}
+        username: 'Richard Hendricks',
+        password: '123456'}
     };
 
     request(requestParams, function(error, res, body) {
@@ -47,8 +52,9 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can create a new offer via POST request at /api/offer', function (done) {
+    this.timeout(100000);
     var newOffer = {
-      company_name: 'Uber',
+      company_name: 'Pied Piper',
       position: 'Backend Engineer',
       salary: 130000,
       equity: 0.05,
@@ -77,6 +83,7 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can retrieve an existing offer via GET request at /offer/:offerId', function (done) {
+    this.timeout(100000);
     var requestParams = {
       method: 'GET',
       uri: 'http://localhost:3000/api/offer/' + newOfferId
@@ -91,6 +98,7 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can retrieve an existing company by its id number via GET request at /company/:companyId', function (done) {
+    this.timeout(100000);
     var requestParams = {
       method: 'GET',
       uri: 'http://localhost:3000/api/company/' + uberId
@@ -98,13 +106,13 @@ describe('Encompass API Integration Tests', function () {
     
     request(requestParams, function(error, res, body) {
       var retrievedCompany = JSON.parse(body);
-      expect(retrievedCompany.name).to.equal('Uber');
+      expect(retrievedCompany.name).to.equal('Pied Piper');
       done();
     });
   });
 
   it('can add a company to a user\'s followed companies via POST request at /company/follow/:companyId', function (done) {
+    this.timeout(100000);
     done();
   });
-
 });

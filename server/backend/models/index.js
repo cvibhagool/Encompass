@@ -5,11 +5,20 @@ var environment = process.env.NODE_ENV || 'development';
 var config = require('../config/db/config.json')[environment];
 var sequelize;
 
-if (environment === 'production') {
-  sequelize = new Sequelize(config.database);
+//Set up production/test server
+if (environment === 'production'){
+  sequelize = new Sequelize(config.database,{
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: true
+    },
+    logging: false
+  });
+//Set up development
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
+
 var db = {};
 
 fs.readdirSync(__dirname).filter(function(file) {

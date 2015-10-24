@@ -5,10 +5,16 @@ var db = require('../models/index');
 var passport = require('../auth/passport');
 
 //Sync the database on server start
-db.sequelize.sync({force: false})
-.then(function(){
-  console.log("Database synced!");
-});
+if (process.env.NODE_ENV !== 'test'){
+  console.log("Database syncing...");
+  db.sequelize.sync({force: false})
+  .then(function(){
+    console.log("Database synced!");
+  })
+  .catch(function(err){
+    console.log("Database start error!",err);
+  });
+}
 
 module.exports = function (app, express) {
   //Function for authenticating routes

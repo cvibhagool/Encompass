@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { TextField, RaisedButton } from 'material-ui';
 
 export default class Signup extends Component {
   getInitialState () {
@@ -8,34 +9,32 @@ export default class Signup extends Component {
   handleSubmit (e) {
     e.preventDefault();
     let formData = {
-      username: this.refs.username.value.trim(),
-      password: this.refs.password.value.trim()
+      username: this.refs.username.getValue().trim(),
+      password: this.refs.password.getValue().trim()
     };
 
     this.props.postApiData('/auth/signup', formData);
 
-    this.refs.username.value = '';
-    this.refs.password.value = '';
+    this.refs.username.setValue('');
+    this.refs.password.setValue('');
   }
 
   render() {
     return (
     <div>
-        <h1 id="heading">Sign Up</h1>
-        <form action="" onSubmit={this.handleSubmit.bind(this)}>
-        <div className="form-group">
-          <label htmlFor="login-username">Username</label>
-          <input className="form-control" name="username" ref="username" type="text" />
+      <h1 id="heading">Sign Up</h1>
+      <form action="" onSubmit={this.handleSubmit.bind(this)}>
+        <div>
+          <TextField hintText="" floatingLabelText="Username" ref="username"/>
+        </div>
+        <div>
+          <TextField hintText="" floatingLabelText="Password" type="password" ref="password"/>
         </div>
 
         <div className="form-group">
-          <label htmlFor="login-password">Password</label>
-          <input className="form-control" name="password" ref="password" type="password" />
+          <RaisedButton label="Login" primary={true} type="submit"/>
         </div>
 
-        <div className="form-group">
-          <button className="btn btn-primary" type="submit">Login</button>
-        </div>
       </form>
       <a href="auth/facebook">Sign up with Facebook</a>
     </div>

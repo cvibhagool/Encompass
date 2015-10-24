@@ -43,7 +43,7 @@ export default class UserProfile extends Component {
               { /* instantiate/invoke/import the MyCompanies subview and pass it the companies that this logged-in user currently follows */ }
               <MyCompanies apiData={this.props.apiData.companies} fetchApiData={this.props.fetchApiData.companies.bind(this)} />
 
-              { /* } instantiate/invoke/import the MyOffers subview and pass it the offers that this logged-in user has entered previously */ }
+              { /* instantiate/invoke/import the MyOffers subview and pass it the offers that this logged-in user has entered previously */ }
               <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.offers.bind(this)} />
 
             </div>);

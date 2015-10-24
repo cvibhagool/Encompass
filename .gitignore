@@ -35,3 +35,6 @@ oauth-config.json
 
 #Seed data
 seedData.json
+
+# eslintrc
+.eslintrc

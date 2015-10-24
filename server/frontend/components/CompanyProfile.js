@@ -21,7 +21,8 @@ export default class CompanyProfile extends Component {
     const { apiData } = this.props;
     return (
       <ul>
-        { apiData && _.map(apiData, function(val, ind) {
+        { apiData.employees && 
+          _.map(apiData, function(val, ind) {
             return (<li key={ind}>{ind}: {val}</li>);
           })
         }

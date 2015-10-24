@@ -7,8 +7,12 @@
     "dialect": "postgres",
     "logging": false
   },
-  "production": {
-    "database": "",
+  "test": {
+    "database": "travis_ci_test",
+    "username": "postgres",
+    "password": "",
+    "host": "localhost",
+    "dialect": "postgres",
     "logging": false
   }
 }

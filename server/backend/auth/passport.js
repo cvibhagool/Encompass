@@ -1,7 +1,12 @@
 var passport = require('passport');
 var db = require('../models/index.js');
 var environment = process.env.NODE_ENV || 'development';
-var config = require('./oauth-config')[environment];
+var config;
+if (environment === 'test'){
+  config = require('./oauth-config-test')[environment];
+} else{
+  config = require('./oauth-config')[environment];
+}
 var strategy = {
   local       : require('passport-local').Strategy,
   facebook    : require('passport-facebook').Strategy,

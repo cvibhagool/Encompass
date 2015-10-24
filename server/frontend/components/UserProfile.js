@@ -1,3 +1,5 @@
+// this view is the user's profile page /#/profile
+
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 
@@ -18,30 +20,41 @@ export default class UserProfile extends Component {
   }
 
   // GET request for when page loads for our user data & subview components
+
   componentDidMount() {
     this.props.fetchApiData(userPath);
-    this.setState({ data: })
-    this.limitToOffers();
+    // this.setState({ data: })
+    // this.limitToOffers();
     // this.props.fetchApiData(myOffersPath);
     // this.props.fetchApiData(myCompaniesPath);
   }
 
-  limitToOffers
+  test () {
+    console.log()
+  }
 
 
   render() {
 
-    // not sure what this does
+    not sure what this does
   	const { apiData, isFetching } = this.props;
     
     return (<div>
               <h1>H1 Testing</h1>
+
+              // giving an error: 
+              // Uncaught TypeError: Cannot read property 'apiData' of undefined
+               <MyCompanies apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)} />
+              <MyOffers apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)} />
+
+              // this works:
+                // <MyCompanies />
+                // <MyOffers />
+
             	<ul>
             		{isFetching &&
             		  	<h2>Loading...</h2>
             		}
-                <MyCompanies />
-                <MyOffers />
             		{apiData && _.map(apiData, function(val, ind) {
                     return <li key={ind}>{ind}: {val}</li>; 
                   })
@@ -50,6 +63,7 @@ export default class UserProfile extends Component {
             </div>);
   }
 }
+
 
 // header will be persons name
 // sub window of all the companies they follow (component FollowedCompanies)

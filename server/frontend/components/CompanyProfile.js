@@ -1,11 +1,9 @@
 import React, { ProtoTypes, Component } from 'react';
-import $                                from 'jquery';
 import _                                from 'lodash';
 
-export default class CompanyProfile extends Component {
+const companyPath = '/api/company/1';
 
-  var companyPath = '/api/company/1';
-  var userPath = '/api/company/1';
+export default class CompanyProfile extends Component {
 
   constructor () {
     super();
@@ -17,6 +15,8 @@ export default class CompanyProfile extends Component {
   }
 
   render() {
+    const { apiData } = this.props;
+
     return (
       <ul>
         { apiData && _.map(apiData, function(val, ind) {

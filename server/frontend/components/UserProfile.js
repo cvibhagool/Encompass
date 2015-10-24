@@ -1,10 +1,11 @@
-// this view is the user's profile page /#/profile
+// this file is the user's profile page /#/profile
+// its parent is ContentPage.js
 
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 
-// import subviews
+// import subviews/children
 import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
 
@@ -26,25 +27,25 @@ export default class UserProfile extends Component {
     this.props.fetchApiData(userPath);
   }
 
-  test () {
-    console.log()
-  }
-
-
   render() {
-
     return (<div>
+
               <h1>H1 Testing</h1>
 
-              <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
-              <MyOffers apiData={this.props.apiData} />
-
+              { /* iterate over the user's profile info and display it on the page */ }
             	<ul>
-            		{this.props.apiData && _.map(this.props.apiData, function(val, ind) {
+            		{this.props.apiData.user && _.map(this.props.apiData.user, function(val, ind) {
                     return <li key={ind}>{ind}: {val}</li>; 
                   })
                 }
             	</ul>
+
+              { /* instantiate/invoke/import the MyCompanies subview and pass it the companies that this logged-in user currently follows */ }
+              <MyCompanies apiData={this.props.apiData.companies} fetchApiData={this.props.fetchApiData.companies.bind(this)} />
+
+              { /* instantiate/invoke/import the MyOffers subview and pass it the offers that this logged-in user has entered previously */ }
+              <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.offers.bind(this)} />
+
             </div>);
   }
 }

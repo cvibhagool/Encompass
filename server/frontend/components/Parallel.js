@@ -14,6 +14,10 @@ export default class Parallel extends Component {
   summarize(apiData) {
     var intermediate = {};
 
+    // this code is to sift through the data, which comes in by company, and
+    // compute summary data for industries. We loop through every company, then
+    // keep track of industry counts in an object, from which we compute the means
+    // at the end
     for (var i = 0; i < apiData.length; i++) {
       var company = apiData[i];
       var industries = company.Industries;
@@ -78,7 +82,7 @@ export default class Parallel extends Component {
         .data(summaryData)
         //.hideAxis(["name"])
         .color(color)
-        .alpha(0.25)
+        .alpha(0.35)
         .composite("darken")
         .margin({ top: 24, left: 150, bottom: 12, right: 0 })
         .mode("queue")
@@ -87,17 +91,16 @@ export default class Parallel extends Component {
         .reorderable();  
 
       parcoords.svg.selectAll("text")
-        .style("font", "10px");
+        .style("font", "8px");
       
     }.bind(this));
 
   }
 
+  
   render() {
-
     
-    var divStyle = {width: "1600px", height: "800px"};
-
+    var divStyle = {width: "1600px", height: "900px"};
 
     return (
       <div>

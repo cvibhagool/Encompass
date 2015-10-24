@@ -8,7 +8,7 @@ export const TabList = [
   { 'id': 7, 'name': 'Company Profile', 'url': '/#/company-profile' }
 ];
 
-export const CompanyNames = [{"name":"Hewlett-Packard","id":1},
+export const Companies = [{"name":"Hewlett-Packard","id":1},
 {"name":"Google","id":2},
 {"name":"Intel","id":3},
 {"name":"Apple","id":4},

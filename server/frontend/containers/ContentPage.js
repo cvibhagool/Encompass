@@ -39,7 +39,7 @@ export default class ContentPage extends Component {
         
         <div className="content" > {this.props.pageState.currentPage === 3 ? <AddOffer apiData={this.props.apiState.apiData} postApiData={this.postApiData.bind(this)} /> : null }</div>
         
-        <div className="content" > {this.props.pageState.currentPage === 4 ? <SearchCompany apiData={this.props.apiState.apiData} getApiData={this.getApiData.bind(this)}/> : null }</div>
+        <div className="content" > {this.props.pageState.currentPage === 4 ? <SearchCompany apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)}/> : null }</div>
         
         <div className="content" > {this.props.pageState.currentPage === 5 ? <Login postApiData={this.postApiData.bind(this)}/> : null }</div>
         

@@ -21,7 +21,7 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can create a user via POST request at /auth/signup', function (done) {
-    this.timeout(6000);
+    this.timeout(100000);
     var requestParams = {
       method: 'POST',
       uri: 'http://localhost:3000/auth/signup',
@@ -36,7 +36,7 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can delete a user via DELETE request at /auth/delete', function (done) {
-    this.timeout(6000);
+    this.timeout(100000);
     var requestParams = {
       method: 'DELETE',
       uri: 'http://localhost:3000/auth/delete',
@@ -52,7 +52,7 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can create a new offer via POST request at /api/offer', function (done) {
-    this.timeout(6000);
+    this.timeout(100000);
     var newOffer = {
       company_name: 'Pied Piper',
       position: 'Backend Engineer',
@@ -83,7 +83,7 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can retrieve an existing offer via GET request at /offer/:offerId', function (done) {
-    this.timeout(6000);
+    this.timeout(100000);
     var requestParams = {
       method: 'GET',
       uri: 'http://localhost:3000/api/offer/' + newOfferId
@@ -98,7 +98,7 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can retrieve an existing company by its id number via GET request at /company/:companyId', function (done) {
-    this.timeout(6000);
+    this.timeout(100000);
     var requestParams = {
       method: 'GET',
       uri: 'http://localhost:3000/api/company/' + uberId
@@ -112,7 +112,7 @@ describe('Encompass API Integration Tests', function () {
   });
 
   it('can add a company to a user\'s followed companies via POST request at /company/follow/:companyId', function (done) {
-    this.timeout(6000);
+    this.timeout(100000);
     done();
   });
 });

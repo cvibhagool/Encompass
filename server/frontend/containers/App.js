@@ -37,11 +37,11 @@ class App extends Component {
 
   render() {
     //This gets injected by the connect() call
-    const { dispatch, page, api} = this.props;
+    const { dispatch, page, api } = this.props;
     return (
       <div id='app-view'>
         <NavBar onTabClick={tabName => dispatch(showPage(tabName))} />
-        <ContentPage fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} apiState={api} postApiData={(apiPath, json) => dispatch(postApiData(apiPath, json))} pageState={page}/>
+        <ContentPage fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} apiState={api} postApiData={(apiPath, json) => dispatch(postApiData(apiPath, json))} pageState={page} />
       </div>
     );
   }

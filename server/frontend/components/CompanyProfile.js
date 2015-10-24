@@ -1,32 +1,25 @@
 import React, { ProtoTypes, Component } from 'react';
-import $                                from 'jquery';
 import _                                from 'lodash';
 
+const companyPath = '/api/company/1';
+
 export default class CompanyProfile extends Component {
+
   constructor () {
     super();
     this.state = { data: {} };
   }
 
   componentDidMount () {
-    $.ajax({
-      url: '/api/company/1',
-      // url: '/api/company/' + this.props.companyId,
-      dataType: 'json',
-      success: function(data) {
-        this.setState({data: data})
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log('Error:');
-        console.log(err);
-      }
-    });
+    this.props.fetchApiData(companyPath);
   }
 
   render() {
+    const { apiData } = this.props;
+
     return (
       <ul>
-        { _.map(this.state.data, function(val, ind) {
+        { apiData && _.map(apiData, function(val, ind) {
             return (<li key={ind}>{ind}: {val}</li>);
           })
         }

@@ -8,7 +8,7 @@ router.route('/user/profile/:userId')
   .get(function (req, res) {
     //Get profile function
     var getProfile = function(user){
-      user.getOffers().then(function (offers) {
+      user.getOffers({include : [{model: db.Company}]}).then(function (offers) {
         user.getCompanies().then(function (companies) {
           console.log('Found offers and companies!');
           //Remove password

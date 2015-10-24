@@ -39,7 +39,7 @@ export default class SearchCompany extends Component {
             }
             />
         {this.state.companyId &&    
-          <CompanyProfile companyId={this.state.companyId} fetchApiData={this.props.fetchApiData}/>
+          <CompanyProfile apiData={this.props.apiData} companyId={this.state.companyId} fetchApiData={this.props.fetchApiData}/>
 		    }
 	  </div>
     );

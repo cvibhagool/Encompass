@@ -14,11 +14,20 @@ export default class CompanyProfile extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(this.props.companyId !== nextProps.companyId)
-      this.props.fetchApiData('/api/company/' + ne.companyId);
+      this.props.fetchApiData('/api/company/' + nextProps.companyId);
   }
 
   render() {
-    
+    const { apiData } = this.props;
+    return (
+      <ul>
+        { apiData.employees && 
+          _.map(apiData, function(val, ind) {
+            return (<li key={ind}>{ind}: {val}</li>);
+          })
+        }
+      </ul>
+    )
   }
 };
 

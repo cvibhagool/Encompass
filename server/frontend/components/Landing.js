@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import d3 from 'd3';
-import { Card, CardHeader, CardText, CardTitle, Avatar } from 'material-ui';
+import { Card, CardHeader, CardText, CardTitle, CardActions, Avatar, RaisedButton } from 'material-ui';
 import Parallel from './Parallel.js'; 
 
 
@@ -9,7 +9,8 @@ import Parallel from './Parallel.js';
 export default class Landing extends Component {
   constructor() {
     super();
-    this.state = {data: []};
+    this.state = {data: [],
+                  displayChart: false};
 
     this.setUpText = 'Encompass: it just makes sense. Don\'t think too hard about it.' +
       ' Just look at our pretty graphs.';
@@ -24,6 +25,9 @@ export default class Landing extends Component {
   //   }.bind(this));
   // }
 
+  displayChart() {
+    this.setState({displayChart: true});
+  }
     
   render() {
     return (
@@ -34,11 +38,14 @@ export default class Landing extends Component {
           title="Encompass"
           subtitle="Insights"
           avatar={<Avatar style={{color:'black'}}>E</Avatar>}/>
+        <CardActions>
+          <RaisedButton label="Display Chart" onClick={this.displayChart.bind(this)} />
+        </CardActions>
         <CardText>
           {this.setUpText}
         </CardText>  
         <div>  
-          <Parallel data={this.state.data} />
+          {this.state.displayChart ? <Parallel data={this.state.data} /> : ''}
         </div>
       </Card> 
       </div>

@@ -32,10 +32,13 @@ function api(state = {
 			});
 
 		case RECEIVE_API_DATA_SUCCESS:
-			return Object.assign({}, state, {
+			let newState = {
 				isFetching: false,
 				apiData: action.apiData
-			});
+			};
+			if(action.apiPath==="/data/company?fields[]=name&fields[]=id")
+				newState.companies = action.apiData;
+			return Object.assign({}, state, newState);
 
 		case RECEIVE_API_DATA_FAILURE:
 			return Object.assign({}, state, {

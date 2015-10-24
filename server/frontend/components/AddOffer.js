@@ -48,13 +48,14 @@ export default class AddOffer extends Component {
         {status}
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
-            <Typeahead 
-              className="form-control" 
-              name="company" 
-              options={ CompanyNames } 
-              placeholder="Uber" 
-              maxVisible={10}
-              />;
+            <label htmlFor="company">Company *</label>
+              <Typeahead 
+                className="form-control" 
+                name="company" 
+                options={ CompanyNames } 
+                placeholder="Uber" 
+                maxVisible={10}
+                />
           </div>
 
           <div className="form-group">

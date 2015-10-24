@@ -3,7 +3,6 @@ import $                                from 'jquery';
 import _                                from 'lodash';
 
 export default class CompanyProfile extends Component {
-
   constructor () {
     super();
     this.state = { data: {} };

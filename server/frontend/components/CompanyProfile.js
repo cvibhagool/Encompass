@@ -1,22 +1,24 @@
 import React, { ProtoTypes, Component } from 'react';
 import _                                from 'lodash';
 
-const companyPath = '/api/company/1';
-
 export default class CompanyProfile extends Component {
 
   constructor () {
     super();
-    this.state = { data: {} };
+    this.state = {};
   }
 
-  componentDidMount () {
-    this.props.fetchApiData(companyPath);
+  componentWillMount() {
+    this.props.fetchApiData('/api/company/' + this.props.companyId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.companyId !== nextProps.companyId)
+      this.props.fetchApiData('/api/company/' + nextProps.companyId);
   }
 
   render() {
     const { apiData } = this.props;
-
     return (
       <ul>
         { apiData && _.map(apiData, function(val, ind) {

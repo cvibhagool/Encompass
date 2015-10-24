@@ -3,30 +3,23 @@ import $                                from 'jquery';
 import _                                from 'lodash';
 
 export default class CompanyProfile extends Component {
+
+  var companyPath = '/api/company/1';
+  var userPath = '/api/company/1';
+
   constructor () {
     super();
     this.state = { data: {} };
   }
 
   componentDidMount () {
-    $.ajax({
-      url: '/api/company/1',
-      // url: '/api/company/' + this.props.companyId,
-      dataType: 'json',
-      success: function(data) {
-        this.setState({data: data})
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log('Error:');
-        console.log(err);
-      }
-    });
+    this.props.fetchApiData(companyPath);
   }
 
   render() {
     return (
       <ul>
-        { _.map(this.state.data, function(val, ind) {
+        { apiData && _.map(apiData, function(val, ind) {
             return (<li key={ind}>{ind}: {val}</li>);
           })
         }

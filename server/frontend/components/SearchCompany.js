@@ -2,19 +2,16 @@ import React, { PropTypes, Component } from 'react';
 import { Typeahead } from 'react-typeahead';
 import _                                from 'lodash';
 
-import { Companies } from '../constants';
 import CompanyProfile from './CompanyProfile';
 
-
 export default class SearchCompany extends Component {
-  
   constructor () {
     super();
     this.state = {};
   }
 
-  componentWillMount() {
-    this.setState({companyNames: _.pluck(Companies, 'name')});
+  componentDidMount() {
+    this.setState({companyNames: _.pluck(this.props.companies, 'name')});
   }
 
   //CSS styling forthcoming
@@ -30,7 +27,7 @@ export default class SearchCompany extends Component {
             maxVisible={10}
             onOptionSelected={
               (name) =>  {
-                let companyEntry = _.find(Companies, 'name', name);
+                let companyEntry = _.find(this.props.companies, 'name', name);
                 this.setState({companyId: companyEntry.id});
               }
             }
@@ -42,7 +39,7 @@ export default class SearchCompany extends Component {
             }
             />
         {this.state.companyId &&    
-          <CompanyProfile apiData={this.props.apiData} companyId={this.state.companyId} fetchApiData={this.props.fetchApiData}/>
+          <CompanyProfile companyId={this.state.companyId} fetchApiData={this.props.fetchApiData}/>
 		    }
 	  </div>
     );

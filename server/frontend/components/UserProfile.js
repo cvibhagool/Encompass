@@ -1,26 +1,53 @@
-import React, { PropTypes, Component } from 'react';
-// import _                                from 'lodash';
+import React, { PropTypes, Component }  from 'react';
+import _                                from 'lodash';
 
+// subview imports
+import MyCompanies                      from './MyCompanies.js';
+import MyOffers                         from './MyOffers.js';
+
+// define all constant variables
 const userPath = '/api/company/1';
+const myOffersPath = '/api/offers';
+const myCompaniesPath = '/api/companies';
 
 export default class UserProfile extends Component {
-  componentWillMount() {
-    this.props.fetchApiData(userPath);
+
+  constructor () {
+    super();
+    this.state = { data: {} };
   }
 
+  // GET request for when page loads for our user data & subview components
+  componentDidMount() {
+    this.props.fetchApiData(userPath);
+    this.setState({ data: })
+    this.limitToOffers();
+    // this.props.fetchApiData(myOffersPath);
+    // this.props.fetchApiData(myCompaniesPath);
+  }
+
+  limitToOffers
+
+
   render() {
+
+    // not sure what this does
   	const { apiData, isFetching } = this.props;
-    return (
-    	<div>
-    		{isFetching &&
-    		  	<h2>Loading...</h2>
-    		}
-    		{apiData && _.map(apiData, function(val, ind) {
-            return <div key={ind}>{ind}: {val}</div>; 
-          })
-        }
-    	</div>
-    );
+    
+    return (<div>
+              <h1>H1 Testing</h1>
+            	<ul>
+            		{isFetching &&
+            		  	<h2>Loading...</h2>
+            		}
+                <MyCompanies />
+                <MyOffers />
+            		{apiData && _.map(apiData, function(val, ind) {
+                    return <li key={ind}>{ind}: {val}</li>; 
+                  })
+                }
+            	</ul>
+            </div>);
   }
 }
 

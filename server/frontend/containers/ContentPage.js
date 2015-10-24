@@ -6,7 +6,7 @@ import SearchCompany from '../components/SearchCompany';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 
-// to be deleted
+// to be deleted once we remove CompanyProfile from our tabs
 import CompanyProfile from '../components/CompanyProfile.js';
 
 export default class ContentPage extends Component {

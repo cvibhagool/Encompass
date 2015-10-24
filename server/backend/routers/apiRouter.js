@@ -126,8 +126,11 @@ router.route('/company/follow/:companyId')
         }
       });
     };
-
-    followCompany(user);
+    if (!req.user){
+      res.json('Your are not logged in.');
+    } else {
+      followCompany(req.user);
+    }
   });
 
 router.route('/company/:companyId')

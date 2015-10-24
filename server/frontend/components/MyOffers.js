@@ -7,15 +7,22 @@ import _                                from 'lodash';
 
 export default class MyOffers extends Component {
 
+  funName () {
+    console.log(this.props.apiData.offers)
+  }
+
   render () {
+    this.funName()
+
     return (<div>
               <h1>MyOffers Success!</h1>
-
               <div>
                 <ul>
                   {this.props.apiData.offers && 
-                    _.map(this.props.apiData.offers, function(val, ind) {
-                      return <li key={ind}>{ind}: {val}</li>;
+                    _.map(this.props.apiData.offers, function(offer) {
+                      return _.map(offer, function(offerDetails, ind) {
+                        return <li key={ind}>{ind}: {offerDetails}</li>
+                      })
                     })
                   }
                 </ul>

@@ -4,7 +4,7 @@
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 
-// import our children
+// import children
 import Landing                          from '../components/Landing';
 import UserProfile                      from '../components/UserProfile';
 import AddOffer                         from '../components/AddOffer';
@@ -13,7 +13,7 @@ import Login                            from '../components/Login';
 import Signup                           from '../components/Signup';
 
 // to be deleted once we remove CompanyProfile from our tabs
-import CompanyProfile from '../components/CompanyProfile.js';
+import CompanyProfile                   from '../components/CompanyProfile.js';
 
 // instantiate our ContentPage Class
 export default class ContentPage extends Component {

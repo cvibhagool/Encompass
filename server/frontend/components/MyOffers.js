@@ -1,6 +1,7 @@
 // this file is a subview of a user's offers that they received & inputted
 // its parent is UserProfile.js
 
+// import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 

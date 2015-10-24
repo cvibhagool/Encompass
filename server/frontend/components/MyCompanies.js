@@ -1,6 +1,7 @@
 // this file is a subview of a user's companies that they follow
 // its parent is UserProfile.js
 
+// import dependencies
 import React, { PropTypes, Component } from 'react';
 import _                               from 'lodash';
 

@@ -17,6 +17,7 @@ export default class SearchCompany extends Component {
     this.setState({companyNames: _.pluck(Companies, 'name')});
   }
 
+  //CSS styling forthcoming
   render() {
     return (
       <div>
@@ -32,6 +33,12 @@ export default class SearchCompany extends Component {
                 let companyEntry = _.find(Companies, 'name', name);
                 this.setState({companyId: companyEntry.id});
               }
+            }
+            customClasses={
+              { input: "typeahead-input",
+                results: "typeahead-results",
+                listItem: "typeahead-item",
+                hover: "typeahead-active"}
             }
             />
         {this.state.companyId &&    

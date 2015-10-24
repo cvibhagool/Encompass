@@ -3,31 +3,50 @@ var db = require('../models/index.js');
 
 ///////////////////////////////////////////
 //Routes relating to users
-router.route('/user/profile/:userName')
+router.route('/user/profile/:userId')
   // Retrieves an existing offer
   .get(function (req, res) {
-  	//After authentication is implemented, refactor to automatically request the profile of the logged in user
-  	db.User.findOne({
-  		where: {
-  			username: req.params.userName
-  		}
-  	}).then(function (user) {
-  		if(!user) {
-  			res.json('Requested user does not exist in the database!');
-  		}
-  		else {
-  			user.getOffers().then(function (offers) {
-  				user.getCompanies().then(function (companies) {
-  					console.log('Found offers and companies!');
-            res.json({
-              offers: offers,
-  						companies: companies
-  					});
-	  			});
-	  		});
-  		}
-	});
-});
+    //Get profile function
+    var getProfile = function(user){
+      user.getOffers().then(function (offers) {
+        user.getCompanies().then(function (companies) {
+          console.log('Found offers and companies!');
+          //Remove password
+          user = user.toJSON();
+          delete user.password;
+          res.json({
+            user: user,
+            offers: offers,
+            companies: companies
+          });
+        });
+      });
+    };
+    //User gets his own profile
+    if (req.params.userId === 'me'){
+      //Get the user object
+      var user = req.user;
+      //Return the profile
+      return getProfile(user);
+    //Get other user's profile
+    } else {
+    	db.User.findOne({
+    		where: {
+    			id: req.params.userId
+    		}
+    	}).then(function (user) {
+        //User not found
+    		if(!user) {
+    			res.json('Requested user does not exist in the database!');
+    		}
+        //User found
+    		else {
+          //Return the profile
+          getProfile(user);
+    		}
+  	  });
+    }
+  });
 
 // ///////////////////////////////////////////
 // //Routes relating to offers
@@ -86,37 +105,30 @@ router.route('/offer/:offerId')
   			res.json(offer);
   		}
   	});
-});
+  });
 
 // ///////////////////////////////////////////
 // //Routes relating to companies
 router.route('/company/follow/:companyId')
   .post(function (req, res) {
-  	db.User.findOne({
-  		where: {
-  			id: req.body.userId
-  		}
-  	}).then(function (user) {
-  		if(!user) {
-  			res.json('Cannot add company to the user\'s follow list, as user does not exist in the database!');
-  		}
-  		else {
-  			db.Company.findOne({
-  				where: {
-  					id: req.params.companyId
-  				}
-  			}).then(function (company) {
-  				if(!company) {
-  					res.json('Cannot add company to the user\'s follow list, as the company does not exist in the database!');
-  				}
-  				else {
-	  				user.addCompany(company);
-	  				res.json(company);
-	  			}
-  			});
-  		}
-  	});
-});
+    var followCompany = function(user){
+      db.Company.findOne({
+        where: {
+          id: req.params.companyId
+        }
+      }).then(function (company) {
+        if(!company) {
+          res.json('Cannot add company to the user\'s follow list, as the company does not exist in the database!');
+        }
+        else {
+          user.addCompany(company);
+          res.json(company);
+        }
+      });
+    };
+
+    followCompany(user);
+  });
 
 router.route('/company/:companyId')
   // Retrieves an existing company

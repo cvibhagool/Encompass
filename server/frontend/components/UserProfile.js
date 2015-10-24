@@ -1,9 +1,10 @@
 // this view is the user's profile page /#/profile
 
+// import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 
-// subview imports
+// import subviews
 import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
 
@@ -12,6 +13,7 @@ const userPath = '/api/company/1';
 const myOffersPath = '/api/offers';
 const myCompaniesPath = '/api/companies';
 
+// create UserProfile view
 export default class UserProfile extends Component {
 
   constructor () {
@@ -20,13 +22,8 @@ export default class UserProfile extends Component {
   }
 
   // GET request for when page loads for our user data & subview components
-
   componentDidMount() {
     this.props.fetchApiData(userPath);
-    // this.setState({ data: })
-    // this.limitToOffers();
-    // this.props.fetchApiData(myOffersPath);
-    // this.props.fetchApiData(myCompaniesPath);
   }
 
   test () {
@@ -36,26 +33,14 @@ export default class UserProfile extends Component {
 
   render() {
 
-    not sure what this does
-  	const { apiData, isFetching } = this.props;
-    
     return (<div>
               <h1>H1 Testing</h1>
 
-              // giving an error: 
-              // Uncaught TypeError: Cannot read property 'apiData' of undefined
-               <MyCompanies apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)} />
-              <MyOffers apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)} />
-
-              // this works:
-                // <MyCompanies />
-                // <MyOffers />
+              <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
+              <MyOffers apiData={this.props.apiData} />
 
             	<ul>
-            		{isFetching &&
-            		  	<h2>Loading...</h2>
-            		}
-            		{apiData && _.map(apiData, function(val, ind) {
+            		{this.props.apiData && _.map(this.props.apiData, function(val, ind) {
                     return <li key={ind}>{ind}: {val}</li>; 
                   })
                 }

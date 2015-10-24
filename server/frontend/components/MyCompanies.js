@@ -9,7 +9,7 @@ export default class MyCompanies extends Component {
 
               <div>
                 <ul>
-                  {apiData && _.map(apiData, function(val, ind) {
+                  {this.props.apiData && _.map(this.props.apiData, function(val, ind) {
                       return <li key={ind}>{ind}: {val}</li>; 
                     })
                   }

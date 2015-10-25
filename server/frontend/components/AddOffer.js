@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Typeahead } from 'react-typeahead';
-
-import { CompanyNames } from '../constants';
+import _                                from 'lodash';
 
 export default class AddOffer extends Component {
  
@@ -10,10 +9,14 @@ export default class AddOffer extends Component {
     this.state = {data: []}
   }
 
+  componentDidMount() {
+    this.setState({companyNames: _.pluck(this.props.companies, 'name')});
+  }
+
   handleSubmit (e) {
     e.preventDefault();
     let formData = {
-      company_name: this.refs.company_name.value.trim(),
+      company_name: this.state.company_name.trim(),
       position: this.refs.position.value.trim(),
       salary: this.refs.salary.value,
       equity: this.refs.equity.value,
@@ -28,7 +31,7 @@ export default class AddOffer extends Component {
 
     this.props.postApiData('/api/offer', formData);
 
-    this.refs.company_name.value = '';
+    this.setState({company_name: ''});
     this.refs.position.value = '';
     this.refs.salary.value = '';
     this.refs.equity.value = '';
@@ -51,10 +54,15 @@ export default class AddOffer extends Component {
             <label htmlFor="company">Company *</label>
               <Typeahead 
                 className="form-control" 
-                name="company" 
-                options={ CompanyNames } 
-                placeholder="Uber" 
+                name="company_name" 
+                options={ this.state.companyNames } 
+                placeholder="Google" 
                 maxVisible={10}
+                onOptionSelected={
+                  (name) =>  {
+                    this.setState({company_name: name});
+                  }
+                }
                 />
           </div>
 

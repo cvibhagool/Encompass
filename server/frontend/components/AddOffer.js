@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react';
-import { Typeahead } from 'react-typeahead';
+import React, { PropTypes, Component }  from 'react';
+import { Typeahead }                    from 'react-typeahead';
 import _                                from 'lodash';
 
 export default class AddOffer extends Component {
@@ -48,7 +48,6 @@ export default class AddOffer extends Component {
     return (
       <div>
         <h1 id="heading">Add Your Offer</h1>
-        {status}
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <label htmlFor="company">Company *</label>
@@ -62,8 +61,7 @@ export default class AddOffer extends Component {
                   (name) =>  {
                     this.setState({company_name: name});
                   }
-                }
-                />
+                } />
           </div>
 
           <div className="form-group">

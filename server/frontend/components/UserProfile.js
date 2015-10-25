@@ -10,9 +10,7 @@ import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
 
 // define all constant variables
-const userPath = '/api/company/1';
-const myOffersPath = '/api/offers';
-const myCompaniesPath = '/api/companies';
+const userPath = '/api/user/profile/7';
 
 // create UserProfile view
 export default class UserProfile extends Component {
@@ -34,17 +32,19 @@ export default class UserProfile extends Component {
 
               { /* iterate over the user's profile info and display it on the page */ }
             	<ul>
-            		{this.props.apiData.user && _.map(this.props.apiData.user, function(val, ind) {
+            		{this.props.apiData.user && 
+                  _.map(this.props.apiData.user, function(val, ind) {
                     return <li key={ind}>{ind}: {val}</li>; 
                   })
                 }
             	</ul>
+            
+              { /* instantiate/invoke/import the MyOffers subview and pass it the offers that this logged-in user has entered previously */ }
+              <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
 
               { /* instantiate/invoke/import the MyCompanies subview and pass it the companies that this logged-in user currently follows */ }
-              <MyCompanies apiData={this.props.apiData.companies} fetchApiData={this.props.fetchApiData.companies.bind(this)} />
+               <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
 
-              { /* instantiate/invoke/import the MyOffers subview and pass it the offers that this logged-in user has entered previously */ }
-              <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.offers.bind(this)} />
 
             </div>);
   }

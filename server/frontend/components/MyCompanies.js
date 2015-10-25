@@ -9,17 +9,19 @@ export default class MyCompanies extends Component {
 
   render () {
     return (<div>
-              <h1>FollowedCompanies Success!</h1>
-
+              <h1>MyCompanies Success!</h1>
               <div>
                 <ul>
-                  {this.props.apiData.companies && 
-                    _.map(this.props.apiData.companies, function(val, ind) {
-                      return <li key={ind}>{ind}: {val}</li>; 
+                  {_.map(this.props.apiData.companies, function(company) {
+                      return _.map(company, function(companyDetails, ind) {
+                        if (ind !== 'UserFollows') {
+                            return <li key={ind}>{ind}: {companyDetails}</li>
+                        }
+                      })
                     })
                   }
                 </ul>
               </div>
-            </div>);
+            </div>)
   }
 }

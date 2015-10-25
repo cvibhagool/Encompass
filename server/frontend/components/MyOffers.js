@@ -18,10 +18,13 @@ export default class MyOffers extends Component {
               <h1>MyOffers Success!</h1>
               <div>
                 <ul>
-                  {this.props.apiData.offers && 
-                    _.map(this.props.apiData.offers, function(offer) {
+                  {_.map(this.props.apiData.offers, function(offer) {
                       return _.map(offer, function(offerDetails, ind) {
-                        return <li key={ind}>{ind}: {offerDetails}</li>
+                        if (ind === 'Company') {
+                            return <li key='CompanyName'>Company Name: {offerDetails.name}</li>
+                        } else {
+                            return <li key={ind}>{ind}: {offerDetails}</li>
+                        }
                       })
                     })
                   }

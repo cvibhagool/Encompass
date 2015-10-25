@@ -1,9 +1,7 @@
-import React, { PropTypes, Component } from 'react';
-import d3 from 'd3';
+import React, { PropTypes, Component }  from 'react';
+import d3                               from 'd3';
 import { Card, CardHeader, CardText, CardTitle, CardActions, Avatar, RaisedButton } from 'material-ui';
-import Parallel from './Parallel.js'; 
-
-
+import Parallel                         from './Parallel.js'; 
 
 
 export default class Landing extends Component {

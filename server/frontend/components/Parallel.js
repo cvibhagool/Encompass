@@ -1,9 +1,9 @@
-import React, { PropTypes, Component } from 'react';
-import ReactDOM from 'react-dom';
-import d3 from 'd3';
-import * as parcoords from './lib/d3.parcoords.js';
+import React, { PropTypes, Component }  from 'react';
+import ReactDOM                         from 'react-dom';
+import d3                               from 'd3';
+import * as parcoords                   from './lib/d3.parcoords.js';
 
-import {CircularProgress} from 'material-ui';
+import {CircularProgress}               from 'material-ui';
 
 export default class Parallel extends Component {
   constructor() {

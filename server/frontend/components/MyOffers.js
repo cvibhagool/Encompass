@@ -7,12 +7,7 @@ import _                                from 'lodash';
 
 export default class MyOffers extends Component {
 
-  funName () {
-    console.log(this.props.apiData.offers)
-  }
-
   render () {
-    this.funName()
 
     return (<div>
               <h1>MyOffers Success!</h1>

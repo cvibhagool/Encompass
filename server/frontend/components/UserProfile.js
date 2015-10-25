@@ -37,7 +37,7 @@ export default class UserProfile extends Component {
           {this.checkCookie() ?
             <div>
 
-              <h1>H1 Testing</h1>
+              <h1>Welcome {this.props.apiData.user.username}!</h1>
 
               { /* iterate over the user's profile info and display it on the page */ }
             	<ul>
@@ -48,10 +48,10 @@ export default class UserProfile extends Component {
                 }
             	</ul>
             
-              { /* instantiate/invoke/import the MyOffers subview and pass it the offers that this logged-in user has entered previously */ }
+              { /* instantiate/invoke/import the MyOffers child and pass it props (the offers) that this logged-in user has entered previously */ }
               <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
 
-              { /* instantiate/invoke/import the MyCompanies subview and pass it the companies that this logged-in user currently follows */ }
+              { /* instantiate/invoke/import the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
                <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
 
 

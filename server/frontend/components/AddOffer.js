@@ -38,7 +38,6 @@ export default class AddOffer extends Component {
 
   checkCookie() {
     let usercookie = cookie.load('connect.sid');
-    console.log(usercookie);
     return usercookie;
   }
 
@@ -83,12 +82,12 @@ export default class AddOffer extends Component {
           </div>
 
           <div className="form-group">
-            <label htmlFor="total_funding">Equity *</label>
+            <label htmlFor="total_funding">Total Funding *</label>
             <input className="form-control" name="total_funding" ref="total_funding" type="number" />
           </div>
 
           <div className="form-group">
-            <label htmlFor="employees">Equity *</label>
+            <label htmlFor="employees">Employees *</label>
             <input className="form-control" name="employees" ref="employees" type="number" />
           </div>
 

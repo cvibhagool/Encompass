@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Typeahead } from 'react-typeahead';
 import _                                from 'lodash';
+import cookie from 'react-cookie';
 
 export default class AddOffer extends Component {
  
@@ -44,8 +45,16 @@ export default class AddOffer extends Component {
     // this.refs.benefits.value = '';
   }
 
+  checkCookie() {
+    let usercookie = cookie.load('connect.sid');
+    return usercookie;
+  }
+
+
   render () {
     return (
+      <div> 
+      {this.checkCookie() ?
       <div>
         <h1 id="heading">Add Your Offer</h1>
         {status}
@@ -121,6 +130,8 @@ export default class AddOffer extends Component {
             <button className="btn btn-primary" type="submit" value="Post">Add Offer</button>
           </div>
         </form>
+      </div> :
+      <h1>Please log in to use this feature</h1>}
       </div>
     )
   }

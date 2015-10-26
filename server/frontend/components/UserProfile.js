@@ -4,6 +4,7 @@
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
+import cookie                           from 'react-cookie';
 
 // import subviews/children
 import MyCompanies                      from './MyCompanies.js';
@@ -25,8 +26,16 @@ export default class UserProfile extends Component {
     this.props.fetchApiData(userPath);
   }
 
+  checkCookie() {
+    let usercookie = cookie.load('connect.sid');
+    return usercookie;
+  }
+
   render() {
-    return (<div>
+    return (
+          <div>
+          {this.checkCookie() ?
+            <div>
 
               <h1>H1 Testing</h1>
 
@@ -46,7 +55,10 @@ export default class UserProfile extends Component {
                <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
 
 
-            </div>);
+            </div> :
+            <h1>Please log in to use this feature</h1>}
+            </div>
+            );
   }
 }
 

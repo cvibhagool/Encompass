@@ -26,11 +26,13 @@ class App extends Component {
         { api.companies &&
           <div>
             <NavBar onTabClick={tabName => dispatch(showPage(tabName))} />
-            <ContentPage 
-              fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} 
-              apiState={api} 
-              postApiData={(apiPath, json) => dispatch(postApiData(apiPath, json))} 
-              pageState={page} />
+            <div className = "container">
+              <ContentPage 
+                fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} 
+                apiState={api} 
+                postApiData={(apiPath, json) => dispatch(postApiData(apiPath, json))} 
+                pageState={page} />
+            </div>
           </div>
         }
       </div>

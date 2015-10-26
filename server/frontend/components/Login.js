@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { TextField, RaisedButton } from 'material-ui';
+import { TextField, RaisedButton, FontIcon } from 'material-ui';
 /*jshint esnext: true */
 export default class Login extends Component {
   getInitialState () {
@@ -27,13 +27,22 @@ export default class Login extends Component {
       	<h1 id="heading">Login</h1>
       	<form action="" onSubmit={this.handleSubmit.bind(this)}>
           <div>
-            <TextField hintText="" floatingLabelText="Username" ref="username"
+            <TextField hintText="" floatingLabelText={<span>
+              <i className="material-icons" style={{
+              "vertical-align": 'middle'
+            }}>search</i>
+              Search...</span>} ref="username"
               style={{
               width: 'auto',
+              display: 'absolute'
             }}/>
           </div>
           <div>
-            <TextField hintText="" floatingLabelText="Password" type="password" ref="password"/>
+            <TextField hintText="" floatingLabelText="Password" type="password" ref="password"
+            style={{
+              width: 'auto',
+              display: 'absolute'
+            }}/>
           </div>
 
           <div className="form-group">

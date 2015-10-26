@@ -30,10 +30,15 @@ export default class Signup extends Component {
             <TextField hintText="" floatingLabelText="Username" ref="username"
               style={{
               width: 'auto',
+              display: 'absolute'
             }}/>
           </div>
           <div>
-            <TextField hintText="" floatingLabelText="Password" type="password" ref="password"/>
+            <TextField hintText="" floatingLabelText="Password" type="password" ref="password"
+              style={{
+              width: 'auto',
+              display: 'absolute'
+            }}/>
           </div>
 
           <div className="form-group">

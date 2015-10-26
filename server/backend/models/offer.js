@@ -9,25 +9,10 @@ module.exports = function(sequelize, DataTypes) {
     equity: {
       type: DataTypes.FLOAT
     },
-    vesting_start_date : {
-      type: DataTypes.DATEONLY
-    },
-    vesting_end_date : {
-      type: DataTypes.DATEONLY
-    },
-    vesting_cliff_date : {
-      type: DataTypes.DATEONLY
-    },
-    vesting_cliff_percent : {
+    total_funding: {
       type: DataTypes.FLOAT
     },
-    other_benefits : {
-      type: DataTypes.FLOAT
-    },
-    last_financing_round_valuation : {
-      type: DataTypes.FLOAT
-    },
-    estimated_exit_valuation : {
+    employees: {
       type: DataTypes.FLOAT
     }
   }, {  

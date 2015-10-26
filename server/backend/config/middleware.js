@@ -32,7 +32,7 @@ module.exports = function (app, express) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   //Session with same secret as cookie parser
-  app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false}));
+  app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: {httpOnly: false}}));
   //Initialize passport and session management
 
   app.use(passport.initialize());

@@ -12,6 +12,9 @@ import MyOffers                         from './MyOffers.js';
 // define all constant variables
 const userPath = '/api/user/profile/7';
 
+// {this.props.apiData.user.username.bind(this)}
+
+
 // create UserProfile view
 export default class UserProfile extends Component {
 
@@ -24,16 +27,14 @@ export default class UserProfile extends Component {
   componentDidMount() {
     this.props.fetchApiData(userPath);
   }
-
   render() {
     return (<div>
 
-              <h1>Welcome {this.props.apiData.user.username}!</h1>
+              <h1>Welcome !</h1>
 
               { /* iterate over the user's profile info and display it on the page */ }
             	<ul>
-            		{this.props.apiData.user && 
-                  _.map(this.props.apiData.user, function(val, ind) {
+            		{_.map(this.props.apiData.user, function(val, ind) {
                     return <li key={ind}>{ind}: {val}</li>; 
                   })
                 }

@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react';
-import {Tab} from 'material-ui';
+import React, { PropTypes, Component }  from 'react';
+import {Tab}                            from 'material-ui';
 
 export default class ETab extends Component {
   handleClick(tab) {

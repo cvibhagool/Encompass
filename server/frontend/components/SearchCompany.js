@@ -1,7 +1,7 @@
 import React, { PropTypes, Component }  from 'react';
 import { Typeahead }                    from 'react-typeahead';
 import _                                from 'lodash';
-import { Paper }                        from 'material-ui';
+import { Paper, RaisedButton }          from 'material-ui';
 
 import CompanyProfile                   from './CompanyProfile';
 
@@ -11,8 +11,18 @@ export default class SearchCompany extends Component {
     this.state = {};
   }
 
+  componentWillMount() {
+    this.props.fetchApiData('/api/user/profile/me');
+  }
+
   componentDidMount() {
-    this.setState({companyNames: _.pluck(this.props.companies, 'name')});
+    this.setState({companyNames: _.pluck(this.props.companies, 'name'), companyFollowed: false});
+  }
+
+  clickFollowCompany(e) {
+    e.preventDefault();
+    this.props.postApiData('/api/company/follow/' + this.state.companyId, {});
+    this.setState({companyFollowed: true});
   }
 
   render() {
@@ -25,6 +35,7 @@ export default class SearchCompany extends Component {
               className="left-pane" 
               zDepth={1}
           >
+              { 
               <Typeahead 
                   customClasses={
                     { hover: "typeahead-active",
@@ -37,24 +48,34 @@ export default class SearchCompany extends Component {
                   onOptionSelected={
                     (name) =>  {
                       let companyEntry = _.find(this.props.companies, 'name', name);
-                      this.setState({companyId: companyEntry.id});
+                      this.setState({companyId: companyEntry.id, companyFollowed : !!_.find(this.props.profile.companies, 'id', companyEntry.id)});
                     }
                   }
                   options={this.state.companyNames}
                   placeholder="Google" 
               />
+              }
           </Paper>
           <Paper 
               className="content-pane" 
               zDepth={1}
           >
               {this.state.companyId &&
-              <CompanyProfile 
-                  apiData={this.props.apiData} 
-                  className="content-pane"
-                  companyId={this.state.companyId} 
-                  fetchApiData={this.props.fetchApiData}
-              />
+                <div>
+                  <CompanyProfile 
+                      apiData={this.props.apiData} 
+                      className="content-pane"
+                      companyId={this.state.companyId} 
+                      fetchApiData={this.props.fetchApiData}
+                      postApiData={this.props.postApiData}
+                  />
+                  <RaisedButton 
+                      label={this.state.companyFollowed ? "Company has been followed!" : "Follow Company"}
+                      primary={true}
+                      disabled={this.state.companyFollowed}
+                      onClick={this.clickFollowCompany.bind(this)}
+                  />
+                </div>
     		      }
           </Paper>
 	    </div>
@@ -68,6 +89,7 @@ SearchCompany.propTypes = {
     PropTypes.object
   ]),
   companies: PropTypes.array.isRequired,
-  fetchApiData: PropTypes.func.isRequired
+  fetchApiData: PropTypes.func.isRequired,
+  postApiData: PropTypes.func.isRequired
 }
 

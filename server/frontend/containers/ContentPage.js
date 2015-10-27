@@ -66,6 +66,8 @@ export default class ContentPage extends Component {
                 apiData={this.props.apiState.apiData} 
                 companies={this.props.apiState.companies} 
                 fetchApiData={this.fetchApiData.bind(this)}
+                postApiData={this.postApiData.bind(this)}
+                profile={this.props.apiState.profile}
             /> 
             </div>: null}
         

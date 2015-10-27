@@ -38,6 +38,8 @@ function api(state = {
 			};
 			if(action.apiPath==="/data/company?fields[]=name&fields[]=id")
 				newState.companies = action.apiData;
+			else if(action.apiPath==="/api/user/profile/me")
+				newState.profile = action.apiData;
 			return Object.assign({}, state, newState);
 
 		case RECEIVE_API_DATA_FAILURE:

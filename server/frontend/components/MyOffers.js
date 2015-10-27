@@ -55,7 +55,7 @@ export default class MyOffers extends Component {
                         <TableRowColumn>{offer.employees}</TableRowColumn>
                       </TableRow>
                     )
-                  }.bind(this))
+                  })
                   }
                 </TableBody>
               </Table>

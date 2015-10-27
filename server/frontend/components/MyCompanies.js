@@ -18,12 +18,21 @@ export default class MyCompanies extends Component {
       fixedHeader: true,
       stripedRows: true,
       showRowHover: false,
+      multiSelectable: true
     };
   }
 
+  doSelection(thing) {
+    console.log(this.props.apiData.companies);
+  }
+
+  
   render () {
     return (<div>
-              <Table fixedHeader={this.state.fixedHeader}>
+              <Table 
+                onRowSelection={this.doSelection.bind(this)} 
+                multiSelectable={this.state.multiSelectable}
+                fixedHeader={this.state.fixedHeader}>
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
@@ -48,7 +57,7 @@ export default class MyCompanies extends Component {
                 <TableBody stripedRows={this.state.stripedRows}>
                   {_.map(this.props.apiData.companies, function(company) {
                     return (
-                      <TableRow>
+                      <TableRow >
                         <TableRowColumn>{company.name}</TableRowColumn>
                         <TableRowColumn>
                           <a 

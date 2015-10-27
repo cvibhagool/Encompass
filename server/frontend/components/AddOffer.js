@@ -142,7 +142,7 @@ export default class AddOffer extends Component {
 };
 
 AddOffer.propTypes = {
-  companies: PropTypes.object.isRequired,
+  companies: PropTypes.array.isRequired,
   postApiData: PropTypes.func.isRequired
 }
 

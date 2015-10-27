@@ -9,6 +9,8 @@ import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBo
 export default class MyOffers extends Component {
   constructor () {
     super();
+
+    // sets the state for our table settings (material-ui)
     this.state = {
       fixedHeader: true,
       stripedRows: true,
@@ -41,11 +43,11 @@ export default class MyOffers extends Component {
                 </TableHeader>
 
                 <TableBody stripedRows={this.state.stripedRows}>
-                  {_.map(this.props.apiData.offers, function(offer) {
+                  {_.map(this.props.apiData.offers, function (offer) {
                     return (
                       <TableRow>
                         <TableRowColumn>{offer.id}</TableRowColumn>
-                        <TableRowColumn>{'Company'}</TableRowColumn>
+                        <TableRowColumn>{offer.Company.name}</TableRowColumn>
                         <TableRowColumn>{offer.position}</TableRowColumn>
                         <TableRowColumn>{offer.salary}</TableRowColumn>
                         <TableRowColumn>{offer.equity}</TableRowColumn>
@@ -62,5 +64,8 @@ export default class MyOffers extends Component {
 }
 
 MyOffers.propTypes = {
-  apiData: PropTypes.object.isRequired
+  apiData: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ])
 }

@@ -65,6 +65,9 @@ export default class UserProfile extends Component {
 }
 
 UserProfile.propTypes = {
-  apiData: PropTypes.object.isRequired,
+  apiData: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
   fetchApiData: PropTypes.func.isRequired
 }

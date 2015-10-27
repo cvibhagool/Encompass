@@ -12,6 +12,8 @@ export default class MyCompanies extends Component {
     super();
 
     this.displayName = "MyCompanies";
+    
+    // sets the state for our table settings (material-ui)
     this.state = {
       fixedHeader: true,
       stripedRows: true,
@@ -72,6 +74,6 @@ export default class MyCompanies extends Component {
 }
 
 MyCompanies.propTypes = {
-  apiData: PropTypes.object.isRequired
+  apiData: PropTypes.array.isRequired
 }
 

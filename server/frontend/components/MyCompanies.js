@@ -4,7 +4,7 @@
 // import dependencies
 import React, { PropTypes, Component } from 'react';
 import _                               from 'lodash';
-import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody,TableFooter }                        from 'material-ui';
+import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody,TableFooter } from 'material-ui';
 
 export default class MyCompanies extends Component {
 
@@ -14,50 +14,48 @@ export default class MyCompanies extends Component {
       fixedHeader: true,
       stripedRows: true,
       showRowHover: false,
-      height: '300px',
     };
   }
 
   render () {
     return (<div>
-              <div>
-                <Table height={this.state.height} fixedHeader={this.state.fixedHeader}>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHeaderColumn colSpan="7" style={{textAlign: 'center'}}>
-                        <h1>My Companies</h1>
-                      </TableHeaderColumn>
-                    </TableRow>
+              <Table fixedHeader={this.state.fixedHeader}>
+                <TableHeader>
+                  <TableRow>
+                    <TableHeaderColumn colSpan="7" style={{textAlign: 'center'}}>
+                      <h1>My Companies</h1>
+                    </TableHeaderColumn>
+                  </TableRow>
 
-                    <TableRow>
-                      <TableHeaderColumn>Name</TableHeaderColumn>
-                      <TableHeaderColumn>Website</TableHeaderColumn>
-                      <TableHeaderColumn>City</TableHeaderColumn>
-                      <TableHeaderColumn>Employees</TableHeaderColumn>
-                      <TableHeaderColumn>Founding</TableHeaderColumn>
-                      <TableHeaderColumn>Stage</TableHeaderColumn>
-                      <TableHeaderColumn>Funding</TableHeaderColumn>
-                    </TableRow>
-                  </TableHeader>
+                  <TableRow>
+                    <TableHeaderColumn>Name</TableHeaderColumn>
+                    <TableHeaderColumn>Website</TableHeaderColumn>
+                    <TableHeaderColumn>City</TableHeaderColumn>
+                    <TableHeaderColumn>Employees</TableHeaderColumn>
+                    <TableHeaderColumn>Founding</TableHeaderColumn>
+                    <TableHeaderColumn>Stage</TableHeaderColumn>
+                    <TableHeaderColumn>Funding</TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
 
-                  <TableBody stripedRows={this.state.stripedRows}>
-                    {_.map(this.props.apiData.companies, function(company) {
-                      return (
-                        <TableRow>
-                          <TableRowColumn>{company.name}</TableRowColumn>
-                          <TableRowColumn><a href={company.website} target="_blank">{company.website}</a></TableRowColumn>
-                          <TableRowColumn>{company.city}</TableRowColumn>
-                          <TableRowColumn>{company.employees}</TableRowColumn>
-                          <TableRowColumn>{company.founding_date}</TableRowColumn>
-                          <TableRowColumn>{company.stage}</TableRowColumn>
-                          <TableRowColumn>{company.total_funding}</TableRowColumn>
-                        </TableRow>
-                      )
-                    })
-                    }
-                  </TableBody>
-                </Table>
-              </div>
+                <TableBody stripedRows={this.state.stripedRows}>
+                  {_.map(this.props.apiData.companies, function(company) {
+                    return (
+                      <TableRow>
+                        <TableRowColumn>{company.name}</TableRowColumn>
+                        <TableRowColumn><a href={company.website} target="_blank">{company.website}</a></TableRowColumn>
+                        <TableRowColumn>{company.city}</TableRowColumn>
+                        <TableRowColumn>{company.employees}</TableRowColumn>
+                        <TableRowColumn>{company.founding_date}</TableRowColumn>
+                        <TableRowColumn>{company.stage}</TableRowColumn>
+                        <TableRowColumn>{company.total_funding}</TableRowColumn>
+                      </TableRow>
+                    )
+                  })
+                  }
+                </TableBody>
+              </Table>
             </div>)
   }
 }
+

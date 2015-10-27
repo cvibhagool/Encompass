@@ -1,4 +1,4 @@
-import React, { ProtoTypes, Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import _                                from 'lodash';
 import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui';
 export default class CompanyProfile extends Component {

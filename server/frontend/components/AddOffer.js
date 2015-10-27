@@ -47,67 +47,102 @@ export default class AddOffer extends Component {
       <div> 
       {this.checkCookie() ?
       <div>
-        <h1 id="heading">Add Your Offer</h1>
+        <h1 id="heading">{'Add Your Offer'}</h1>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
-            <label htmlFor="company">Company *</label>
+            <label htmlFor="company">{'Company *'}</label>
               <Typeahead 
-                style={{
-                  'position': 'absolute',
-                  'z-index': 2
-                }}
-                className="form-control" 
-                name="company_name" 
-                options={ this.state.companyNames } 
-                placeholder="Google" 
-                maxVisible={10}
-                onOptionSelected={
-                  (name) =>  {
-                    this.setState({company_name: name});
+                  className="form-control" 
+                  customClasses={
+                    { input: "typeahead-input",
+                      results: "typeahead-results",
+                      listItem: "typeahead-item",
+                      hover: "typeahead-active" }
                   }
-                }
-                customClasses={
-                  { input: "typeahead-input",
-                    results: "typeahead-results",
-                    listItem: "typeahead-item",
-                    hover: "typeahead-active"}
-                }
-                />
+                  maxVisible={10}
+                  name="company_name" 
+                  onOptionSelected={
+                    (name) =>  {
+                      this.setState({company_name: name});
+                    }
+                  }
+                  options={this.state.companyNames} 
+                  placeholder="Google" 
+                  style={{
+                    'position': 'absolute',
+                    'z-index': 2
+                  }}
+              />
           </div>
 
           <div className="form-group">
-            <label htmlFor="position">Position *</label>
-            <input className="form-control" name="position" ref="position" type="text" />
+            <label htmlFor="position">{'Position *'}</label>
+            <input 
+                className="form-control" 
+                name="position" 
+                ref="position" 
+                type="text" 
+            />
           </div>
 
           <div className="form-group">
-            <label htmlFor="salary">Salary *</label>
-            <input className="form-control" name="salary" ref="salary" type="number" />
+            <label htmlFor="salary">{'Salary *'}</label>
+            <input 
+                className="form-control" 
+                name="salary" 
+                ref="salary" 
+                type="number" 
+            />
           </div>
 
           <div className="form-group">
-            <label htmlFor="equity">Equity *</label>
-            <input className="form-control" name="equity" ref="equity" type="number" />
+            <label htmlFor="equity">{'Equity *'}</label>
+            <input 
+                className="form-control" 
+                name="equity" 
+                ref="equity" 
+                type="number" 
+            />
           </div>
 
           <div className="form-group">
-            <label htmlFor="total_funding">Total Funding *</label>
-            <input className="form-control" name="total_funding" ref="total_funding" type="number" />
+            <label htmlFor="total_funding">{'Total Funding *'}</label>
+            <input 
+                className="form-control" 
+                name="total_funding" 
+                ref="total_funding" 
+                type="number" 
+            />
           </div>
 
           <div className="form-group">
-            <label htmlFor="employees">Employees *</label>
-            <input className="form-control" name="employees" ref="employees" type="number" />
+            <label htmlFor="employees">{'Employees *'}</label>
+            <input 
+                className="form-control" 
+                name="employees" 
+                ref="employees" 
+                type="number" 
+            />
           </div>
 
           <div className="form-group">
-            <button className="btn btn-primary" type="submit" value="Post">Add Offer</button>
+            <button 
+                className="btn btn-primary" 
+                type="submit" 
+                value="Post"
+            >{'Add Offer'}
+            </button>
           </div>
         </form>
       </div> :
-      <h1>Please log in to use this feature</h1>}
+      <h1>{'Please log in to use this feature'}</h1>}
       </div>
     )
   }
 };
+
+AddOffer.propTypes = {
+  companies: PropTypes.object.isRequired,
+  postApiData: PropTypes.func.isRequired
+}
 

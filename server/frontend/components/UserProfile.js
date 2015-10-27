@@ -11,7 +11,7 @@ import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
 
 // define all constant variables
-const userPath = '/api/user/profile/7';
+const userPath = '/api/user/profile/me';
 
 // create UserProfile view
 export default class UserProfile extends Component {
@@ -40,20 +40,31 @@ export default class UserProfile extends Component {
             
             <div>
 
-              <h1>Welcome {this.props.apiData.user && this.props.apiData.user.username}!</h1>
+              <h1>{'Welcome'} {this.props.apiData.user && this.props.apiData.user.username}{'!'}
+              </h1>
 
-              <p>Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!</p>
+              <p>{'Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!'}</p>
             
               { /* instantiate the MyOffers child and pass it props (the offers) that this logged-in user has entered previously */ }
-              <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
+              <MyOffers 
+                  apiData={this.props.apiData}
+                  fetchApiData={this.props.fetchApiData.bind(this)} 
+              />
 
               { /* instantiate the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
-              <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
+              <MyCompanies 
+                  apiData={this.props.apiData} 
+                  fetchApiData={this.props.fetchApiData.bind(this)} 
+              />
 
             </div> :
-            <h1>Please log in to use this feature</h1>}
-            </div>
-            );
+            <h1>{'Please log in to use this feature'}</h1>}
+          </div>
+          );
   }
 }
 
+UserProfile.propTypes = {
+  apiData: PropTypes.object.isRequired,
+  fetchApiData: PropTypes.func.isRequired
+}

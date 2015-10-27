@@ -104,8 +104,17 @@ export default class Parallel extends Component {
 
     return (
       <div>
-        <div style={divStyle} id="example" className="parcoords" ref={(ref) =>  this.doD3(ReactDOM.findDOMNode(ref))}>
-          {!this.state.dataLoaded ? <CircularProgress mode="indeterminate" size={1.5} /> : ''}
+        <div 
+            className="parcoords" 
+            id="example" 
+            ref={(ref) =>  this.doD3(ReactDOM.findDOMNode(ref))} 
+            style={divStyle}
+        >
+        {!this.state.dataLoaded ? 
+            <CircularProgress 
+                mode="indeterminate" 
+                size={1.5} 
+            /> : ''}
         </div>
       </div>
     )

@@ -24,20 +24,23 @@ export default class Landing extends Component {
   // }
 
   displayChart() {
-    this.setState({displayChart: true});
+    this.state({displayChart: true});
   }
     
   render() {
     return (
       <div style={{width:'95%', margin: 'auto'}}>  
-      <h1>You Are Here</h1>
+      <h1>{'You Are Here'}</h1>
       <Card>  
         <CardHeader
-          title="Encompass"
-          subtitle="Insights"
-          avatar={<Avatar style={{color:'black'}}>E</Avatar>}/>
+            avatar={<Avatar style={{color:'black'}}>{'E'}</Avatar>}
+            subtitle={"Insights"}
+            title={"Encompass"}
+        />
         <CardActions>
-          <RaisedButton label="Display Chart" onClick={this.displayChart.bind(this)} />
+          <RaisedButton label="Display Chart" 
+              onClick={this.displayChart.bind(this)} 
+          />
         </CardActions>
         <CardText>
           {this.setUpText}

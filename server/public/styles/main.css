@@ -15,10 +15,12 @@ body {
 
 .content-pane {
 	width: 30%;
+  margin-left: 50px;
   float:left;
 }
 
 .visualization-pane {
   width: 50%;
+  margin-left: 50px;
   float:left;
 }

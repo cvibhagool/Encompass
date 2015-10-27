@@ -16,13 +16,14 @@ export default class SearchCompany extends Component {
     this.setState({companyNames: _.pluck(this.props.companies, 'name')});
   }
 
-  //CSS styling forthcoming
   render() {
     return (
       <div>
-      		<h1>Search by Company Name:</h1>
+          <h1 id="heading">Search by Company Name</h1>
+          
+          <div>Input company name:</div>
           <Paper className="left-pane" zDepth={1}>
-            <Typeahead 
+          <Typeahead 
               name="company" 
               options={ this.state.companyNames } 
               placeholder="Google" 

@@ -27,10 +27,10 @@ module.exports = {
       loaders: ['babel', 'eslint-loader'],
       exclude: [/node_modules/,/scripts/],
       include: __dirname
-    }]
-  }
-  eslint: {
-    configFile: './.eslintrc'
+    }],
+    eslint: {
+      configFile: './.eslintrc'
+    }
   }
 };
 

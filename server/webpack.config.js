@@ -24,10 +24,13 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
-      exclude: /node_modules/,
+      loaders: ['babel', 'eslint-loader'],
+      exclude: [/node_modules/,/scripts/],
       include: __dirname
     }]
+  }
+  eslint: {
+    configFile: './.eslintrc'
   }
 };
 

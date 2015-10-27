@@ -61,7 +61,14 @@ export default class AddOffer extends Component {
                   (name) =>  {
                     this.setState({company_name: name});
                   }
-                } />
+                }
+                customClasses={
+                  { input: "typeahead-input",
+                    results: "typeahead-results",
+                    listItem: "typeahead-item",
+                    hover: "typeahead-active"}
+                }
+                />
           </div>
 
           <div className="form-group">

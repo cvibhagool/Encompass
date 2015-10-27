@@ -78,7 +78,7 @@ export default class CompanyProfile extends Component {
 };
 
 CompanyProfile.propTypes = {
-  apiData: PropTypes.object.isRequired,
-  companyId: PropTypes.number.isRequired,
-  fetchApiData: PropTypes.func.isRequired
+  apiData: React.PropTypes.object.isRequired,
+  companyId: React.PropTypes.number.isRequired,
+  fetchApiData: React.PropTypes.func.isRequired
 }

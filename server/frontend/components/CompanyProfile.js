@@ -23,7 +23,6 @@ export default class CompanyProfile extends Component {
   render() {
     const { apiData } = this.props;
     return (
-      
       <div>
       {apiData.employees &&
         <Table>
@@ -46,7 +45,7 @@ export default class CompanyProfile extends Component {
                 <TableRowColumn>{'Company Website'}</TableRowColumn> <TableRowColumn key='website'>{apiData.website}</TableRowColumn>
             </TableRow>
             <TableRow>
-                <TableRowColumn>{'Total Employees'}</TableRowColumn> <TableRowColumn key='employees'>{apiData.employees.toLocaleString()}</TableRowColumn>
+                <TableRowColumn>{'Total Employees'}</TableRowColumn> <TableRowColumn key='employees'>{apiData.employees ? apiData.employees.toLocaleString() : <i>{'No total employees on record'}</i>}</TableRowColumn>
             </TableRow>
             <TableRow>    
                 <TableRowColumn>{'Founding Date'}</TableRowColumn> <TableRowColumn key='founding_date'>{apiData.founding_date ? apiData.founding_date.split('T')[0] : <i>{'No date on record'}</i>}</TableRowColumn>
@@ -55,10 +54,10 @@ export default class CompanyProfile extends Component {
                 <TableRowColumn>{'Company Stage'}</TableRowColumn> <TableRowColumn key='stage'>{apiData.stage}</TableRowColumn>
             </TableRow>
             <TableRow>    
-                <TableRowColumn>{'Total Funding (USD)'}</TableRowColumn> <TableRowColumn key='total_funding'>{'$'}{apiData.total_funding.toLocaleString()}</TableRowColumn>
+                <TableRowColumn>{'Total Funding (USD)'}</TableRowColumn> <TableRowColumn key='total_funding'>{'$'}{apiData.total_funding ? apiData.total_funding.toLocaleString() : <i>{'No total funding on record'}</i>}</TableRowColumn>
             </TableRow>
             <TableRow>    
-                <TableRowColumn>{'Last Funding Date'}</TableRowColumn> <TableRowColumn key='last_funding_date'>{apiData.last_funding_date.split('T')[0]}</TableRowColumn>
+                <TableRowColumn>{'Last Funding Date'}</TableRowColumn> <TableRowColumn key='last_funding_date'>{apiData.last_funding_date ? apiData.last_funding_date.split('T')[0] : <i>{'No date on record'}</i>}</TableRowColumn>
             </TableRow>
             <TableRow>    
                 <TableRowColumn>{'City'}</TableRowColumn> <TableRowColumn key='city'>{apiData.city}</TableRowColumn>
@@ -71,6 +70,7 @@ export default class CompanyProfile extends Component {
             </TableRow>
           </TableBody>
         </Table>
+        
       }
       </div>
     )
@@ -78,7 +78,10 @@ export default class CompanyProfile extends Component {
 };
 
 CompanyProfile.propTypes = {
-  apiData: PropTypes.object.isRequired,
+  apiData: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
   companyId: PropTypes.number.isRequired,
   fetchApiData: PropTypes.func.isRequired
 }

@@ -1,10 +1,9 @@
-import React, { PropTypes, Component } from 'react';
-import { Typeahead } from 'react-typeahead';
+import React, { PropTypes, Component }  from 'react';
+import { Typeahead }                    from 'react-typeahead';
 import _                                from 'lodash';
+import { Paper }                        from 'material-ui';
 
-import { Paper } from 'material-ui';
-
-import CompanyProfile from './CompanyProfile';
+import CompanyProfile                   from './CompanyProfile';
 
 export default class SearchCompany extends Component {
   constructor () {

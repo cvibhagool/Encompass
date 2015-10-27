@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes, Component }  from 'react';
 import { TextField, RaisedButton, FontIcon } from 'material-ui';
 
 export default class Signup extends Component {

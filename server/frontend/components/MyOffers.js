@@ -4,32 +4,56 @@
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
+import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody,TableFooter } from 'material-ui';
 
 export default class MyOffers extends Component {
-
-  funName () {
-    console.log(this.props.apiData.offers)
+  constructor () {
+    super();
+    this.state = {
+      fixedHeader: true,
+      stripedRows: true,
+      showRowHover: false,
+    };
   }
 
   render () {
-    this.funName()
-
     return (<div>
-              <h1>MyOffers Success!</h1>
-              <div>
-                <ul>
+              <Table fixedHeader={this.state.fixedHeader}>
+                <TableHeader>
+                  <TableRow>
+                    <TableHeaderColumn colSpan="7" style={{textAlign: 'center'}}>
+                      <h1>My Offers</h1>
+                    </TableHeaderColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableHeaderColumn>Offer #</TableHeaderColumn>
+                    <TableHeaderColumn>Startup Name</TableHeaderColumn>
+                    <TableHeaderColumn>Position</TableHeaderColumn>
+                    <TableHeaderColumn>Salary</TableHeaderColumn>
+                    <TableHeaderColumn>Equity</TableHeaderColumn>
+                    <TableHeaderColumn>Total Funding</TableHeaderColumn>
+                    <TableHeaderColumn>Employees</TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+
+                <TableBody stripedRows={this.state.stripedRows}>
                   {_.map(this.props.apiData.offers, function(offer) {
-                      return _.map(offer, function(offerDetails, ind) {
-                        if (ind === 'Company') {
-                            return <li key='CompanyName'>Company Name: {offerDetails.name}</li>
-                        } else {
-                            return <li key={ind}>{ind}: {offerDetails}</li>
-                        }
-                      })
-                    })
+                    return (
+                      <TableRow>
+                        <TableRowColumn>{offer.id}</TableRowColumn>
+                        <TableRowColumn>Company</TableRowColumn>
+                        <TableRowColumn>{offer.position}</TableRowColumn>
+                        <TableRowColumn>{offer.salary}</TableRowColumn>
+                        <TableRowColumn>{offer.equity}</TableRowColumn>
+                        <TableRowColumn>{offer.total_funding}</TableRowColumn>
+                        <TableRowColumn>{offer.employees}</TableRowColumn>
+                      </TableRow>
+                    )
+                  })
                   }
-                </ul>
-              </div>
-            </div>);
+                </TableBody>
+              </Table>
+            </div>)
   }
 }

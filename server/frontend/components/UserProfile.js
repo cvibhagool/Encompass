@@ -48,7 +48,7 @@ export default class UserProfile extends Component {
               <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
 
               { /* instantiate the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
-               <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
+              <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
 
             </div> :
             <h1>Please log in to use this feature</h1>}

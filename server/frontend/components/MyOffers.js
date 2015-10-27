@@ -21,19 +21,22 @@ export default class MyOffers extends Component {
               <Table fixedHeader={this.state.fixedHeader}>
                 <TableHeader>
                   <TableRow>
-                    <TableHeaderColumn colSpan="7" style={{textAlign: 'center'}}>
-                      <h1>My Offers</h1>
+                    <TableHeaderColumn 
+                        colSpan="7" 
+                        style={{textAlign: 'center'}}
+                    >
+                      <h1>{'My Offers'}</h1>
                     </TableHeaderColumn>
                   </TableRow>
 
                   <TableRow>
-                    <TableHeaderColumn>Offer #</TableHeaderColumn>
-                    <TableHeaderColumn>Startup Name</TableHeaderColumn>
-                    <TableHeaderColumn>Position</TableHeaderColumn>
-                    <TableHeaderColumn>Salary</TableHeaderColumn>
-                    <TableHeaderColumn>Equity</TableHeaderColumn>
-                    <TableHeaderColumn>Total Funding</TableHeaderColumn>
-                    <TableHeaderColumn>Employees</TableHeaderColumn>
+                    <TableHeaderColumn>{'Offer #'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Startup Name'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Position'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Salary'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Equity'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Total Funding'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Employees'}</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
@@ -42,7 +45,7 @@ export default class MyOffers extends Component {
                     return (
                       <TableRow>
                         <TableRowColumn>{offer.id}</TableRowColumn>
-                        <TableRowColumn>Company</TableRowColumn>
+                        <TableRowColumn>{'Company'}</TableRowColumn>
                         <TableRowColumn>{offer.position}</TableRowColumn>
                         <TableRowColumn>{offer.salary}</TableRowColumn>
                         <TableRowColumn>{offer.equity}</TableRowColumn>
@@ -56,4 +59,8 @@ export default class MyOffers extends Component {
               </Table>
             </div>)
   }
+}
+
+MyOffers.propTypes = {
+  apiData: PropTypes.object.isRequired
 }

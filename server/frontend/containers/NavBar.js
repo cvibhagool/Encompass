@@ -2,6 +2,14 @@ import React, { PropTypes, Component } from 'react';
 import ETabs from '../components/Tabs';
 
 export default class NavBar extends Component {
+  constructor(props) {
+
+    super(props);
+
+    //Adds display name for debugging purposes
+    this.displayName = 'NavBar';
+  }
+
   changeTab(tab) {
     this.props.onTabClick(tab);
   }
@@ -15,3 +23,7 @@ export default class NavBar extends Component {
   }
 }
 
+
+NavBar.propTypes = {
+  onTabClick: PropTypes.func.isRequired
+};

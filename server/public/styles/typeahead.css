@@ -1,6 +1,9 @@
 .typeahead-results {
+	position:absolute;
+	z-index:1;
 	background-color: white;
-    outline: none;
+	border-style: groove;
+	border-width: medium; 
 }
 
 .typeahead-input {

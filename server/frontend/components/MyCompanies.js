@@ -10,6 +10,8 @@ export default class MyCompanies extends Component {
 
   constructor () {
     super();
+
+    this.displayName = "MyCompanies";
     this.state = {
       fixedHeader: true,
       stripedRows: true,
@@ -22,19 +24,22 @@ export default class MyCompanies extends Component {
               <Table fixedHeader={this.state.fixedHeader}>
                 <TableHeader>
                   <TableRow>
-                    <TableHeaderColumn colSpan="7" style={{textAlign: 'center'}}>
-                      <h1>My Companies</h1>
+                    <TableHeaderColumn 
+                        colSpan="7" 
+                        style={{textAlign: 'center'}}
+                    >
+                      <h1>{'My Companies'}</h1>
                     </TableHeaderColumn>
                   </TableRow>
 
                   <TableRow>
-                    <TableHeaderColumn>Name</TableHeaderColumn>
-                    <TableHeaderColumn>Website</TableHeaderColumn>
-                    <TableHeaderColumn>City</TableHeaderColumn>
-                    <TableHeaderColumn>Employees</TableHeaderColumn>
-                    <TableHeaderColumn>Founding</TableHeaderColumn>
-                    <TableHeaderColumn>Stage</TableHeaderColumn>
-                    <TableHeaderColumn>Funding</TableHeaderColumn>
+                    <TableHeaderColumn>{'Name'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Website'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'City'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Employees'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Founding'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Stage'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Funding'}</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
@@ -43,7 +48,14 @@ export default class MyCompanies extends Component {
                     return (
                       <TableRow>
                         <TableRowColumn>{company.name}</TableRowColumn>
-                        <TableRowColumn><a href={company.website} target="_blank">{company.website}</a></TableRowColumn>
+                        <TableRowColumn>
+                          <a 
+                              href={company.website} 
+                              target="_blank"
+                          >
+                            {company.website}
+                          </a>
+                        </TableRowColumn>
                         <TableRowColumn>{company.city}</TableRowColumn>
                         <TableRowColumn>{company.employees}</TableRowColumn>
                         <TableRowColumn>{company.founding_date}</TableRowColumn>
@@ -57,5 +69,9 @@ export default class MyCompanies extends Component {
               </Table>
             </div>)
   }
+}
+
+MyCompanies.propTypes = {
+  apiData: PropTypes.object.isRequired
 }
 

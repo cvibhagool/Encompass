@@ -52,6 +52,10 @@ export default class AddOffer extends Component {
           <div className="form-group">
             <label htmlFor="company">Company *</label>
               <Typeahead 
+                style={{
+                  'position': 'absolute',
+                  'z-index': 2
+                }}
                 className="form-control" 
                 name="company_name" 
                 options={ this.state.companyNames } 
@@ -61,7 +65,14 @@ export default class AddOffer extends Component {
                   (name) =>  {
                     this.setState({company_name: name});
                   }
-                } />
+                }
+                customClasses={
+                  { input: "typeahead-input",
+                    results: "typeahead-results",
+                    listItem: "typeahead-item",
+                    hover: "typeahead-active"}
+                }
+                />
           </div>
 
           <div className="form-group">

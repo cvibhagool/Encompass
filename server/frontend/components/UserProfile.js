@@ -11,7 +11,7 @@ import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
 
 // define all constant variables
-const userPath = '/api/user/profile/7';
+const userPath = '/api/user/profile/me';
 
 // create UserProfile view
 export default class UserProfile extends Component {

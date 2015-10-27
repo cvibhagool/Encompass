@@ -84,4 +84,8 @@ export default class Login extends Component {
     </div>
 		);
 	}
+};
+
+Login.propTypes = {
+  postApiData: PropTypes.func.isRequired
 }

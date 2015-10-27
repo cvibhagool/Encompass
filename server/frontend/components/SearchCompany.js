@@ -60,5 +60,11 @@ export default class SearchCompany extends Component {
 	    </div>
     );
   }
+};
+
+SearchCompany.propTypes = {
+  apiData: PropTypes.object.isRequired,
+  companies: PropTypes.object.isRequired,
+  fetchApiData: PropTypes.func.isRequired
 }
 

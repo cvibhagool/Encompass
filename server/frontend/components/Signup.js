@@ -87,5 +87,9 @@ export default class Signup extends Component {
     </div>
     );
   }
+};
+
+Signup.propTypes = {
+  postApiData: PropTypes.func.isRequired
 }
 

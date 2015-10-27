@@ -64,3 +64,7 @@ export default class UserProfile extends Component {
   }
 }
 
+UserProfile.propTypes = {
+  apiData: PropTypes.object.isRequired,
+  fetchApiData: PropTypes.func.isRequired
+}

@@ -30,8 +30,14 @@ export default class Signup extends Component {
         >
           <div>
             <TextField 
-                floatingLabelText={<span> <i className="material-icons" 
-                    style={{"vertical-align": 'middle'}}>{'person'}</i>{'Username'}</span>} 
+                floatingLabelText={
+                    <span> 
+                      <i 
+                          className="material-icons" 
+                          style={{"vertical-align": 'middle'}}
+                      >{'person'}
+                      </i>{'Username'}
+                    </span>} 
                 hintText="" 
                 ref="username"
                 style={{

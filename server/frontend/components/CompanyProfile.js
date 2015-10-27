@@ -1,4 +1,4 @@
-import React, { ProtoTypes, Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import _                                from 'lodash';
 import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui';
 export default class CompanyProfile extends Component {
@@ -78,7 +78,7 @@ export default class CompanyProfile extends Component {
 };
 
 CompanyProfile.propTypes = {
-  apiData: React.PropTypes.object.isRequired,
-  companyId: React.PropTypes.number.isRequired,
-  fetchApiData: React.PropTypes.func.isRequired
+  apiData: PropTypes.object.isRequired,
+  companyId: PropTypes.number.isRequired,
+  fetchApiData: PropTypes.func.isRequired
 }

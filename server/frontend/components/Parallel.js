@@ -67,7 +67,7 @@ export default class Parallel extends Component {
         
     d3.json('http://localhost:3000/data/company?industry=all&fields[]=employees_mom&fields[]=employees&fields[]=total_funding', function(data) {
      
-      this.state({dataLoaded: true});  
+      this.setState({dataLoaded: true});  
         
       var colorgen = d3.scale.ordinal()
         .range(["#a6cee3","#1f78b4","#b2df8a","#33a02c",
@@ -110,8 +110,11 @@ export default class Parallel extends Component {
             ref={(ref) =>  this.doD3(ReactDOM.findDOMNode(ref))} 
             style={divStyle}
         >
-        {!this.state.dataLoaded ? <CircularProgress mode="indeterminate" 
-            size={1.5} /> : ''}
+        {!this.state.dataLoaded ? 
+            <CircularProgress 
+                mode="indeterminate" 
+                size={1.5} 
+            /> : ''}
         </div>
       </div>
     )

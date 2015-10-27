@@ -24,7 +24,7 @@ export default class Landing extends Component {
   // }
 
   displayChart() {
-    this.state({displayChart: true});
+    this.setState({displayChart: true});
   }
     
   render() {

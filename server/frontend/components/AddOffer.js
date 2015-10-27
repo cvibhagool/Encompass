@@ -11,7 +11,7 @@ export default class AddOffer extends Component {
   }
 
   componentDidMount() {
-    this.state({companyNames: _.pluck(this.props.companies, 'name')});
+    this.setState({companyNames: _.pluck(this.props.companies, 'name')});
   }
 
   handleSubmit (e) {
@@ -27,7 +27,7 @@ export default class AddOffer extends Component {
 
     this.props.postApiData('/api/offer', formData);
 
-    this.state({company_name: ''});
+    this.setState({company_name: ''});
     this.refs.position.value = '';
     this.refs.salary.value = '';
     this.refs.equity.value = '';
@@ -63,7 +63,7 @@ export default class AddOffer extends Component {
                   name="company_name" 
                   onOptionSelected={
                     (name) =>  {
-                      this.state({company_name: name});
+                      this.setState({company_name: name});
                     }
                   }
                   options={this.state.companyNames} 
@@ -129,7 +129,8 @@ export default class AddOffer extends Component {
             <button 
                 className="btn btn-primary" 
                 type="submit" 
-                value="Post">{'Add Offer'}
+                value="Post"
+            >{'Add Offer'}
             </button>
           </div>
         </form>

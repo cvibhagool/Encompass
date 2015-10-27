@@ -26,14 +26,20 @@ export default class Login extends Component {
       <div className = "row">
         <div className = "col-md-4 col-md-offset-4 text-center">
         	<h1 id="heading">{'Login'}</h1>
-        	<form action="" 
+        	<form 
+            action="" 
             onSubmit={this.handleSubmit.bind(this)}
           >
-            
             <div>
               <TextField 
-                  floatingLabelText={<span><i className="material-icons" 
-                      style={{"vertical-align": 'middle'}}>{'person'}</i>{'Username'}</span>} 
+                  floatingLabelText={
+                    <span>
+                      <i 
+                          className="material-icons" 
+                          style={{"vertical-align": 'middle'}}
+                      >{'person'}
+                      </i>{'Username'}
+                    </span>} 
                   hintText="" 
                   ref="username"
                   style={{
@@ -44,8 +50,14 @@ export default class Login extends Component {
             </div>
             <div>
               <TextField 
-                  floatingLabelText={<span><i className="material-icons" 
-                      style={{"vertical-align": 'middle'}}>{'lock'}</i>{'Password'}</span>} 
+                  floatingLabelText={
+                    <span>
+                      <i 
+                          className="material-icons" 
+                          style={{"vertical-align": 'middle'}}
+                      >{'lock'}
+                      </i>{'Password'}
+                    </span>} 
                   hintText="" 
                   ref="password"
                   style={{
@@ -77,7 +89,6 @@ export default class Login extends Component {
                   }}
               />
             </div>
-
         	</form>
         </div>
       </div>

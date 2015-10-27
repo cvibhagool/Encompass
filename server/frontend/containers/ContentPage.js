@@ -86,7 +86,6 @@ export default class ContentPage extends Component {
 }
 
 ContentPage.propTypes = {
-  apiData: PropTypes.object.isRequired,
   apiState: PropTypes.object.isRequired,
   fetchApiData: PropTypes.func.isRequired,
   pageState: PropTypes.object.isRequired,

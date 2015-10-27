@@ -12,7 +12,7 @@ export default class SearchCompany extends Component {
   }
 
   componentDidMount() {
-    this.state({companyNames: _.pluck(this.props.companies, 'name')});
+    this.setState({companyNames: _.pluck(this.props.companies, 'name')});
   }
 
   render() {
@@ -37,7 +37,7 @@ export default class SearchCompany extends Component {
                   onOptionSelected={
                     (name) =>  {
                       let companyEntry = _.find(this.props.companies, 'name', name);
-                      this.state({companyId: companyEntry.id});
+                      this.setState({companyId: companyEntry.id});
                     }
                   }
                   options={this.state.companyNames}

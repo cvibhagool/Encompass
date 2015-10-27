@@ -5,8 +5,14 @@ import NavBar from './NavBar';
 import ContentPage from './ContentPage'
 
 class App extends Component {
+
   constructor(props) {
+
     super(props);
+
+    //Adds display name for debugging purposes
+    this.displayName = 'App';
+    
     this.handleRefreshClick = this.handleRefreshClick.bind(this);
   }
 
@@ -23,15 +29,16 @@ class App extends Component {
     const { dispatch, page, api } = this.props;
     return (
       <div id='app-view'>
-        { api.companies &&
+        {api.companies &&
           <div>
             <NavBar onTabClick={tabName => dispatch(showPage(tabName))} />
             <div className = "container">
               <ContentPage 
-                fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} 
-                apiState={api} 
-                postApiData={(apiPath, json) => dispatch(postApiData(apiPath, json))} 
-                pageState={page} />
+                  apiState={api} 
+                  fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} 
+                  pageState={page} 
+                  postApiData={(apiPath, json) => dispatch(postApiData(apiPath, json))} 
+              />
             </div>
           </div>
         }
@@ -41,7 +48,9 @@ class App extends Component {
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  api: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  page: PropTypes.object.isRequired
 };
 
 function selectStateProperties(state) {

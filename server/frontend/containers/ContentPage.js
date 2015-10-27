@@ -47,7 +47,6 @@ export default class ContentPage extends Component {
           <div className="content" > 
             <UserProfile 
                 apiData={this.props.apiState.apiData} 
-                companies={this.props.apiState.companies}
                 fetchApiData={this.fetchApiData.bind(this)} 
             /> 
           </div>: null}

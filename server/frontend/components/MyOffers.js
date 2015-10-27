@@ -43,11 +43,11 @@ export default class MyOffers extends Component {
                 </TableHeader>
 
                 <TableBody stripedRows={this.state.stripedRows}>
-                  {_.map(this.props.apiData.offers, function(offer) {
+                  {_.map(this.props.apiData.offers, function (offer) {
                     return (
                       <TableRow>
                         <TableRowColumn>{offer.id}</TableRowColumn>
-                        <TableRowColumn>{this.props.companies}</TableRowColumn>
+                        <TableRowColumn>{offer.Company.name}</TableRowColumn>
                         <TableRowColumn>{offer.position}</TableRowColumn>
                         <TableRowColumn>{offer.salary}</TableRowColumn>
                         <TableRowColumn>{offer.equity}</TableRowColumn>
@@ -55,7 +55,7 @@ export default class MyOffers extends Component {
                         <TableRowColumn>{offer.employees}</TableRowColumn>
                       </TableRow>
                     )
-                  })
+                  }.bind(this))
                   }
                 </TableBody>
               </Table>
@@ -64,5 +64,8 @@ export default class MyOffers extends Component {
 }
 
 MyOffers.propTypes = {
-  apiData: PropTypes.array.isRequired
+  apiData: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ])
 }

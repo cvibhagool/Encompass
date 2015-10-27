@@ -74,6 +74,9 @@ export default class MyCompanies extends Component {
 }
 
 MyCompanies.propTypes = {
-  apiData: PropTypes.array.isRequired
+  apiData: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ])
 }
 

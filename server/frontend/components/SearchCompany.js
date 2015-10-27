@@ -63,8 +63,11 @@ export default class SearchCompany extends Component {
 };
 
 SearchCompany.propTypes = {
-  apiData: PropTypes.object.isRequired,
-  companies: PropTypes.object.isRequired,
+  apiData: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
+  companies: PropTypes.array.isRequired,
   fetchApiData: PropTypes.func.isRequired
 }
 

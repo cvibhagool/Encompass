@@ -5,6 +5,14 @@ import { Tab, Tabs }                    from 'material-ui';
 
 
 export default class ETabs extends Component {
+  constructor () {
+    super();
+
+    //Adds display name for debugging purposes
+    this.displayName = 'ETabs';
+    this.state = {};
+  }
+
   handleClick(tab) {
     this.props.changeTab(tab);
   }
@@ -12,20 +20,24 @@ export default class ETabs extends Component {
   render() {
     return (
       <div>  
-      <Tabs>
-        { TabList.map(function(tab) {
-          return (
-            <Tab 
-              key={tab.id} 
-              url={tab.url} 
-              onClick={this.handleClick.bind(this, tab)} 
-              label={tab.name}></Tab>
-              
-          );
-        }.bind(this))
-      }
-      </Tabs>
+        <Tabs>
+          {TabList.map(function(tab) {
+            return (
+              <Tab
+                  key={tab.id} 
+                  label={tab.name}
+                  onClick={this.handleClick.bind(this, tab)} 
+                  url={tab.url}
+              />
+            );
+          }.bind(this))
+        }
+        </Tabs>
       </div>
     );
   }
+}
+
+ETabs.propTypes = {
+  changeTab: PropTypes.func.isRequired
 }

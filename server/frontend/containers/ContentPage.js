@@ -35,17 +35,17 @@ export default class ContentPage extends Component {
       <div id='content-view'>
 
         { /* controls the logic of our navbar tabs; each component gets passed the necessary internal api data */ }
-        <div className="content" > {this.props.pageState.currentPage === 1 ? <Landing /> : null }</div>
+        {this.props.pageState.currentPage === 1 ? <div className="content" > <Landing /> </div> : null }
 
-        <div className="content" > {this.props.pageState.currentPage === 2 ? <UserProfile apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)} /> : null }</div>
+        {this.props.pageState.currentPage === 2 ? <div className="content" > <UserProfile apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)} /> </div>: null }
         
-        <div className="content" > {this.props.pageState.currentPage === 3 ? <AddOffer companies={this.props.apiState.companies} apiData={this.props.apiState.apiData} postApiData={this.postApiData.bind(this)} /> : null }</div>
+        {this.props.pageState.currentPage === 3 ? <div className="content" > <AddOffer companies={this.props.apiState.companies} apiData={this.props.apiState.apiData} postApiData={this.postApiData.bind(this)} /> </div>: null }
         
-        <div className="content" > {this.props.pageState.currentPage === 4 ? <SearchCompany companies={this.props.apiState.companies} apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)}/> : null }</div>
+        {this.props.pageState.currentPage === 4 ? <div className="content" > <SearchCompany companies={this.props.apiState.companies} apiData={this.props.apiState.apiData} fetchApiData={this.fetchApiData.bind(this)}/> </div>: null }
         
-        <div className="content" > {this.props.pageState.currentPage === 5 ? <Login postApiData={this.postApiData.bind(this)}/> : null }</div>
+        {this.props.pageState.currentPage === 5 ? <div className="content" > <Login postApiData={this.postApiData.bind(this)}/> </div>: null }
         
-        <div className="content" > {this.props.pageState.currentPage === 6 ? <Signup postApiData={this.postApiData.bind(this)}/> : null }</div>
+        {this.props.pageState.currentPage === 6 ? <div className="content" > <Signup postApiData={this.postApiData.bind(this)}/> </div>: null }
       </div>
     );
   }

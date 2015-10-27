@@ -6,3 +6,21 @@ body {
   font-size: 13px;
   line-height: 20px;
 }
+
+.left-pane {
+	width: 20%;
+  float:left; 
+
+}
+
+.content-pane {
+	width: 30%;
+  margin-left: 50px;
+  float:left;
+}
+
+.visualization-pane {
+  width: 50%;
+  margin-left: 50px;
+  float:left;
+}

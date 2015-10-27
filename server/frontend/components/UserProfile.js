@@ -13,15 +13,12 @@ import MyOffers                         from './MyOffers.js';
 // define all constant variables
 const userPath = '/api/user/profile/7';
 
-// {this.props.apiData.user.username.bind(this)}
-
-
 // create UserProfile view
 export default class UserProfile extends Component {
 
   constructor () {
     super();
-    this.state = { data: {} };
+    this.state = {};
   }
 
   // GET request for when page loads for our user data & subview components
@@ -40,22 +37,21 @@ export default class UserProfile extends Component {
           {this.checkCookie() ?
             <div>
 
-              <h1>Welcome !</h1>
+              <h1>Welcome {this.props.apiData.user && this.props.apiData.user.username}!</h1>
 
               { /* iterate over the user's profile info and display it on the page */ }
-            	<ul>
-            		{_.map(this.props.apiData.user, function(val, ind) {
+              <ul>
+                {_.map(this.props.apiData.user, function(val, ind) {
                     return <li key={ind}>{ind}: {val}</li>; 
                   })
                 }
-            	</ul>
+              </ul>
             
-              { /* instantiate/invoke/import the MyOffers child and pass it props (the offers) that this logged-in user has entered previously */ }
+              { /* instantiate the MyOffers child and pass it props (the offers) that this logged-in user has entered previously */ }
               <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
 
-              { /* instantiate/invoke/import the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
+              { /* instantiate the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
                <MyCompanies apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
-
 
             </div> :
             <h1>Please log in to use this feature</h1>}

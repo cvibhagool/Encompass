@@ -52,7 +52,7 @@ export default class MyCompanies extends Component {
                         <TableRowColumn>{company.name}</TableRowColumn>
                         <TableRowColumn>
                           <a 
-                              href={company.website} 
+                              href={'http://www.' + company.website} 
                               target="_blank"
                           >
                             {company.website}

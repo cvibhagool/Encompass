@@ -34,18 +34,15 @@ export default class UserProfile extends Component {
   render() {
     return (
           <div>
+
+          { /* check if user is logged in */ }
           {this.checkCookie() ?
+            
             <div>
 
               <h1>Welcome {this.props.apiData.user && this.props.apiData.user.username}!</h1>
 
-              { /* iterate over the user's profile info and display it on the page */ }
-              <ul>
-                {_.map(this.props.apiData.user, function(val, ind) {
-                    return <li key={ind}>{ind}: {val}</li>; 
-                  })
-                }
-              </ul>
+              <p>Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!</p>
             
               { /* instantiate the MyOffers child and pass it props (the offers) that this logged-in user has entered previously */ }
               <MyOffers apiData={this.props.apiData} fetchApiData={this.props.fetchApiData.bind(this)} />
@@ -59,28 +56,4 @@ export default class UserProfile extends Component {
             );
   }
 }
-
-
-// header will be persons name
-// sub window of all the companies they follow (component FollowedCompanies)
-// sub window of all the offers they have recevied (component SavedOffers)
-
-
-// create two new files -- sub components
-// import into this file
-// carve a space them here 
-//   <FollowedCompanies />
-//   <SavedOffers />
-//   note: must send in any properties that they might need; give it to them here
-//     a function
-//     info, etc
-
-
-
-//   FC 
-//     hyperlinked list item
-//     componentWillMount so you 
-//   SavedOffers
-//     summary + hyperlinked that will allow them to edit the offer
-
 

@@ -20,7 +20,7 @@ module.exports = function (app, express) {
   //Function for authenticating routes
   var checkUser = function(req,res,next){
       if( !req.isAuthenticated() ) {
-        res.status(403);
+        res.sendStatus(403);
       } else {
         next();
       }

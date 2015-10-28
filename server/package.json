@@ -38,6 +38,7 @@
     "eslint-loader": "^1.1.0",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
+    "history": "^1.12.6",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "material-ui": "^0.13.0",
@@ -59,6 +60,7 @@
     "react-typeahead": "^1.1.5",
     "redux": "^3.0.0",
     "redux-logger": "^2.0.2",
+    "redux-router": "^0.1.0",
     "redux-thunk": "^0.1.0",
     "request": "^2.65.0",
     "sequelize": "^3.12.1"

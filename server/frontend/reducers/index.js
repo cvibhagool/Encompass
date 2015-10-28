@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerStateReducer as router } from 'redux-router';
 import {
   SHOW_PAGE,
   REQUEST_API_DATA,
@@ -92,7 +93,8 @@ function api(state = {
 
 const rootReducer = combineReducers({
   page,
-  api
+  api,
+  router
 });
 
 export default rootReducer;

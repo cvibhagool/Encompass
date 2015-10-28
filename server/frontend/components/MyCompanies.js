@@ -4,7 +4,7 @@
 // import dependencies
 import React, { PropTypes, Component } from 'react';
 import _                               from 'lodash';
-import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody,TableFooter } from 'material-ui';
+import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton } from 'material-ui';
 
 export default class MyCompanies extends Component {
 
@@ -22,17 +22,33 @@ export default class MyCompanies extends Component {
     };
   }
 
-  doSelection(thing) {
-    console.log(this.props.apiData.companies);
+  selectedRows: []
+
+  selectedCompanies: []
+
+  doSelection(selection) {
+    this.selectedRows = selection;
+    //console.log(this.selectedRows);
   }
 
+  compareCompanies() {
+    console.log(this.selectedRows); 
+    if (this.selectedRows === 'all') {
+      console.log('all');
+    } else {
+      for (var i = 0; i < this.selectedRows.length; i++) {
+        console.log(this.selectedCompanies);
+        //this.selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
+      }
+    }
+  }
   
   render () {
     return (<div>
               <Table 
-                onRowSelection={this.doSelection.bind(this)} 
-                multiSelectable={this.state.multiSelectable}
-                fixedHeader={this.state.fixedHeader}>
+               onRowSelection={this.doSelection.bind(this)} 
+               multiSelectable={this.state.multiSelectable}
+               fixedHeader={this.state.fixedHeader}>
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
@@ -78,6 +94,12 @@ export default class MyCompanies extends Component {
                   }
                 </TableBody>
               </Table>
+              <div>
+              <FlatButton primary={true} label="Compare" onClick={this.compareCompanies.bind(this)} />
+              </div>
+              <div>
+                {this.selectedCompanies}
+              </div>
             </div>)
   }
 }

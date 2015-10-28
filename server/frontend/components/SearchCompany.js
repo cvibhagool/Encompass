@@ -1,19 +1,27 @@
 import React, { PropTypes, Component }  from 'react';
+
+//Connect this component to Redux dispatcher and store
+import { connect } from 'react-redux';
+
+//Import the following api actions
+import { fetchApiData, postApiData } from '../actions';
+
+//Import third party components
 import { Typeahead }                    from 'react-typeahead';
-import _                                from 'lodash';
 import { Paper, RaisedButton }          from 'material-ui';
 
+//Import component to display a specific company's profile
 import CompanyProfile                   from './CompanyProfile';
 import IndustryGraph                   from './IndustryGraph';
+
+//Import lodash utility functions
+import _                                from 'lodash';
 
 export default class SearchCompany extends Component {
   constructor () {
     super();
     this.state = {};
-  }
-
-  componentWillMount() {
-    this.props.fetchApiData('/api/user/profile/me');
+    this.clickFollowCompany = this.clickFollowCompany.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +57,10 @@ export default class SearchCompany extends Component {
                   onOptionSelected={
                     (name) =>  {
                       let companyEntry = _.find(this.props.companies, 'name', name);
-                      this.setState({companyId: companyEntry.id, companyFollowed : !!_.find(this.props.profile.companies, 'id', companyEntry.id)});
+                      this.setState({companyId: companyEntry.id});
+                      if(this.props.profile) { 
+                        this.setState({companyFollowed : !!_.find(this.props.profile.companies, 'id', companyEntry.id)})
+                      }
                     }
                   }
                   options={this.state.companyNames}
@@ -70,14 +81,18 @@ export default class SearchCompany extends Component {
                       fetchApiData={this.props.fetchApiData}
                       postApiData={this.props.postApiData}
                   />
+                </div>
+    		      }
+              {(this.state.companyId && this.props.profile) && 
+                <div>
                   <RaisedButton 
                       label={this.state.companyFollowed ? "Company has been followed!" : "Follow Company"}
                       primary={true}
                       disabled={this.state.companyFollowed}
-                      onClick={this.clickFollowCompany.bind(this)}
+                      onClick={this.clickFollowCompany}
                   />
                 </div>
-    		      }
+              }
           </Paper>
           <Paper
               className="graph-container" 
@@ -95,8 +110,21 @@ SearchCompany.propTypes = {
     PropTypes.array,
     PropTypes.object
   ]),
-  companies: PropTypes.array.isRequired,
   fetchApiData: PropTypes.func.isRequired,
   postApiData: PropTypes.func.isRequired
 }
 
+function mapStateToProps(state) {
+  const {api} = state;
+
+  return {
+    apiData: api.apiData,
+    companies: api.companies,
+    profile: api.profile
+  };
+};
+
+export default connect(mapStateToProps, {
+  fetchApiData,
+  postApiData
+})(SearchCompany);

@@ -10,7 +10,6 @@ body {
 .left-pane {
 	width: 20%;
   float:left; 
-
 }
 
 .content-pane {
@@ -23,4 +22,9 @@ body {
   width: 50%;
   margin-left: 50px;
   float:left;
+}
+
+.graph-container {
+  width: 100%;
+  margin-top: 50px;
 }

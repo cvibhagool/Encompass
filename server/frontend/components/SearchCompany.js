@@ -4,6 +4,7 @@ import _                                from 'lodash';
 import { Paper, RaisedButton }          from 'material-ui';
 
 import CompanyProfile                   from './CompanyProfile';
+import IndustryGraph                   from './IndustryGraph';
 
 export default class SearchCompany extends Component {
   constructor () {
@@ -77,6 +78,12 @@ export default class SearchCompany extends Component {
                   />
                 </div>
     		      }
+          </Paper>
+          <Paper
+              className="graph-container" 
+              zDepth={2}
+          >
+            <IndustryGraph/>
           </Paper>
 	    </div>
     );

@@ -1,0 +1,71 @@
+svg{
+  padding-left: 50px;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+.dot {
+  stroke: white;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.label {
+  fill: #777;
+}
+
+.year.label {
+  font: 500 196px "Helvetica Neue";
+  fill: #ddd;
+}
+
+.year.label.active {
+  fill: #aaa;
+}
+
+.overlay {
+  fill: none;
+}
+
+.tick line{
+  opacity: 0.2;
+}
+
+/* Overall container for the tooltip */
+.tooltip{
+  border: 1px solid #bbbbbb;
+  color: black;
+  background-color: white;
+  position: absolute;
+  font-family: Arial, Helvetical, sans-serif;
+  padding: 10px;
+  max-width: 200px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.tooltipTitle{
+  font-size: 12px;
+  font-weight: bold;
+  padding-bottom: 4px;
+}
+
+.toolTipLine{
+  line-height: 15px;
+}
+
+.tooltipMetricName{
+  color: #666;
+  font-weight: normal;
+  font-size: 11px;
+  padding-right: 5px;
+}
+.tooltipMetricValue{
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+}

@@ -8,7 +8,7 @@ import configureStore from './store/configureStore';
 let injectTapEventPlugin = require('react-tap-event-plugin');
 
 //Set the initial state and initialize the store with the initial state
-const initialState = {page: {currentPage: 1}};
+const initialState = {};
 const store = configureStore(initialState);
 
 // This is a shim for material-ui tap handling
@@ -16,8 +16,9 @@ injectTapEventPlugin();
 
 render(
   <Provider store={store}>
-  	<ReduxRouter />
-    <App />
+  	<div>
+	  	<ReduxRouter />
+    </div>
   </Provider>,
   document.getElementById('root')
 );

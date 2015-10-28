@@ -97,6 +97,20 @@ describe('Encompass API Integration Tests', function () {
     });
   });
 
+  it('can delete an existing offer via DELETE request at /offer/:offerId', function (done) {
+    this.timeout(100000);
+    var requestParams = {
+      method: 'DELETE',
+      uri: 'http://localhost:3000/api/offer/' + newOfferId
+    };
+    
+    request(requestParams, function(error, res, body) {
+      var message = JSON.parse(body);
+      expect(message).to.equal('Offer deleted');
+      done();
+    });
+  });
+
   it('can retrieve an existing company by its id number via GET request at /company/:companyId', function (done) {
     this.timeout(100000);
     var requestParams = {

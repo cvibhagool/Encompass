@@ -1,6 +1,9 @@
 import React, { PropTypes, Component }  from 'react';
 import { TextField, RaisedButton, FontIcon } from 'material-ui';
 
+import { connect } from 'react-redux';
+import { fetchApiData, postApiData } from '../actions';
+
 export default class Signup extends Component {
   constructor() {
     super();
@@ -14,6 +17,7 @@ export default class Signup extends Component {
     };
 
     this.props.postApiData('/auth/signup', formData);
+    this.props.fetchApiData('/api/user/profile/me');
 
     this.refs.username.setValue('');
     this.refs.password.setValue('');
@@ -98,4 +102,14 @@ export default class Signup extends Component {
 Signup.propTypes = {
   postApiData: PropTypes.func.isRequired
 }
+
+function mapStateToProperties(state) {
+  const { profile } = state;
+  return { profile };
+}
+
+export default connect(mapStateToProperties, {
+  fetchApiData,
+  postApiData
+})(Signup);
 

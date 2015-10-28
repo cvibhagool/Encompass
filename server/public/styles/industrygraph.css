@@ -1,44 +1,44 @@
-svg{
+.vis svg{
   padding-left: 50px;
 }
 
-text {
+.vis text {
   font: 10px sans-serif;
 }
 
-.dot {
+.vis .dot {
   stroke: white;
 }
 
-.axis path, .axis line {
+.vis .axis path, .vis .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
 
-.label {
+.vis .label {
   fill: #777;
 }
 
-.year.label {
+.vis .year.label {
   font: 500 196px "Helvetica Neue";
   fill: #ddd;
 }
 
-.year.label.active {
+.vis .year.label.active {
   fill: #aaa;
 }
 
-.overlay {
+.vis .overlay {
   fill: none;
 }
 
-.tick line{
+.vis .tick line{
   opacity: 0.2;
 }
 
 /* Overall container for the tooltip */
-.tooltip{
+.vis .tooltip{
   border: 1px solid #bbbbbb;
   color: black;
   background-color: white;
@@ -48,23 +48,24 @@ text {
   max-width: 200px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-.tooltipTitle{
+.vis .tooltipTitle{
   font-size: 12px;
   font-weight: bold;
   padding-bottom: 4px;
 }
 
-.toolTipLine{
+.vis .toolTipLine{
   line-height: 15px;
 }
 
-.tooltipMetricName{
+.vis .tooltipMetricName{
   color: #666;
   font-weight: normal;
   font-size: 11px;
   padding-right: 5px;
 }
-.tooltipMetricValue{
+
+.vis .tooltipMetricValue{
   font-weight: bold;
   font-size: 12px;
   text-align: center;

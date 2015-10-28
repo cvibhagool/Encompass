@@ -257,7 +257,7 @@ export default class IndustryGraph extends Component {
 
   render() {
     return (
-      <div>
+      <div className="vis">
         <div ref={(node) => this.d3Node = node} >
           {!this.state.dataLoaded ? <CircularProgress mode="indeterminate" size={1.5} /> : ''}
         </div>  

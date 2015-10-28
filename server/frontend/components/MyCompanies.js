@@ -4,26 +4,60 @@
 // import dependencies
 import React, { PropTypes, Component } from 'react';
 import _                               from 'lodash';
-import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody,TableFooter } from 'material-ui';
+import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton } from 'material-ui';
+
+import CompanyVis from './CompanyVis';
 
 export default class MyCompanies extends Component {
+  displayName: 'MyCompanies'
 
   constructor () {
     super();
 
-    this.displayName = "MyCompanies";
-    
     // sets the state for our table settings (material-ui)
     this.state = {
       fixedHeader: true,
       stripedRows: true,
       showRowHover: false,
+      multiSelectable: true,
+      showComparison: false,
+      selectedCompanies: []
     };
   }
 
+  selectedRows: []
+
+  //selectedCompanies: []
+
+  doSelection(selection) {
+    this.selectedRows = selection;
+    //console.log(this.selectedRows);
+  }
+
+  compareCompanies() {
+
+    var selectedCompanies = [];
+    if (this.selectedRows === 'all') {
+      console.log('all');
+    } else {
+      for (var i = 0; i < this.selectedRows.length; i++) {
+        selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
+      }
+    }
+    //this.selectedCompanies = selectedCompanies;
+    this.setState({selectedCompanies: selectedCompanies});
+    this.setState({showComparison: true});
+    setTimeout(function() {
+      console.log(this.state)
+    }.bind(this), 1);
+  }
+  
   render () {
     return (<div>
-              <Table fixedHeader={this.state.fixedHeader}>
+              <Table 
+               onRowSelection={this.doSelection.bind(this)} 
+               multiSelectable={this.state.multiSelectable}
+               fixedHeader={this.state.fixedHeader}>
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
@@ -48,7 +82,7 @@ export default class MyCompanies extends Component {
                 <TableBody stripedRows={this.state.stripedRows}>
                   {_.map(this.props.apiData.companies, function(company) {
                     return (
-                      <TableRow>
+                      <TableRow >
                         <TableRowColumn>{company.name}</TableRowColumn>
                         <TableRowColumn>
                           <a 
@@ -69,6 +103,12 @@ export default class MyCompanies extends Component {
                   }
                 </TableBody>
               </Table>
+              <div>
+              <FlatButton primary={true} label="Compare" onClick={this.compareCompanies.bind(this)} />
+              </div>
+              <div>
+                {this.state.showComparison ? <CompanyVis data={this.state.selectedCompanies} /> : ''}
+              </div>  
             </div>)
   }
 }

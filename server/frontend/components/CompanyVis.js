@@ -30,7 +30,7 @@ export default class CompanyVis extends Component {
     console.log('newdata: ', data);
 
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 900 - margin.left - margin.right,
+      width = 1140 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
@@ -103,7 +103,7 @@ export default class CompanyVis extends Component {
     console.log('data: ', data);
     
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 900 - margin.left - margin.right,
+      width = 1140 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()

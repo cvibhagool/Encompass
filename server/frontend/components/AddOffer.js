@@ -1,7 +1,8 @@
 import React, { PropTypes, Component }  from 'react';
 import { Typeahead }                    from 'react-typeahead';
 import _                                from 'lodash';
-import cookie from 'react-cookie';
+import cookie                           from 'react-cookie';
+import { TextField, RaisedButton }      from 'material-ui';
 
 export default class AddOffer extends Component {
  
@@ -50,88 +51,90 @@ export default class AddOffer extends Component {
         <h1 id="heading">{'Add Your Offer'}</h1>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
-            <label htmlFor="company">{'Company *'}</label>
-              <Typeahead 
-                  className="form-control" 
-                  customClasses={
-                    { input: "typeahead-input",
-                      results: "typeahead-results",
-                      listItem: "typeahead-item",
-                      hover: "typeahead-active" }
-                  }
-                  maxVisible={10}
-                  name="company_name" 
-                  onOptionSelected={
-                    (name) =>  {
-                      this.setState({company_name: name});
+            <div className="col-md-4 col-md-offset-4 text-center">
+              <label htmlFor="company">{'Company *'}</label>
+                <Typeahead 
+                    customClasses={
+                      { input: "typeahead-input",
+                        results: "typeahead-results",
+                        listItem: "typeahead-item",
+                        hover: "typeahead-active" }
                     }
-                  }
-                  options={this.state.companyNames} 
-                  placeholder="Google" 
-                  style={{
-                    'position': 'absolute',
-                    'z-index': 2
-                  }}
-              />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="position">{'Position *'}</label>
-            <input 
-                className="form-control" 
-                name="position" 
-                ref="position" 
-                type="text" 
+                    maxVisible={10}
+                    name="company_name" 
+                    onOptionSelected={
+                      (name) =>  {
+                        this.setState({company_name: name});
+                      }
+                    }
+                    options={this.state.companyNames} 
+                    placeholder="Google" 
+                    style={{
+                      'position': 'absolute',
+                      'z-index': 2
+                    }}
+                />
+            </div>
+            
+          <div className="col-md-4 col-md-offset-4 text-center">
+            <TextField
+              hintText="Software Engineer"
+              floatingLabelText="What is your job title?"
+              name="position"
+              ref="position" 
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="salary">{'Salary *'}</label>
-            <input 
-                className="form-control" 
-                name="salary" 
-                ref="salary" 
-                type="number" 
+          <div className="col-md-4 col-md-offset-4 text-center">
+            <TextField
+              hintText="numbers only please :)"
+              floatingLabelText="What is your salary?"
+              name="salary"
+              ref="salary" 
+              type="number"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="equity">{'Equity *'}</label>
-            <input 
-                className="form-control" 
-                name="equity" 
-                ref="equity" 
-                type="number" 
+          <div className="col-md-4 col-md-offset-4 text-center">
+            <TextField
+              hintText="numbers only please :)"
+              floatingLabelText="What is your equity?"
+              name="equity"
+              ref="equity" 
+              type="number"
+            />
+          </div>
+          
+          <div className="col-md-4 col-md-offset-4 text-center">
+            <TextField
+              hintText="numbers only please :)"
+              floatingLabelText="Total funding?"
+              name="total_funding"
+              ref="total_funding" 
+              type="number"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="total_funding">{'Total Funding *'}</label>
-            <input 
-                className="form-control" 
-                name="total_funding" 
-                ref="total_funding" 
-                type="number" 
+          <div className="col-md-4 col-md-offset-4 text-center">
+            <TextField
+              hintText="numbers only please :)"
+              floatingLabelText="How many employees?"
+              name="employees"
+              ref="employees" 
+              type="number"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="employees">{'Employees *'}</label>
-            <input 
-                className="form-control" 
-                name="employees" 
-                ref="employees" 
-                type="number" 
+          <div></div>
+          
+          <div className="col-md-4 col-md-offset-4 text-center">
+            <RaisedButton
+              type="submit"
+              value="Post" 
+              label={"Follow Company"}
+              primary={true}
             />
           </div>
-
-          <div className="form-group">
-            <button 
-                className="btn btn-primary" 
-                type="submit" 
-                value="Post"
-            >{'Add Offer'}
-            </button>
           </div>
         </form>
       </div> :

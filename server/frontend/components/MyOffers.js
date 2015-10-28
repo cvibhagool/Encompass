@@ -59,10 +59,10 @@ export default class MyOffers extends Component {
                         <TableRowColumn>{offer.equity}</TableRowColumn>
                         <TableRowColumn>{offer.total_funding}</TableRowColumn>
                         <TableRowColumn>{offer.employees}</TableRowColumn>
-                        <TableRowColumn onClick={this.clickRemoveOffer.bind(this)}>{'X'}</TableRowColumn>
+                        <TableRowColumn onClick={this.clickRemoveOffer.bind(this)}><a href='#'>{'X'}</a></TableRowColumn>
                       </TableRow>
                     )
-                  })
+                  }.bind(this))
                   }
                 </TableBody>
               </Table>

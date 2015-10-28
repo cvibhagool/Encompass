@@ -49,12 +49,14 @@ export default class UserProfile extends Component {
               <MyOffers 
                   apiData={this.props.apiData}
                   fetchApiData={this.props.fetchApiData.bind(this)} 
+                  removeApiData={this.props.removeApiData.bind(this)} 
               />
 
               { /* instantiate the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
               <MyCompanies 
                   apiData={this.props.apiData} 
                   fetchApiData={this.props.fetchApiData.bind(this)} 
+                  removeApiData={this.props.removeApiData.bind(this)}
               />
 
             </div> :
@@ -69,5 +71,6 @@ UserProfile.propTypes = {
     PropTypes.array,
     PropTypes.object
   ]),
-  fetchApiData: PropTypes.func.isRequired
+  fetchApiData: PropTypes.func.isRequired,
+  removeApiData: PropTypes.func.isRequired
 }

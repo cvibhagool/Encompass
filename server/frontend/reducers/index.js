@@ -6,7 +6,10 @@ import {
   RECEIVE_API_DATA_FAILURE,
   SEND_API_DATA,
   SEND_API_DATA_SUCCESS,
-  SEND_API_DATA_FAILURE
+  SEND_API_DATA_FAILURE,
+  DELETE_API_DATA,
+  DELETE_API_DATA_SUCCESS,
+  DELETE_API_DATA_FAILURE
 } from '../actions';
 
 function page(state = {}, action) {
@@ -62,6 +65,23 @@ function api(state = {
 	  case SEND_API_DATA_FAILURE:
 	  	return Object.assign({}, state, {
 	  		isSending: false,
+	  		apiData: null
+	  	});
+
+	  case DELETE_API_DATA:
+	  	return Object.assign({}, state, {
+	  		isDeleting: true
+	  	});
+
+  	case DELETE_API_DATA_SUCCESS:
+	  	return Object.assign({}, state, {
+	  		isDeleting: false,
+	  		apiData: null
+	  	});
+
+	  case DELETE_API_DATA_FAILURE:
+	  	return Object.assign({}, state, {
+	  		isDeleting: false,
 	  		apiData: null
 	  	});
 

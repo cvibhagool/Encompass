@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { showPage, fetchApiData, postApiData } from '../actions';
+import { showPage, fetchApiData, postApiData, removeApiData } from '../actions';
 import NavBar from './NavBar';
 import ContentPage from './ContentPage'
 
@@ -38,6 +38,7 @@ class App extends Component {
                   fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} 
                   pageState={page} 
                   postApiData={(apiPath, json) => dispatch(postApiData(apiPath, json))} 
+                  removeApiData={(apiPath, id) => dispatch(removeApiData(apiPath, id))} 
               />
             </div>
           </div>

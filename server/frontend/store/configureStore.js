@@ -1,20 +1,19 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { reduxReactRouter } from 'redux-router';
+import thunk from 'redux-thunk';
 import createHistory from 'history/lib/createBrowserHistory';
 import routes from '../routes';
-import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
-
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  reduxReactRouter({ routes, createHistory }),
-  createLogger()
+const finalCreateStore = compose(
+  applyMiddleware(thunk),
+  applyMiddleware(createLogger()),
+  reduxReactRouter({ routes, createHistory })
 )(createStore);
 
 export default function configureStore(initialState) {
-  const store = createStoreWithMiddleware(rootReducer, initialState);
+  const store = finalCreateStore(rootReducer, initialState);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

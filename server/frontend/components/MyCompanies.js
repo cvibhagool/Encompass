@@ -18,7 +18,8 @@ export default class MyCompanies extends Component {
       fixedHeader: true,
       stripedRows: true,
       showRowHover: false,
-      multiSelectable: true
+      multiSelectable: true,
+      showComparison: false
     };
   }
 
@@ -32,15 +33,18 @@ export default class MyCompanies extends Component {
   }
 
   compareCompanies() {
-    console.log(this.selectedRows); 
+
+    var selectedCompanies = [];
     if (this.selectedRows === 'all') {
       console.log('all');
     } else {
       for (var i = 0; i < this.selectedRows.length; i++) {
-        console.log(this.selectedCompanies);
-        //this.selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
+        selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
       }
     }
+    this.selectedCompanies = selectedCompanies;
+    console.log(selectedCompanies);
+    this.setState({showComparison: true});
   }
   
   render () {
@@ -98,7 +102,7 @@ export default class MyCompanies extends Component {
               <FlatButton primary={true} label="Compare" onClick={this.compareCompanies.bind(this)} />
               </div>
               <div>
-                {this.selectedCompanies}
+                {this.state.showComparison ? this.selectedCompanies.length : ''}
               </div>
             </div>)
   }

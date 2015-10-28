@@ -1,6 +1,6 @@
 var router = require('express').Router();
-var db = require('../models/index.js');
-var passport = require('../auth/passport');
+var db = require('../../models/index.js');
+var passport = require('../../auth/passport');
 
 var callBackFunctionGenerator = function (provider) {
   return function(req, res, next) {

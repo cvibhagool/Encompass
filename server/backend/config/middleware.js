@@ -73,14 +73,14 @@ module.exports = function (app, express) {
   // });
 
   //Load and setup API router
-  var apiRouter = require('../routers/apiRouter');
+  var apiRouter = require('../routers/apiRouters/apiRouter');
   app.use('/api', apiRouter);
 
   //Load and setup authentication router
-  var authRouter = require('../routers/authRouter');
+  var authRouter = require('../routers/authRouters/authRouter');
   app.use('/auth', authRouter);
 
-  var dataRouter = require('../routers/data/dataRouter');
+  var dataRouter = require('../routers/dataRouters/dataRouter');
   app.use('/data', dataRouter);
 
 };

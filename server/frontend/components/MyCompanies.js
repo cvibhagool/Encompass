@@ -7,12 +7,11 @@ import _                               from 'lodash';
 import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton } from 'material-ui';
 
 export default class MyCompanies extends Component {
+  displayName: 'MyCompanies'
 
   constructor () {
     super();
 
-    this.displayName = "MyCompanies";
-    
     // sets the state for our table settings (material-ui)
     this.state = {
       fixedHeader: true,

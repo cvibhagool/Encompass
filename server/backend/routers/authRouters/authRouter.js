@@ -70,6 +70,16 @@ router.route('/delete')
     });
   });
 
+//Is authenticated route
+router.route('/isauth')
+  .get(function (req, res) {
+    if (req.isAuthenticated()){
+      return res.sendStatus(200);
+    } else {
+      return res.sendStatus(403);
+    }
+});
+
 //Logout route
 router.route('/logout')
   .get(function (req, res) {

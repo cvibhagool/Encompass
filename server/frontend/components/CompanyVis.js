@@ -27,11 +27,11 @@ export default class CompanyVis extends Component {
   }
 
   updateVis(node, data) {
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 1200 - margin.left - margin.right,
-      height = 700 - margin.top - margin.bottom;
+    console.log('newdata: ', data);
 
-    ReactDOM.findDOMNode
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+      width = 900 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
       .range([0, width]);
@@ -67,7 +67,7 @@ export default class CompanyVis extends Component {
 
     
     var points = svg.selectAll(".dot")
-      .data(data, function(d) {return d;});
+      .data(data, function(d) {return d.id;});
 
     points.transition()
       .duration(1000)
@@ -76,7 +76,7 @@ export default class CompanyVis extends Component {
 
     points.enter().append('circle')
       .attr("class", "dot")
-      .attr("r", 3.5)
+      .attr("r", 6.5)
       .attr("cx", -10)
       .attr("cy", -10)
       .style("fill-opacity", 1e-6)
@@ -85,15 +85,13 @@ export default class CompanyVis extends Component {
       .attr("cx", function(d) { return x(d.total_funding); })
       .attr("cy", function(d) { return y(d.employees_mom); })
       .style("fill-opacity", 1)
-      .style("fill", function(d) { return color(d.stage); });
-
+      .style("fill", function(d) { return color(d.stage); })
+      
     points.exit()
       .transition()
       .duration(1000)
       .style("fill-opacity", 1e-6)
       .remove();
-
-
 
   }
 
@@ -104,10 +102,9 @@ export default class CompanyVis extends Component {
 
     console.log('data: ', data);
     
-
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 1200 - margin.left - margin.right,
-      height = 700 - margin.top - margin.bottom;
+      width = 900 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
       .range([0, width]);
@@ -160,10 +157,10 @@ export default class CompanyVis extends Component {
       .text("Employees added month-over-month (%)");
 
     svg.selectAll(".dot")
-      .data(data)
+      .data(data, function(d) {return d.id;})
       .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 3.5)
+      .attr("r", 6.5)
       .attr("cx", function(d) { return x(d.total_funding); })
       .attr("cy", function(d) { return y(d.employees_mom); })
       .style("fill", function(d) { return color(d.stage); })

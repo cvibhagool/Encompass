@@ -10,6 +10,9 @@ import cookie                           from 'react-cookie';
 import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
 
+import { connect } from 'react-redux';
+import { fetchApiData } from '../actions';
+
 // define all constant variables
 const userPath = '/api/user/profile/me';
 
@@ -74,3 +77,12 @@ UserProfile.propTypes = {
   fetchApiData: PropTypes.func.isRequired,
   removeApiData: PropTypes.func.isRequired
 }
+
+function mapStateToProperties(state) {
+  const { api } = state;
+  return { apiData: api.apiData };
+}
+
+export default connect(mapStateToProperties, {
+  fetchApiData
+})(UserProfile);

@@ -2,10 +2,11 @@ var expect = require('chai').expect;
 var app = require('../server.js');
 var db = require('../backend/models/index');
 var request = require('request');
+request = request.defaults({jar: true});
 
 
 var newOfferId;
-var uberId;
+var companyId;
 
 describe('Encompass API Integration Tests', function () {
   // Allow higher timeout
@@ -35,22 +36,21 @@ describe('Encompass API Integration Tests', function () {
       });
   });
 
-  it('can delete a user via DELETE request at /auth/delete', function (done) {
+  it('can authenticate a user via POST request at /auth/local', function (done) {
     this.timeout(100000);
     var requestParams = {
-      method: 'DELETE',
-      uri: 'http://localhost:3000/auth/delete',
+      method: 'POST',
+      uri: 'http://localhost:3000/auth/local',
       json: {
         username: 'Richard Hendricks',
         password: '123456'}
     };
-
     request(requestParams, function(error, res, body) {
-      expect(res.statusCode).to.equal(204);
-      done();
-    });
+        expect(error).to.equal(null);
+        done();
+      });
   });
-
+  
   it('can create a new offer via POST request at /api/offer', function (done) {
     this.timeout(100000);
     var newOffer = {
@@ -77,7 +77,7 @@ describe('Encompass API Integration Tests', function () {
       expect(body.position).to.equal('Backend Engineer');
       expect(body.salary).to.equal(130000);
       newOfferId = body.id;
-      uberId = body.CompanyId;
+      companyId = body.CompanyId;
       done();
     });
   });
@@ -101,7 +101,7 @@ describe('Encompass API Integration Tests', function () {
     this.timeout(100000);
     var requestParams = {
       method: 'GET',
-      uri: 'http://localhost:3000/api/company/' + uberId
+      uri: 'http://localhost:3000/api/company/' + companyId
     };
     
     request(requestParams, function(error, res, body) {
@@ -113,6 +113,45 @@ describe('Encompass API Integration Tests', function () {
 
   it('can add a company to a user\'s followed companies via POST request at /company/follow/:companyId', function (done) {
     this.timeout(100000);
-    done();
+    var requestParams = {
+      method: 'POST',
+      uri: 'http://localhost:3000/api/company/follow/' + companyId
+    };
+    
+    request(requestParams, function(error, res, body) {
+      var retrievedCompany = JSON.parse(body);
+      expect(retrievedCompany.name).to.equal('Pied Piper');
+      done();
+    });
+  });
+
+  it('can remove a company from a user\'s followed companies via DELETE request at /company/follow/:companyId', function (done) {
+    this.timeout(100000);
+    var requestParams = {
+      method: 'DELETE',
+      uri: 'http://localhost:3000/api/company/follow/' + companyId
+    };
+    
+    request(requestParams, function(error, res, body) {
+      var message = JSON.parse(body);
+      expect(message).to.equal('Company unfollowed!');
+      done();
+    });
+  });
+
+  it('can delete a user via DELETE request at /auth/delete', function (done) {
+    this.timeout(100000);
+    var requestParams = {
+      method: 'DELETE',
+      uri: 'http://localhost:3000/auth/delete',
+      json: {
+        username: 'Richard Hendricks',
+        password: '123456'}
+    };
+
+    request(requestParams, function(error, res, body) {
+      expect(res.statusCode).to.equal(204);
+      done();
+    });
   });
 });

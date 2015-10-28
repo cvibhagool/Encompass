@@ -19,8 +19,8 @@ if (process.env.NODE_ENV !== 'test'){
 module.exports = function (app, express) {
   //Function for authenticating routes
   var checkUser = function(req,res,next){
-      if( !req.user ) {
-        res.sendStatus(403);
+      if( !req.isAuthenticated() ) {
+        res.status(403);
       } else {
         next();
       }
@@ -51,7 +51,7 @@ module.exports = function (app, express) {
   app.use(function (req, res, next) {
     console.log('==========================================');
     console.log(req.method + ': ' + req.url);
-    if (req.user){
+    if (req.isAuthenticated()){
       console.log("Authenticated");
       console.log("Username:",req.user.username, "Provider:", req.user.provider);
     } else {
@@ -74,7 +74,7 @@ module.exports = function (app, express) {
 
   //Load and setup API router
   var apiRouter = require('../routers/apiRouters/apiRouter');
-  app.use('/api', apiRouter);
+  app.use('/api', checkUser, apiRouter);
 
   //Load and setup authentication router
   var authRouter = require('../routers/authRouters/authRouter');

@@ -56,6 +56,16 @@ router.route('/:offerId')
         res.json(offer);
       }
     });
+  })
+  .delete(function (req, res) {
+    db.Offer.destroy({
+      where: {
+        id: req.params.offerId
+      }
+    }).then(function () {
+      res.json('Offer deleted');
+    });
   });
-  
+
+
 module.exports = router;

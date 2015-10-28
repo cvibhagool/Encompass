@@ -23,6 +23,28 @@ router.route('/follow/:companyId')
     } else {
       followCompany(req.user);
     }
+  })
+  .delete(function (req, res) {
+    var unfollowCompany = function(user){
+      db.Company.findOne({
+        where: {
+          id: req.params.companyId
+        }
+      }).then(function (company) {
+        if(!company) {
+          res.json('Cannot remove company from the user\'s follow list, as the company does not exist in the database!');
+        }
+        else {
+          user.removeCompany(company);
+          res.json("Company unfollowed!");
+        }
+      });
+    };
+    if (!req.user){
+      res.json('Your are not logged in.');
+    } else {
+      unfollowCompany(req.user);
+    }
   });
 
 router.route('/:companyId') 

@@ -1,6 +1,9 @@
 import React, { PropTypes, Component }        from 'react';
 import { TextField, RaisedButton, FontIcon }  from 'material-ui';
 
+import { connect } from 'react-redux';
+import { fetchApiData, postApiData } from '../actions';
+
 /*jshint esnext: true */
 export default class Login extends Component {
   constructor() {
@@ -15,7 +18,7 @@ export default class Login extends Component {
     };
 
     this.props.postApiData('/auth/local', formData);
-
+    this.props.fetchApiData('/api/user/profile/me');
     this.refs.username.setValue('');
     this.refs.password.setValue('');
   }
@@ -36,7 +39,7 @@ export default class Login extends Component {
                     <span>
                       <i 
                           className="material-icons" 
-                          style={{"vertical-align": 'middle'}}
+                          style={{"verticalAlign": 'middle'}}
                       >{'person'}
                       </i>{'Username'}
                     </span>} 
@@ -98,5 +101,16 @@ export default class Login extends Component {
 };
 
 Login.propTypes = {
+  fetchApiData: PropTypes.func.isRequired, 
   postApiData: PropTypes.func.isRequired
 }
+
+function mapStateToProperties(state) {
+  const { profile } = state;
+  return { profile };
+}
+
+export default connect(mapStateToProperties, {
+  fetchApiData,
+  postApiData
+})(Login);

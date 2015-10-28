@@ -20,13 +20,14 @@ export default class MyCompanies extends Component {
       stripedRows: true,
       showRowHover: false,
       multiSelectable: true,
-      showComparison: false
+      showComparison: false,
+      selectedCompanies: []
     };
   }
 
   selectedRows: []
 
-  selectedCompanies: []
+  //selectedCompanies: []
 
   doSelection(selection) {
     this.selectedRows = selection;
@@ -43,9 +44,12 @@ export default class MyCompanies extends Component {
         selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
       }
     }
-    this.selectedCompanies = selectedCompanies;
-    console.log(selectedCompanies);
+    //this.selectedCompanies = selectedCompanies;
+    this.setState({selectedCompanies: selectedCompanies});
     this.setState({showComparison: true});
+    setTimeout(function() {
+      console.log(this.state)
+    }.bind(this), 1);
   }
   
   render () {
@@ -102,7 +106,9 @@ export default class MyCompanies extends Component {
               <div>
               <FlatButton primary={true} label="Compare" onClick={this.compareCompanies.bind(this)} />
               </div>
-                {this.state.showComparison ? <CompanyVis data={this.selectedCompanies} /> : ''}
+              <div>
+                {this.state.showComparison ? <CompanyVis data={this.state.selectedCompanies} /> : ''}
+              </div>  
             </div>)
   }
 }

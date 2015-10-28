@@ -9,25 +9,105 @@ export default class CompanyVis extends Component {
 
   constructor() {
     super();
-    this.state = {dataLoaded: false}
+    this.state = {
+      isD3ready: false,
+    };
   }
 
   componentDidMount() {
     this.generateVis(this.d3Node, this.props.data);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.updateVis(this.d3Node, nextProps.data);
+  }
+
+  removeSpinner() {
+    this.setState({isD3ready: true});
+  }
+
+  updateVis(node, data) {
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+      width = 1200 - margin.left - margin.right,
+      height = 700 - margin.top - margin.bottom;
+
+    ReactDOM.findDOMNode
+
+    var x = d3.scale.linear()
+      .range([0, width]);
+
+    var y = d3.scale.linear()
+      .range([height, 0]);
+
+    var color = d3.scale.category10();
+
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+
+    x.domain(d3.extent(data, function(d) {return d.total_funding})).nice();
+    y.domain(d3.extent(data, function(d) {return d.employees_mom})).nice();
+
+    
+    var svg = d3.select(node).selectAll('svg');
+
+    svg.selectAll('.x')
+      .transition()
+      .duration(1000)
+      .call(xAxis);
+
+    svg.selectAll('.y')
+      .transition()
+      .duration(1000)
+      .call(yAxis);
+
+    
+    var points = svg.selectAll(".dot")
+      .data(data, function(d) {return d;});
+
+    points.transition()
+      .duration(1000)
+      .attr("cx", function(d) { return x(d.total_funding); })
+      .attr("cy", function(d) { return y(d.employees_mom); });
+
+    points.enter().append('circle')
+      .attr("class", "dot")
+      .attr("r", 3.5)
+      .attr("cx", -10)
+      .attr("cy", -10)
+      .style("fill-opacity", 1e-6)
+      .transition()
+      .duration(1000)
+      .attr("cx", function(d) { return x(d.total_funding); })
+      .attr("cy", function(d) { return y(d.employees_mom); })
+      .style("fill-opacity", 1)
+      .style("fill", function(d) { return color(d.stage); });
+
+    points.exit()
+      .transition()
+      .duration(1000)
+      .style("fill-opacity", 1e-6)
+      .remove();
+
+
+
+  }
 
   generateVis(node, data) {
 
-    this.setState({dataLoaded: true});
+    
+    this.removeSpinner();
 
     console.log('data: ', data);
-    console.log('node: ', node);
-
+    
 
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      width = 1200 - margin.left - margin.right,
+      height = 700 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
       .range([0, width]);
@@ -52,8 +132,10 @@ export default class CompanyVis extends Component {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    x.domain([0, data[0].total_funding + 1000]).nice();
-    y.domain([-10, 100]).nice();
+    
+
+    x.domain(d3.extent(data, function(d) {return d.total_funding})).nice();
+    y.domain(d3.extent(data, function(d) {return d.employees_mom})).nice();
 
     svg.append("g")
       .attr("class", "x axis")
@@ -84,7 +166,9 @@ export default class CompanyVis extends Component {
       .attr("r", 3.5)
       .attr("cx", function(d) { return x(d.total_funding); })
       .attr("cy", function(d) { return y(d.employees_mom); })
-      .style("fill", function(d) { return color(d.stage); });
+      .style("fill", function(d) { return color(d.stage); })
+      .append("title")
+      .text(function(d) {return d.name;});
 
       
       
@@ -95,11 +179,16 @@ export default class CompanyVis extends Component {
 
     return (
         <div 
-          ref={(node) => this.d3Node = node}
-          style={divStyle}>
-          {!this.state.dataLoaded ? <CircularProgress mode="indeterminate" size={1.5} /> : ''}
+            ref={(node) => this.d3Node = node}
+            style={divStyle}
+        >
+          <div>
+            {!this.state.isD3ready ? <CircularProgress mode="indeterminate" size={1.5} /> : ''}
+          </div>  
         </div>  
     )
+
+      ReactDOM.findDOMNode
   }
 }
 

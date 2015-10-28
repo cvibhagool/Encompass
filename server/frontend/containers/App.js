@@ -1,66 +1,53 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
+<<<<<<< HEAD
 import { showPage, fetchApiData, postApiData, } from '../actions';
+=======
+import { fetchApiData } from '../actions';
+>>>>>>> Refactor App for display by the ReduxRouter; added automatic loading of profile information
 import NavBar from './NavBar';
-import ContentPage from './ContentPage'
 
 class App extends Component {
-
   constructor(props) {
-
     super(props);
 
     //Adds display name for debugging purposes
     this.displayName = 'App';
     
-    this.handleRefreshClick = this.handleRefreshClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchApiData('/data/company?fields[]=name&fields[]=id'));
+    this.props.fetchApiData('/data/company?fields[]=name&fields[]=id');
+    this.props.fetchApiData('/api/user/profile/me');
   }
 
   handleChange(pathToRoute) {
-    this.props.pushState(null, `/${pathToRoute}`);
-  }
-
-  handleRefreshClick(e) {
-    e.preventDefault();
+    this.props.pushState(null, pathToRoute);
   }
 
   render() {
     //This gets injected by the connect() call
-    const { dispatch, page, api } = this.props;
+    const { api, children } = this.props;
     return (
       <div id='app-view'>
         {api.companies &&
           <div>
             <NavBar onTabClick={this.handleChange} />
-            <div className = "container">
-              <ContentPage 
-                  apiState={api} 
-                  fetchApiData={apiPath => dispatch(fetchApiData(apiPath))} 
-                  pageState={page} 
-                  postApiData={(apiPath, json) => dispatch(postApiData(apiPath, json))} 
-                  removeApiData={(apiPath, id) => dispatch(removeApiData(apiPath, id))} 
-              />
-            </div>
           </div>
         }
+        { children }
       </div>
     );
   }
 }
 
 App.propTypes = {
-  api: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  page: PropTypes.object.isRequired,
-  pushState: PropTypes.func.isRequired
+  api: PropTypes.object.isRequired
 };
 
-function selectStateProperties(state) {
+function mapStateToProperties(state) {
 
   return state;
 }
@@ -74,6 +61,7 @@ is a function we call a selector. This function takes the global Redux store’s
 state, and returns the props you need for the component. In the simplest case, you 
 can just return the state given to you, but you may also wish to transform it first.
 */
-export default connect(selectStateProperties, {
+export default connect(mapStateToProperties, {
+  fetchApiData, 
   pushState
 })(App);

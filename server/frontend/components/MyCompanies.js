@@ -6,6 +6,8 @@ import React, { PropTypes, Component } from 'react';
 import _                               from 'lodash';
 import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton } from 'material-ui';
 
+import CompanyVis from './CompanyVis';
+
 export default class MyCompanies extends Component {
   displayName: 'MyCompanies'
 
@@ -100,9 +102,7 @@ export default class MyCompanies extends Component {
               <div>
               <FlatButton primary={true} label="Compare" onClick={this.compareCompanies.bind(this)} />
               </div>
-              <div>
-                {this.state.showComparison ? this.selectedCompanies.length : ''}
-              </div>
+                {this.state.showComparison ? <CompanyVis data={this.selectedCompanies} /> : ''}
             </div>)
   }
 }

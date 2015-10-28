@@ -1,6 +1,5 @@
 import $      from 'jquery';
 
-export const SHOW_PAGE = 'SHOW_PAGE';
 export const REQUEST_API_DATA = 'REQUEST_API_DATA';
 export const RECEIVE_API_DATA = 'RECEIVE_API_DATA';
 export const RECEIVE_API_DATA_SUCCESS = 'RECEIVE_API_DATA_SUCCESS';
@@ -11,13 +10,6 @@ export const SEND_API_DATA_FAILURE = 'SEND_API_DATA_FAILURE';
 export const DELETE_API_DATA = 'DELETE_API_DATA';
 export const DELETE_API_DATA_SUCCESS = 'DELETE_API_DATA_SUCCESS';
 export const DELETE_API_DATA_FAILURE = 'DELETE_API_DATA_FAILURE';
-
-export function showPage(text) {
-  return {
-    type: SHOW_PAGE,
-    text
-  };
-}
 
 function requestApiData(apiPath) {
   return {
@@ -35,11 +27,10 @@ function receiveApiDataSuccess(apiPath, json) {
   };
 }
 
-function receiveApiDataFailure(apiPath, json) {
+function receiveApiDataFailure(apiPath) {
   return {
     type: RECEIVE_API_DATA_FAILURE,
     apiPath: apiPath,
-    apiData: json,
     failedAt: Date.now()
   };
 }
@@ -58,7 +49,7 @@ export function fetchApiData(apiPath) {
       error: function(xhr, status, err) {
         console.log('GET failure:');
         console.log(err);
-        dispatch(receiveApiDataFailure(apiPath, data));
+        dispatch(receiveApiDataFailure(apiPath));
       }
     });   
   }

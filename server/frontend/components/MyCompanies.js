@@ -25,6 +25,11 @@ export default class MyCompanies extends Component {
     this.selectedRows = [];
   }
 
+  clickRemoveCompany(e) {
+    e.preventDefault();
+    this.props.removeApiData('/api/company/', id)
+  }
+
   //selectedCompanies: []
 
   doSelection(selection) {
@@ -60,7 +65,7 @@ export default class MyCompanies extends Component {
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
-                        colSpan="7" 
+                        colSpan="8" 
                         style={{textAlign: 'center'}}
                     >
                       <h1>{'My Companies'}</h1>
@@ -75,6 +80,7 @@ export default class MyCompanies extends Component {
                     <TableHeaderColumn>{'Founding'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Stage'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Funding'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Remove?'}</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
@@ -96,9 +102,13 @@ export default class MyCompanies extends Component {
                         <TableRowColumn>{company.founding_date}</TableRowColumn>
                         <TableRowColumn>{company.stage}</TableRowColumn>
                         <TableRowColumn>{company.total_funding}</TableRowColumn>
+
+                        { /* this is not working; trying to remove list item upon clicking X */ }
+                        <TableRowColumn onClick={this.clickRemoveCompany.bind(this)}><a href='#'>{'X'}</a></TableRowColumn>
+
                       </TableRow>
                     )
-                  })
+                  }.bind(this))
                   }
                 </TableBody>
               </Table>

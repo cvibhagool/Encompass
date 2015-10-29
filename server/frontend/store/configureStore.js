@@ -25,3 +25,12 @@ export default function configureStore(initialState) {
 
   return store;
 }
+
+const finalCreateServerStore = compose(
+  applyMiddleware(thunk),
+  reduxReactRouter({ routes, createHistory })
+)(createStore);
+
+export default function configureServerStore(initialState) {
+  return finalCreateServerStore(rootReducer, initialState);
+}

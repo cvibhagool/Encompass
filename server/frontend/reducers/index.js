@@ -36,7 +36,7 @@ function api(state = {
 		case RECEIVE_API_DATA_FAILURE:
 			return Object.assign({}, state, {
 				isFetching: false,
-				apiData: null
+				apiData: {}
 			})
 
 		case SEND_API_DATA:
@@ -53,7 +53,7 @@ function api(state = {
 	  case SEND_API_DATA_FAILURE:
 	  	return Object.assign({}, state, {
 	  		isSending: false,
-	  		apiData: null
+	  		apiData: {}
 	  	});
 
 	  case DELETE_API_DATA:

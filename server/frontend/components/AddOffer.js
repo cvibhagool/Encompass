@@ -51,7 +51,7 @@ export default class AddOffer extends Component {
     let usercookie = cookie.load('connect.sid');
     return usercookie;
   }
-
+  
   render () {
     return (
       <div> 
@@ -165,7 +165,7 @@ function mapStateToProps(state) {
   const {api} = state;
 
   return {
-    companies: api.companies
+    companies: api.companies,
   };
 };
 

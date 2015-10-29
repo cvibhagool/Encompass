@@ -40,7 +40,7 @@ export default class UserProfile extends Component {
           <div>
 
           { /* check if user is logged in */ }
-          { profile ?
+          {profile ?
             
             <div>
 
@@ -76,6 +76,7 @@ UserProfile.propTypes = {
     PropTypes.object
   ]),
   fetchApiData: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
   removeApiData: PropTypes.func.isRequired
 }
 

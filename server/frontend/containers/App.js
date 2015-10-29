@@ -33,14 +33,17 @@ class App extends Component {
             <NavBar onTabClick={this.handleChange} />
           </div>
         }
-        { children }
+        {children}
       </div>
     );
   }
 }
 
 App.propTypes = {
-  api: PropTypes.object.isRequired
+  api: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  fetchApiData: PropTypes.func.isRequired,
+  pushState: PropTypes.func.isRequired
 };
 
 function mapStateToProperties(state) {

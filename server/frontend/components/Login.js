@@ -131,7 +131,9 @@ export default class Login extends Component {
 
 Login.propTypes = {
   fetchApiData: PropTypes.func.isRequired, 
-  postApiData: PropTypes.func.isRequired
+  postApiData: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+  pushState: PropTypes.func.isRequired
 }
 
 function mapStateToProperties(state) {

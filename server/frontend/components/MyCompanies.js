@@ -53,9 +53,10 @@ export default class MyCompanies extends Component {
   render () {
     return (<div>
               <Table 
-               onRowSelection={this.doSelection.bind(this)} 
-               multiSelectable={this.state.multiSelectable}
-               fixedHeader={this.state.fixedHeader}>
+                  fixedHeader={this.state.fixedHeader}
+                  multiSelectable={this.state.multiSelectable}
+                  onRowSelection={this.doSelection.bind(this)} 
+              >
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
@@ -102,7 +103,11 @@ export default class MyCompanies extends Component {
                 </TableBody>
               </Table>
               <div>
-              <FlatButton primary={true} label="Compare" onClick={this.compareCompanies.bind(this)} />
+              <FlatButton 
+                  label="Compare" 
+                  onClick={this.compareCompanies.bind(this)}
+                  primary={true}  
+              />
               </div>
               <div>
                 {this.state.showComparison ? <CompanyVis data={this.state.selectedCompanies} /> : ''}

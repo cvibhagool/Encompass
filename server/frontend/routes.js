@@ -10,20 +10,30 @@ import Login           	      from './components/Login';
 import Signup          	      from './components/Signup';
 
 export default (
-  <Route 
-  		path="/" 
-  		component={App}
+  <Route
+      component={App}
+      path="/" 
   >
     <IndexRoute component={Landing} />   
-  	<Route path="profile"
-           component={UserProfile} />
-    <Route path="addOffer"
-           component={AddOffer} />
-    <Route path="searchCompany"
-           component={SearchCompany} />
-    <Route path="login"
-           component={Login} />
-    <Route path="signup"
-           component={Signup} />
+  	<Route 
+        component={UserProfile}
+        path="profile"
+    />
+    <Route 
+        component={AddOffer}
+        path="addOffer"
+    />
+    <Route 
+        component={SearchCompany}
+        path="searchCompany"
+    />
+    <Route 
+        component={Login} 
+        path="login"
+    />
+    <Route 
+        component={Signup} 
+        path="signup"
+    />
   </Route>
 );

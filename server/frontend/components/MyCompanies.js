@@ -58,6 +58,7 @@ export default class MyCompanies extends Component {
   }
   
   render () {
+
     return (<div>
               <Table 
                   fixedHeader={this.state.fixedHeader}

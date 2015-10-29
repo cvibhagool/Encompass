@@ -46,7 +46,7 @@ if (fs.existsSync(reduxSrc) && fs.existsSync(reduxNodeModules)) {
   // Compile Redux from source
   module.exports.module.loaders.push({
     test: /\.js$/,
-    loaders: ['babel'],
+    loaders: ['babel', 'eslint-loader'],
     include: reduxSrc
   });
 }

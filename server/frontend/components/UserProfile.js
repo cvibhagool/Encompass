@@ -40,7 +40,7 @@ export default class UserProfile extends Component {
           <div>
 
           { /* check if user is logged in */ }
-          {this.checkCookie() ?
+          { profile ?
             
             <div>
 

@@ -1,5 +1,5 @@
 import React 			            from 'react';
-//IndexRoute 
+//IndexRoute is 
 import { IndexRoute, Route } 	from 'react-router';
 import App                    from './containers/App';
 import Landing                from './components/Landing';

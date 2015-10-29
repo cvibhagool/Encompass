@@ -28,8 +28,8 @@ export default class CompanyVis extends Component {
   updateVis(node, data) {
     console.log('newdata: ', data);
 
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 1140 - margin.left - margin.right,
+    var margin = {top: 20, right: 100, bottom: 30, left: 10},
+      width = 1600 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
@@ -46,12 +46,15 @@ export default class CompanyVis extends Component {
 
     var yAxis = d3.svg.axis()
       .scale(y)
-      .orient("left");
+      .orient("left")
+      .tickFormat(d3.format("s")); 
 
-    x.domain(d3.extent(data, function(d) {return d.total_funding})).nice();
-    y.domain(d3.extent(data, function(d) {return d.employees_mom})).nice();
+    var xRange = data.length > 1 ? d3.extent(data, function(d) {return d.total_funding}) : [0, data[0].total_funding + 1000];
+    var yRange = data.length > 1 ? d3.extent(data, function(d) {return d.employees}) : [0, data[0].employees + 50];
 
-    
+    x.domain(xRange).nice();
+    y.domain(yRange).nice();
+
     var svg = d3.select(node).selectAll('svg');
 
     svg.selectAll('.x')
@@ -71,7 +74,7 @@ export default class CompanyVis extends Component {
     points.transition()
       .duration(1000)
       .attr("cx", function(d) { return x(d.total_funding); })
-      .attr("cy", function(d) { return y(d.employees_mom); });
+      .attr("cy", function(d) { return y(d.employees); });
 
     points.enter().append('circle')
       .attr("class", "dot")
@@ -82,7 +85,7 @@ export default class CompanyVis extends Component {
       .transition()
       .duration(1000)
       .attr("cx", function(d) { return x(d.total_funding); })
-      .attr("cy", function(d) { return y(d.employees_mom); })
+      .attr("cy", function(d) { return y(d.employees); })
       .style("fill-opacity", 1)
       .style("fill", function(d) { return color(d.stage); })
       
@@ -91,18 +94,16 @@ export default class CompanyVis extends Component {
       .duration(1000)
       .style("fill-opacity", 1e-6)
       .remove();
-
   }
 
   generateVis(node, data) {
-
     
     this.removeSpinner();
 
     console.log('data: ', data);
     
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 1140 - margin.left - margin.right,
+    var margin = {top: 20, right: 100, bottom: 30, left: 10},
+      width = 1600 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
@@ -115,7 +116,8 @@ export default class CompanyVis extends Component {
 
     var xAxis = d3.svg.axis()
       .scale(x)
-      .orient("bottom");
+      .orient("bottom")
+      .tickFormat(d3.format("s"));
 
     var yAxis = d3.svg.axis()
       .scale(y)
@@ -128,10 +130,13 @@ export default class CompanyVis extends Component {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    
+    // In case there's only one datapoint, we need to set the domain manually so
+    // that the axes don't collapse
+    var xRange = data.length > 1 ? d3.extent(data, function(d) {return d.total_funding}) : [0, data[0].total_funding + 1000];
+    var yRange = data.length > 1 ? d3.extent(data, function(d) {return d.employees}) : [0, data[0].employees + 50];
 
-    x.domain(d3.extent(data, function(d) {return d.total_funding})).nice();
-    y.domain(d3.extent(data, function(d) {return d.employees_mom})).nice();
+    x.domain(xRange).nice();
+    y.domain(yRange).nice();
 
     svg.append("g")
       .attr("class", "x axis")
@@ -153,7 +158,7 @@ export default class CompanyVis extends Component {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Employees added month-over-month (%)");
+      .text("Total employees");
 
     svg.selectAll(".dot")
       .data(data, function(d) {return d.id;})
@@ -161,7 +166,7 @@ export default class CompanyVis extends Component {
       .attr("class", "dot")
       .attr("r", 6.5)
       .attr("cx", function(d) { return x(d.total_funding); })
-      .attr("cy", function(d) { return y(d.employees_mom); })
+      .attr("cy", function(d) { return y(d.employees); })
       .style("fill", function(d) { return color(d.stage); })
       .append("title")
       .text(function(d) {return d.name;});
@@ -171,10 +176,10 @@ export default class CompanyVis extends Component {
   }
 
   render() {
-    var divStyle = {width: "1600px", height: "900px"};
+    var divStyle = {width: "1600px"};
 
     return (
-        <div 
+        <div className="vis"
             ref={(node) => this.d3Node = node}
             style={divStyle}
         >
@@ -183,8 +188,6 @@ export default class CompanyVis extends Component {
           </div>  
         </div>  
     )
-
-      ReactDOM.findDOMNode
   }
 }
 

@@ -9,6 +9,7 @@ import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableB
 import CompanyVis from './CompanyVis';
 
 export default class MyCompanies extends Component {
+
   constructor () {
     super();
 
@@ -19,16 +20,16 @@ export default class MyCompanies extends Component {
       showRowHover: false,
       multiSelectable: true,
       showComparison: false,
+      deselectOnClickaway: false,
       selectedCompanies: []
     };
-    this.displayName = 'MyCompanies';
-    this.selectedRows = [];
   }
 
   clickRemoveCompany(e) {
     e.preventDefault();
     this.props.removeApiData('/api/company/', id)
   }
+  selectedRows: []
 
   //selectedCompanies: []
 
@@ -42,6 +43,7 @@ export default class MyCompanies extends Component {
     var selectedCompanies = [];
     if (this.selectedRows === 'all') {
       console.log('all');
+      selectedCompanies = this.props.apiData.companies.slice();
     } else {
       for (var i = 0; i < this.selectedRows.length; i++) {
         selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
@@ -56,6 +58,7 @@ export default class MyCompanies extends Component {
   }
   
   render () {
+
     return (<div>
               <Table 
                   fixedHeader={this.state.fixedHeader}
@@ -84,7 +87,9 @@ export default class MyCompanies extends Component {
                   </TableRow>
                 </TableHeader>
 
-                <TableBody stripedRows={this.state.stripedRows}>
+                <TableBody 
+                  deselectOnClickaway={this.state.deselectOnClickaway}
+                  stripedRows={this.state.stripedRows}>
                   {_.map(this.props.apiData.companies, function(company) {
                     return (
                       <TableRow >

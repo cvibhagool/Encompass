@@ -11,7 +11,7 @@ import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
 
 import { connect } from 'react-redux';
-import { fetchApiData } from '../actions';
+import { fetchApiData, removeApiData } from '../actions';
 
 // define all constant variables
 const userPath = '/api/user/profile/me';
@@ -40,7 +40,7 @@ export default class UserProfile extends Component {
           <div>
 
           { /* check if user is logged in */ }
-          {this.checkCookie() ?
+          {profile ?
             
             <div>
 
@@ -76,6 +76,7 @@ UserProfile.propTypes = {
     PropTypes.object
   ]),
   fetchApiData: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
   removeApiData: PropTypes.func.isRequired
 }
 
@@ -85,5 +86,6 @@ function mapStateToProperties(state) {
 }
 
 export default connect(mapStateToProperties, {
-  fetchApiData
+  fetchApiData,
+  removeApiData
 })(UserProfile);

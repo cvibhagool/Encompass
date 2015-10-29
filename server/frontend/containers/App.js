@@ -1,11 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
-<<<<<<< HEAD
-import { showPage, fetchApiData, postApiData, } from '../actions';
-=======
 import { fetchApiData } from '../actions';
->>>>>>> Refactor App for display by the ReduxRouter; added automatic loading of profile information
 import NavBar from './NavBar';
 
 class App extends Component {
@@ -37,14 +33,17 @@ class App extends Component {
             <NavBar onTabClick={this.handleChange} />
           </div>
         }
-        { children }
+        {children}
       </div>
     );
   }
 }
 
 App.propTypes = {
-  api: PropTypes.object.isRequired
+  api: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  fetchApiData: PropTypes.func.isRequired,
+  pushState: PropTypes.func.isRequired
 };
 
 function mapStateToProperties(state) {

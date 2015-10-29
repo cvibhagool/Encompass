@@ -86,10 +86,10 @@ export default class SearchCompany extends Component {
               {(this.state.companyId && this.props.profile) && 
                 <div>
                   <RaisedButton 
-                      label={this.state.companyFollowed ? "Company has been followed!" : "Follow Company"}
-                      primary={true}
                       disabled={this.state.companyFollowed}
+                      label={this.state.companyFollowed ? "Company has been followed!" : "Follow Company"}
                       onClick={this.clickFollowCompany}
+                      primary={true}
                   />
                 </div>
               }
@@ -110,8 +110,10 @@ SearchCompany.propTypes = {
     PropTypes.array,
     PropTypes.object
   ]),
+  companies: PropTypes.array.isRequired,
   fetchApiData: PropTypes.func.isRequired,
-  postApiData: PropTypes.func.isRequired
+  postApiData: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {

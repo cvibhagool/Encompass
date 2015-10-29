@@ -188,4 +188,8 @@ export default class CompanyVis extends Component {
   }
 }
 
+CompanyVis.propTypes = {
+  data: PropTypes.array.isRequired
+}
+
 

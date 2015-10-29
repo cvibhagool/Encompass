@@ -9,8 +9,6 @@ import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableB
 import CompanyVis from './CompanyVis';
 
 export default class MyCompanies extends Component {
-  displayName: 'MyCompanies'
-
   constructor () {
     super();
 
@@ -23,9 +21,9 @@ export default class MyCompanies extends Component {
       showComparison: false,
       selectedCompanies: []
     };
+    this.displayName = 'MyCompanies';
+    this.selectedRows = [];
   }
-
-  selectedRows: []
 
   //selectedCompanies: []
 

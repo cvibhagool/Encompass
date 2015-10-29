@@ -5,13 +5,12 @@ import {CircularProgress} from 'material-ui';
 
 export default class CompanyVis extends Component {
 
-  displayName: 'CompanyVis'
-
   constructor() {
     super();
     this.state = {
       isD3ready: false,
     };
+    this.displayName = 'CompanyVis';
   }
 
   componentDidMount() {

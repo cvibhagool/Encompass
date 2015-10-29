@@ -3,9 +3,25 @@
 	z-index:1;
 	background-color: white;
 	border-style: groove;
-	border-width: medium; 
+	border-width: medium;
 }
 
 .typeahead-input {
-	width: 100%;
+  position:relative;
+  did-flip:true;
+  border:none;
+  border-bottom:solid 1px #e0e0e0;
+  margin:0;
+  -moz-box-sizing:content-box;
+  bottom: 8px;
+  border-color: rgb(0, 188, 212);
+}
+
+.typeahead-results {
+  text-align: center;
+  position:relative;
+}
+
+.typeahead-item {
+  text-align: left;
 }

@@ -8,6 +8,9 @@ export const RECEIVE_API_DATA_FAILURE = 'RECEIVE_API_DATA_FAILURE';
 export const SEND_API_DATA = 'SEND_API_DATA';
 export const SEND_API_DATA_SUCCESS = 'SEND_API_DATA_SUCCESS';
 export const SEND_API_DATA_FAILURE = 'SEND_API_DATA_FAILURE';
+export const DELETE_API_DATA = 'DELETE_API_DATA';
+export const DELETE_API_DATA_SUCCESS = 'DELETE_API_DATA_SUCCESS';
+export const DELETE_API_DATA_FAILURE = 'DELETE_API_DATA_FAILURE';
 
 export function showPage(text) {
   return {
@@ -108,3 +111,42 @@ export function postApiData(apiPath, json) {
   }
 }
 
+function deleteApiData(apiPath, id) {
+  return {
+    type: DELETE_API_DATA,
+    apiPath: apiPath,
+  };
+}
+
+function deleteApiDataSuccess(apiPath, id) {
+  return {
+    type: DELETE_API_DATA_SUCCESS,
+    apiPath: apiPath,
+    deletedAt: Date.now()
+  };
+}
+
+function deleteApiDataFailure(apiPath, id) {
+  return {
+    type: DELETE_API_DATA_FAILURE,
+    apiPath: apiPath,
+    failedAt: Date.now()
+  };
+}
+
+export function removeApiData(apiPath, id) {
+  dispatch(deleteApiData(apiPath, id));
+  $.ajax({
+    url: 'http://localhost:3000' + apiPath + '/' + id,
+    type: 'DELETE',
+    success: function(data) {
+      console.log('Delete success!!');
+      dispatch(deleteApiDataSuccess(apiPath, id));
+    },
+    error: function(xhr, status, err) {
+      console.log('Delete Failure!!');
+      console.log(err);
+      dispatch(deleteApiDataFailure(apiPath, id));
+    }
+  });
+}

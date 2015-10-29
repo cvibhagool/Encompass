@@ -33,6 +33,11 @@ export default class ContentPage extends Component {
     this.props.postApiData(apiPath, json);
   }
 
+  // DELETE request at given path + id of item to be deleted
+  removeApiData(apiPath, id) {
+    this.props.removeApiData(apiPath, id);
+  }
+
   render() {
     return (
       <div id='content-view'>
@@ -48,6 +53,7 @@ export default class ContentPage extends Component {
             <UserProfile 
                 apiData={this.props.apiState.apiData} 
                 fetchApiData={this.fetchApiData.bind(this)} 
+                removeApiData={this.removeApiData.bind(this)}
             /> 
           </div>: null}
         
@@ -91,6 +97,7 @@ ContentPage.propTypes = {
   apiState: PropTypes.object.isRequired,
   fetchApiData: PropTypes.func.isRequired,
   pageState: PropTypes.object.isRequired,
-  postApiData: PropTypes.func.isRequired
+  postApiData: PropTypes.func.isRequired,
+  removeApiData: PropTypes.func.isRequired
 };
 

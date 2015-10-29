@@ -4,7 +4,7 @@
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
-import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody,TableFooter } from 'material-ui';
+import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon } from 'material-ui';
 
 export default class MyOffers extends Component {
   constructor () {
@@ -18,6 +18,11 @@ export default class MyOffers extends Component {
     };
   }
 
+  clickRemoveOffer(e) {
+    e.preventDefault();
+    this.props.removeApiData('/api/offer/', id)
+
+  }
   render () {
     return (<div>
               <Table fixedHeader={this.state.fixedHeader}>
@@ -39,6 +44,7 @@ export default class MyOffers extends Component {
                     <TableHeaderColumn>{'Equity'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Total Funding'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Employees'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Remove?'}</TableHeaderColumn> 
                   </TableRow>
                 </TableHeader>
 
@@ -53,9 +59,12 @@ export default class MyOffers extends Component {
                         <TableRowColumn>{offer.equity}</TableRowColumn>
                         <TableRowColumn>{offer.total_funding}</TableRowColumn>
                         <TableRowColumn>{offer.employees}</TableRowColumn>
+
+                      { /* this is not working; trying to remove list item upon clicking X */ }
+                        <TableRowColumn onClick={this.clickRemoveOffer.bind(this)}><a href='#'>{'X'}</a></TableRowColumn>
                       </TableRow>
                     )
-                  })
+                  }.bind(this))
                   }
                 </TableBody>
               </Table>
@@ -67,5 +76,6 @@ MyOffers.propTypes = {
   apiData: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
-  ])
+  ]),
+  removeApiData: PropTypes.func.isRequired
 }

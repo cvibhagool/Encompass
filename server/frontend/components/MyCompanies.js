@@ -117,6 +117,7 @@ MyCompanies.propTypes = {
   apiData: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
-  ])
+  ]),
+  removeApiData: PropTypes.func.isRequired
 }
 

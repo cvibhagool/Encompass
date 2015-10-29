@@ -59,6 +59,8 @@ export default class MyOffers extends Component {
                         <TableRowColumn>{offer.equity}</TableRowColumn>
                         <TableRowColumn>{offer.total_funding}</TableRowColumn>
                         <TableRowColumn>{offer.employees}</TableRowColumn>
+
+                      { /* this is not working; trying to remove list item upon clicking X */ }
                         <TableRowColumn onClick={this.clickRemoveOffer.bind(this)}><a href='#'>{'X'}</a></TableRowColumn>
                       </TableRow>
                     )

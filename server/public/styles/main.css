@@ -28,3 +28,7 @@ body {
   width: 100%;
   margin-top: 50px;
 }
+
+#offer-heading {
+  text-align: center
+}

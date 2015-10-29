@@ -1,13 +1,26 @@
 import React, { PropTypes, Component }        from 'react';
 import { TextField, RaisedButton, FontIcon }  from 'material-ui';
-
+import { pushState } from 'redux-router';
 import { connect } from 'react-redux';
 import { fetchApiData, postApiData } from '../actions';
+
 
 /*jshint esnext: true */
 export default class Login extends Component {
   constructor() {
     super();
+  }
+
+  componentWillUpdate (nextProps) {
+    if(nextProps.apiData.username) {
+      nextProps.fetchApiData('/api/user/profile/me');  
+    }
+  }
+
+  componentDidUpdate () {
+    if(this.props.profile) {
+      this.props.pushState(null, '/');
+    }
   }
 
   handleSubmit (e) {
@@ -18,7 +31,6 @@ export default class Login extends Component {
     };
 
     this.props.postApiData('/auth/local', formData);
-    this.props.fetchApiData('/api/user/profile/me');
     this.refs.username.setValue('');
     this.refs.password.setValue('');
   }
@@ -124,10 +136,14 @@ Login.propTypes = {
 
 function mapStateToProperties(state) {
   const { api } = state;
-  return { profile:  api.profile};
+  return { 
+    apiData: api.apiData,
+    profile:  api.profile
+    };
 }
 
 export default connect(mapStateToProperties, {
   fetchApiData,
-  postApiData
+  postApiData,
+  pushState
 })(Login);

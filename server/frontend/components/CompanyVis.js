@@ -25,8 +25,18 @@ export default class CompanyVis extends Component {
     this.setState({isD3ready: true});
   }
 
+  cleanData(companies) {
+    console.log('cleaning!');
+    return companies.filter(function(d) {
+      return (!isNaN(parseFloat(d.employees)) && !isNaN(parseFloat(d.total_funding)));
+    });
+  }
+
+
   updateVis(node, data) {
     console.log('newdata: ', data);
+
+    data = this.cleanData(data);
 
     var margin = {top: 20, right: 100, bottom: 30, left: 10},
       width = 1600 - margin.left - margin.right,
@@ -97,6 +107,8 @@ export default class CompanyVis extends Component {
   }
 
   generateVis(node, data) {
+
+    data = this.cleanData(data);
     
     this.removeSpinner();
 

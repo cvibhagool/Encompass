@@ -49,7 +49,7 @@ export default class CompanyVis extends Component {
       .orient("left");
 
     x.domain(d3.extent(data, function(d) {return d.total_funding})).nice();
-    y.domain(d3.extent(data, function(d) {return d.employees_mom})).nice();
+    y.domain(d3.extent(data, function(d) {return d.employees})).nice();
 
     
     var svg = d3.select(node).selectAll('svg');
@@ -71,7 +71,7 @@ export default class CompanyVis extends Component {
     points.transition()
       .duration(1000)
       .attr("cx", function(d) { return x(d.total_funding); })
-      .attr("cy", function(d) { return y(d.employees_mom); });
+      .attr("cy", function(d) { return y(d.employees); });
 
     points.enter().append('circle')
       .attr("class", "dot")
@@ -82,7 +82,7 @@ export default class CompanyVis extends Component {
       .transition()
       .duration(1000)
       .attr("cx", function(d) { return x(d.total_funding); })
-      .attr("cy", function(d) { return y(d.employees_mom); })
+      .attr("cy", function(d) { return y(d.employees); })
       .style("fill-opacity", 1)
       .style("fill", function(d) { return color(d.stage); })
       
@@ -91,11 +91,9 @@ export default class CompanyVis extends Component {
       .duration(1000)
       .style("fill-opacity", 1e-6)
       .remove();
-
   }
 
   generateVis(node, data) {
-
     
     this.removeSpinner();
 
@@ -115,7 +113,8 @@ export default class CompanyVis extends Component {
 
     var xAxis = d3.svg.axis()
       .scale(x)
-      .orient("bottom");
+      .orient("bottom")
+      .tickFormat(d3.format("s"));
 
     var yAxis = d3.svg.axis()
       .scale(y)
@@ -131,7 +130,7 @@ export default class CompanyVis extends Component {
     
 
     x.domain(d3.extent(data, function(d) {return d.total_funding})).nice();
-    y.domain(d3.extent(data, function(d) {return d.employees_mom})).nice();
+    y.domain(d3.extent(data, function(d) {return d.employees})).nice();
 
     svg.append("g")
       .attr("class", "x axis")
@@ -153,7 +152,7 @@ export default class CompanyVis extends Component {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Employees added month-over-month (%)");
+      .text("Total employees");
 
     svg.selectAll(".dot")
       .data(data, function(d) {return d.id;})
@@ -161,7 +160,7 @@ export default class CompanyVis extends Component {
       .attr("class", "dot")
       .attr("r", 6.5)
       .attr("cx", function(d) { return x(d.total_funding); })
-      .attr("cy", function(d) { return y(d.employees_mom); })
+      .attr("cy", function(d) { return y(d.employees); })
       .style("fill", function(d) { return color(d.stage); })
       .append("title")
       .text(function(d) {return d.name;});
@@ -174,7 +173,7 @@ export default class CompanyVis extends Component {
     var divStyle = {width: "1600px", height: "900px"};
 
     return (
-        <div 
+        <div className="vis"
             ref={(node) => this.d3Node = node}
             style={divStyle}
         >

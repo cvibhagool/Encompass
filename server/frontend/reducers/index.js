@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
+import { routerStateReducer as router } from 'redux-router';
 import {
-  SHOW_PAGE,
   REQUEST_API_DATA,
   RECEIVE_API_DATA_SUCCESS,
   RECEIVE_API_DATA_FAILURE,
@@ -11,18 +11,6 @@ import {
   DELETE_API_DATA_SUCCESS,
   DELETE_API_DATA_FAILURE
 } from '../actions';
-
-function page(state = {}, action) {
-	switch (action.type) {
-		case SHOW_PAGE:
-			return Object.assign({}, state, {
-				currentPage: action.text.id
-			});
-
-		default: 
-			return state;
-	}
-}
 
 function api(state = {
 	isFetching: false,
@@ -48,7 +36,7 @@ function api(state = {
 		case RECEIVE_API_DATA_FAILURE:
 			return Object.assign({}, state, {
 				isFetching: false,
-				apiData: null
+				apiData: {}
 			})
 
 		case SEND_API_DATA:
@@ -65,7 +53,7 @@ function api(state = {
 	  case SEND_API_DATA_FAILURE:
 	  	return Object.assign({}, state, {
 	  		isSending: false,
-	  		apiData: null
+	  		apiData: {}
 	  	});
 
 	  case DELETE_API_DATA:
@@ -91,8 +79,8 @@ function api(state = {
 }
 
 const rootReducer = combineReducers({
-  page,
-  api
+  api,
+  router
 });
 
 export default rootReducer;

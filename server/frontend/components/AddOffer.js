@@ -3,6 +3,10 @@
 
 import React, { PropTypes, Component }  from 'react';
 import { Typeahead }                    from 'react-typeahead';
+
+import { connect } from 'react-redux';
+import { postApiData } from '../actions';
+
 import _                                from 'lodash';
 import cookie                           from 'react-cookie';
 import { TextField, RaisedButton, Snackbar }      from 'material-ui';
@@ -47,7 +51,7 @@ export default class AddOffer extends Component {
     let usercookie = cookie.load('connect.sid');
     return usercookie;
   }
-
+  
   render () {
     return (
       <div> 
@@ -156,4 +160,16 @@ AddOffer.propTypes = {
   companies: PropTypes.array.isRequired,
   postApiData: PropTypes.func.isRequired
 }
+
+function mapStateToProps(state) {
+  const {api} = state;
+
+  return {
+    companies: api.companies,
+  };
+};
+
+export default connect(mapStateToProps, {
+  postApiData
+})(AddOffer);
 

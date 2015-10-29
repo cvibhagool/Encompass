@@ -1,10 +1,26 @@
 import React, { PropTypes, Component }        from 'react';
 import { TextField, RaisedButton, FontIcon }  from 'material-ui';
+import { pushState } from 'redux-router';
+import { connect } from 'react-redux';
+import { fetchApiData, postApiData } from '../actions';
+
 
 /*jshint esnext: true */
 export default class Login extends Component {
   constructor() {
     super();
+  }
+
+  componentWillUpdate (nextProps) {
+    if(nextProps.apiData.username) {
+      nextProps.fetchApiData('/api/user/profile/me');  
+    }
+  }
+
+  componentDidUpdate () {
+    if(this.props.profile) {
+      this.props.pushState(null, '/');
+    }
   }
 
   handleSubmit (e) {
@@ -15,12 +31,11 @@ export default class Login extends Component {
     };
 
     this.props.postApiData('/auth/local', formData);
-
     this.refs.username.setValue('');
     this.refs.password.setValue('');
   }
 
-	render() {
+	renderLoginForm() {
 		return (
     <div>
       <div className = "row">
@@ -36,7 +51,7 @@ export default class Login extends Component {
                     <span>
                       <i 
                           className="material-icons" 
-                          style={{"vertical-align": 'middle'}}
+                          style={{"verticalAlign": 'middle'}}
                       >{'person'}
                       </i>{'Username'}
                     </span>} 
@@ -95,8 +110,40 @@ export default class Login extends Component {
     </div>
 		);
 	}
+
+  renderLoggedInNotice() {
+    return (
+      <div>
+        <h1>{'You are already logged in!'}</h1>
+      </div>
+    );
+  }
+
+  render() {
+    const {profile} = this.props;
+    return (
+      <div>
+        {!profile ? this.renderLoginForm() : this.renderLoggedInNotice()}
+      </div>
+    );
+  }
 };
 
 Login.propTypes = {
+  fetchApiData: PropTypes.func.isRequired, 
   postApiData: PropTypes.func.isRequired
 }
+
+function mapStateToProperties(state) {
+  const { api } = state;
+  return { 
+    apiData: api.apiData,
+    profile:  api.profile
+    };
+}
+
+export default connect(mapStateToProperties, {
+  fetchApiData,
+  postApiData,
+  pushState
+})(Login);

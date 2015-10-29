@@ -10,8 +10,8 @@ export default class NavBar extends Component {
     this.displayName = 'NavBar';
   }
 
-  changeTab(tab) {
-    this.props.onTabClick(tab);
+  changeTab(pathToRoute) {
+    this.props.onTabClick(pathToRoute);
   }
 
   render() {

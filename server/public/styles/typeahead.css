@@ -1,23 +1,24 @@
-.typeahead-results {
-	position:absolute;
-	z-index:1;
-	background-color: white;
-	border-style: groove;
-	border-width: medium;
-}
-
 .typeahead-input {
+  font-size:16px;
+  line-height:24px;
+  width:256px;
+  height:36px;
+  font-family:Roboto, sans-serif;
+
   position:relative;
-  did-flip:true;
   border:none;
   border-bottom:solid 1px #e0e0e0;
-  margin:0;
-  -moz-box-sizing:content-box;
+  margin-top:15px;
+  font-size:16px;
   bottom: 8px;
   border-color: rgb(0, 188, 212);
 }
 
 .typeahead-results {
+	z-index:1;
+	background-color: white;
+	border-style: groove;
+	border-width: medium;
   text-align: center;
   position:relative;
 }

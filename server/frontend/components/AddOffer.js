@@ -57,19 +57,18 @@ export default class AddOffer extends Component {
       <div> 
       {this.checkCookie() ?
       <div>
-        <h1 id="heading">{'Add Your Offer'}</h1>
+        <h1 className="heading">{'Add Your Offer'}</h1>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <div className="col-md-4 col-md-offset-4 text-center">
-              <label htmlFor="company">{'Company *'}</label>
 
                 { /* creates a dropdown for company name to allow user to click when matched */ }
                 <Typeahead 
                     customClasses={
-                      { input: "typeahead-input",
-                        results: "typeahead-results",
+                      { hover: "typeahead-active",
+                        input: "typeahead-input",
                         listItem: "typeahead-item",
-                        hover: "typeahead-active" }
+                        results: "typeahead-results" }
                     }
                     maxVisible={10}
                     name="company_name" 
@@ -79,7 +78,7 @@ export default class AddOffer extends Component {
                       }
                     }
                     options={this.state.companyNames} 
-                    placeholder="Google" 
+                    placeholder="Which company made you an offer?" 
                     style={{
                       'position': 'absolute',
                       'z-index': 2

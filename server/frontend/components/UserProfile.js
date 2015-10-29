@@ -44,11 +44,13 @@ export default class UserProfile extends Component {
             
             <div>
 
-              <h1>{'Welcome'} {profile.user && profile.user.username}{'!'}
-              </h1>
+              <div className=".col-md-4">
+                <h1>{'Welcome'} {profile.user && profile.user.username}{'!'}</h1>
 
-              <p>{'Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!'}</p>
-            
+                <p>{'Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!'}</p>
+  
+              </div>
+
               { /* instantiate the MyOffers child and pass it props (the offers) that this logged-in user has entered previously */ }
               <MyOffers 
                   apiData={profile}

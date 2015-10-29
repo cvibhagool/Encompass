@@ -21,15 +21,15 @@ export default class MyOffers extends Component {
   clickRemoveOffer(e) {
     e.preventDefault();
     this.props.removeApiData('/api/offer/', id)
-
   }
+
   render () {
     return (<div>
               <Table fixedHeader={this.state.fixedHeader}>
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
-                        colSpan="7" 
+                        colSpan="8" 
                         style={{textAlign: 'center'}}
                     >
                       <h1>{'My Offers'}</h1>

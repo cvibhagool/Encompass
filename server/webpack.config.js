@@ -24,7 +24,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      loaders: ['babel', 'eslint-loader'],
       exclude: [/node_modules/,/scripts/],
       include: __dirname
     }],
@@ -46,7 +46,7 @@ if (fs.existsSync(reduxSrc) && fs.existsSync(reduxNodeModules)) {
   // Compile Redux from source
   module.exports.module.loaders.push({
     test: /\.js$/,
-    loaders: ['babel', 'eslint-loader'],
+    loaders: ['babel'],
     include: reduxSrc
   });
 }

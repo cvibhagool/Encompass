@@ -108,8 +108,8 @@ export default class AddOffer extends Component {
 
             <div className="col-md-4 col-md-offset-4 text-center">
               <TextField
-                  floatingLabelText="What is your equity?"
-                  hintText="numbers only please :)"
+                  floatingLabelText="What is your percentange equity?"
+                  hintText="numbers 0-100 only please :)"
                   name="equity"
                   ref="equity" 
                   type="number"

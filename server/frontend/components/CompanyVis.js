@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import {CircularProgress} from 'material-ui';
+import _ from 'lodash'
 
 export default class CompanyVis extends Component {
 
@@ -25,8 +26,36 @@ export default class CompanyVis extends Component {
     this.setState({isD3ready: true});
   }
 
+  cleanData(companies) {
+    console.log('cleaning!');
+    return companies.filter(function(d) {
+      return (!isNaN(parseFloat(d.employees)) && !isNaN(parseFloat(d.total_funding)));
+    });
+  }
+
+  // cleans tooltip template data. Out here so it can be used by both updateVis and
+  // generateVis
+  cleanTemplateData(c) {
+        var d = {};
+        var integer = d3.format(',f');
+        var percent = d3.format('%');
+        d.name = c.name || 'no name';
+        d.total_funding = integer(c.total_funding) || 'no total funding';
+        d.employees = integer(c.employees) || 'no employee info';
+        d.employees_mom = percent(c.employees_mom) || 'no employee growth info';
+        d.year = c.founding_date ? " (" +(new Date(c.founding_date)).getFullYear() + ")": "";
+        console.log(d.year);
+        console.log(d.total_funding);
+        d.fund_per_emp = integer(c.total_funding/c.employees) || '';
+        return d;
+  }
+
+                             
+
   updateVis(node, data) {
     console.log('newdata: ', data);
+
+    data = this.cleanData(data);
 
     var margin = {top: 20, right: 100, bottom: 30, left: 10},
       width = 1600 - margin.left - margin.right,
@@ -57,6 +86,27 @@ export default class CompanyVis extends Component {
 
     var svg = d3.select(node).selectAll('svg');
 
+    var tooltip = d3.select(node).selectAll(".tooltip");
+
+    var tooltipTemplate = '<div class="tooltipTitle"><%= name %> <%= year %></div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Total Funding</span>\
+                                  <span class="tooltipMetricValue"><%= total_funding %></span>\
+                              </div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Employees</span>\
+                                  <span class="tooltipMetricValue"><%= employees %></span>\
+                              </div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Employees Growth Rate</span>\
+                                  <span class="tooltipMetricValue"><%= employees_mom %></span>\
+                              </div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Funding per Employee</span>\
+                                  <span class="tooltipMetricValue"><%= fund_per_emp %></span>\
+                              </div>\
+                             </div>'
+
     svg.selectAll('.x')
       .transition()
       .duration(1000)
@@ -66,7 +116,6 @@ export default class CompanyVis extends Component {
       .transition()
       .duration(1000)
       .call(yAxis);
-
     
     var points = svg.selectAll(".dot")
       .data(data, function(d) {return d.id;});
@@ -82,12 +131,29 @@ export default class CompanyVis extends Component {
       .attr("cx", -10)
       .attr("cy", -10)
       .style("fill-opacity", 1e-6)
+      .on("mouseover", function(d) {
+              var compiled = _.template(tooltipTemplate);
+              tooltip.transition()
+                   .duration(200)
+                   .style("opacity", .9);
+              //console.log('temp :', this.tooltipTemplate);
+              tooltip.html(compiled(this.cleanTemplateData(d)))
+                   .style("left", (d3.event.pageX + 5) + "px")
+                   .style("top", (d3.event.pageY - 28) + "px");
+              console.log(tooltip);
+          }.bind(this))
+      .on("mouseout", function(d) {
+        tooltip.transition()
+          .duration(500)
+          .style("opacity", 0);
+      })
       .transition()
       .duration(1000)
       .attr("cx", function(d) { return x(d.total_funding); })
       .attr("cy", function(d) { return y(d.employees); })
       .style("fill-opacity", 1)
-      .style("fill", function(d) { return color(d.stage); })
+      .style("fill", function(d) { return color(d.stage); });
+      
       
     points.exit()
       .transition()
@@ -97,6 +163,8 @@ export default class CompanyVis extends Component {
   }
 
   generateVis(node, data) {
+
+    data = this.cleanData(data);
     
     this.removeSpinner();
 
@@ -129,6 +197,29 @@ export default class CompanyVis extends Component {
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var tooltip = d3.select(node).append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    var tooltipTemplate = '<div class="tooltipTitle"><%= name %> <%= year %></div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Total Funding</span>\
+                                  <span class="tooltipMetricValue"><%= total_funding %></span>\
+                              </div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Employees</span>\
+                                  <span class="tooltipMetricValue"><%= employees %></span>\
+                              </div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Employees Growth Rate</span>\
+                                  <span class="tooltipMetricValue"><%= employees_mom %></span>\
+                              </div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Funding per Employee</span>\
+                                  <span class="tooltipMetricValue"><%= fund_per_emp %></span>\
+                              </div>\
+                             </div>'
 
     // In case there's only one datapoint, we need to set the domain manually so
     // that the axes don't collapse
@@ -168,10 +259,23 @@ export default class CompanyVis extends Component {
       .attr("cx", function(d) { return x(d.total_funding); })
       .attr("cy", function(d) { return y(d.employees); })
       .style("fill", function(d) { return color(d.stage); })
-      .append("title")
-      .text(function(d) {return d.name;});
+      .on("mouseover", function(d) {
+              var compiled = _.template(tooltipTemplate);
+              tooltip.transition()
+                   .duration(200)
+                   .style("opacity", .9);
+              //console.log('temp :', this.tooltipTemplate);
+              tooltip.html(compiled(this.cleanTemplateData(d)))
+                   .style("left", (d3.event.pageX + 5) + "px")
+                   .style("top", (d3.event.pageY - 28) + "px");
+              console.log(tooltip);
+          }.bind(this))
+          .on("mouseout", function(d) {
+              tooltip.transition()
+                   .duration(500)
+                   .style("opacity", 0);
+          });
 
-      
       
   }
 

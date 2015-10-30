@@ -38,7 +38,7 @@
 }
 
 /* Overall container for the tooltip */
-.vis .tooltip{
+.tooltip{
   border: 1px solid #bbbbbb;
   color: black;
   background-color: white;
@@ -48,17 +48,17 @@
   max-width: 200px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-.vis .tooltipTitle{
+.tooltipTitle{
   font-size: 12px;
   font-weight: bold;
   padding-bottom: 4px;
 }
 
-.vis .toolTipLine{
+.toolTipLine{
   line-height: 15px;
 }
 
-.vis .tooltipMetricName{
+.tooltipMetricName{
   color: #666;
   font-weight: normal;
   font-size: 11px;

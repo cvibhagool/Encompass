@@ -82,5 +82,4 @@ module.exports = function (app, express) {
 
   var dataRouter = require('../routers/dataRouters/dataRouter');
   app.use('/data', dataRouter);
-
 };

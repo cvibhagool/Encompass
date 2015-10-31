@@ -4,7 +4,9 @@
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
-import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon } from 'material-ui';
+import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon, FlatButton } from 'material-ui';
+
+import OfferVis from './OfferVis';
 
 export default class MyOffers extends Component {
   constructor () {
@@ -14,7 +16,9 @@ export default class MyOffers extends Component {
     this.state = {
       fixedHeader: true,
       stripedRows: true,
-      showRowHover: false,
+      showRowHover: true,
+      showOfferExplore: false,
+      selectedOffer: []
     };
   }
 
@@ -23,9 +27,25 @@ export default class MyOffers extends Component {
     this.props.removeApiData('/api/offer/', id)
   }
 
+  selectedRow: []
+
+  doSelection(selection) {
+    this.selectedRow = selection;
+  }
+
+  exploreOffer() {
+    var offer = this.props.apiData.offers[this.selectedRow[0]];
+    console.log(offer);
+    this.setState({selectedOffer: offer});
+    this.setState({showOfferExplore: true});
+  }
+
   render () {
     return (<div>
-              <Table fixedHeader={this.state.fixedHeader}>
+              <Table 
+                fixedHeader={this.state.fixedHeader}
+                onRowSelection={this.doSelection.bind(this)} 
+              >
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
@@ -48,7 +68,10 @@ export default class MyOffers extends Component {
                   </TableRow>
                 </TableHeader>
 
-                <TableBody stripedRows={this.state.stripedRows}>
+                <TableBody 
+                  stripedRows={this.state.stripedRows}
+                  showRowHover={this.state.showRowHover}  
+                >
                   {_.map(this.props.apiData.offers, function (offer) {
                     return (
                       <TableRow>
@@ -68,6 +91,16 @@ export default class MyOffers extends Component {
                   }
                 </TableBody>
               </Table>
+              <div>
+              <FlatButton 
+                  label="Explore" 
+                  onClick={this.exploreOffer.bind(this)}
+                  primary={true}  
+              />
+              </div>
+              <div>
+                {this.state.showOfferExplore ? <OfferVis data={this.state.selectedOffer} /> : ''}
+              </div>
             </div>)
   }
 }

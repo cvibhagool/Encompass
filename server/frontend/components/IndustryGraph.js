@@ -17,7 +17,6 @@ export default class IndustryGraph extends Component {
 
   componentWillReceiveProps(nextProps) {
     //User selected a company in the search box
-    console.log("Next Props", nextProps);
     if (nextProps.apiData.Industries){
       var industryNames = _.pluck(nextProps.apiData.Industries, 'name');
       this.updateVis(this.d3Node, nextProps.companyId, industryNames[0]);
@@ -325,7 +324,6 @@ export default class IndustryGraph extends Component {
 }
 
   render() {
-    console.log("rendering");
     return (
       <div className="vis">
         <div ref={(node) => this.d3Node = node} >

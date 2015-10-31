@@ -12,7 +12,6 @@ export default class CompanyProfile extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props);
     this.props.fetchApiData('/api/company/' + this.props.companyId);
   }
 

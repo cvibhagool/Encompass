@@ -23,13 +23,14 @@ export default class MyCompanies extends Component {
       deselectOnClickaway: false,
       selectedCompanies: []
     };
+
+    this.selectedRows = [];
   }
 
   clickRemoveCompany(e) {
     e.preventDefault();
     this.props.removeApiData('/api/company/', id)
   }
-  selectedRows: []
 
   doSelection(selection) {
     this.selectedRows = selection;
@@ -85,8 +86,8 @@ export default class MyCompanies extends Component {
 
                 <TableBody 
                   deselectOnClickaway={this.state.deselectOnClickaway}
-                  stripedRows={this.state.stripedRows}
                   showRowHover={this.state.showRowHover}  
+                  stripedRows={this.state.stripedRows}
                 >
                   {_.map(this.props.apiData.companies, function(company) {
                     return (

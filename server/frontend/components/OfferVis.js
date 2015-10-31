@@ -5,10 +5,11 @@ import _ from 'lodash';
 import {TextField, ClearFix} from 'material-ui';
 
 export default class OfferVis extends Component {
-  displayName: 'CompanyVis';
+  
   constructor() {
     super();
     this.state = {};
+    this.displayName = 'CompanyVis';
   }
 
   componentDidMount() {
@@ -46,3 +47,9 @@ export default class OfferVis extends Component {
   }
 };
 
+OfferVis.propTypes = {
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ])
+}

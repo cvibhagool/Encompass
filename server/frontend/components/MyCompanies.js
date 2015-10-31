@@ -103,7 +103,7 @@ export default class MyCompanies extends Component {
                         </TableRowColumn>
                         <TableRowColumn>{company.city ? company.city : ' - '}</TableRowColumn>
                         <TableRowColumn>{company.employees ? company.employees : ' - '}</TableRowColumn>
-                        <TableRowColumn>{company.founding_date ? company.founding_date : ' - '}</TableRowColumn>
+                        <TableRowColumn>{company.founding_date ? company.founding_date.split('T')[0] : ' - '}</TableRowColumn>
                         <TableRowColumn>{company.stage ? company.stage : ' - '}</TableRowColumn>
                         <TableRowColumn>{company.total_funding ? company.total_funding : ' - '}</TableRowColumn>
 

@@ -8,7 +8,7 @@ import configureStore from './store/configureStore';
 let injectTapEventPlugin = require('react-tap-event-plugin');
 
 //Set the initial state and initialize the store with the initial state
-const initialState = {};
+const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);
 
 // This is a shim for material-ui tap handling

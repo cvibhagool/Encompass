@@ -4,7 +4,7 @@
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
-import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon, FlatButton } from 'material-ui';
+import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon, FlatButton, ClearFix } from 'material-ui';
 
 import OfferVis from './OfferVis';
 

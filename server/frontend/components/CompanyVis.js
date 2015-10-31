@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import {CircularProgress} from 'material-ui';
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default class CompanyVis extends Component {
 

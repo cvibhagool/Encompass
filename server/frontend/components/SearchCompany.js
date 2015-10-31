@@ -96,7 +96,11 @@ export default class SearchCompany extends Component {
             className="graph-container" 
             zDepth={2}
         >
-          <IndustryGraph/>
+          <IndustryGraph
+            className="content-pane"
+            companyId={this.state.companyId} 
+            apiData={this.props.apiData}
+          />
         </Paper>
 	    </div>
     );
@@ -115,11 +119,11 @@ SearchCompany.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const {api} = state;
-
-  return {
+  console.log("State", state);
+  const {api} = state;  return {
     apiData: api.apiData,
     companies: api.companies,
+    company: api.company,
     profile: api.profile
   };
 };

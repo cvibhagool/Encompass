@@ -2,9 +2,6 @@ import React, { PropTypes, Component } from 'react';
 //Connect this component to Redux dispatcher and store
 import d3 from 'd3';
 import {CircularProgress} from 'material-ui';
-
-const industryPath = '/data/company?fields[]=name&fields[]=employees&fields[]=employees_mom&fields[]=total_funding&fields[]=stage&fields[]=founding_date&industry=';
-
 //Import lodash utility functions
 import _                                from 'lodash';
 

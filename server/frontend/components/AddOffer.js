@@ -112,8 +112,8 @@ export default class AddOffer extends Component {
                   hintText="numbers 0 to 100 only please :)"
                   name="equity"
                   ref="equity" 
-                  type="number"
                   step="any"
+                  type="number"
               />
             </div>
             

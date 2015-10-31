@@ -20,14 +20,14 @@ export default class MyOffers extends Component {
       showOfferExplore: false,
       selectedOffer: []
     };
+
+    this.selectedRow = [];
   }
 
   clickRemoveOffer(e) {
     e.preventDefault();
     this.props.removeApiData('/api/offer/', id)
   }
-
-  selectedRow: []
 
   doSelection(selection) {
     this.selectedRow = selection;
@@ -69,8 +69,8 @@ export default class MyOffers extends Component {
                 </TableHeader>
 
                 <TableBody 
-                  stripedRows={this.state.stripedRows}
                   showRowHover={this.state.showRowHover}  
+                  stripedRows={this.state.stripedRows}
                 >
                   {_.map(this.props.apiData.offers, function (offer) {
                     return (

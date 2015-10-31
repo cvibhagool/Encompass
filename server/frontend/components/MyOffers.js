@@ -75,13 +75,13 @@ export default class MyOffers extends Component {
                   {_.map(this.props.apiData.offers, function (offer) {
                     return (
                       <TableRow>
-                        <TableRowColumn>{offer.id}</TableRowColumn>
-                        <TableRowColumn>{offer.Company.name}</TableRowColumn>
-                        <TableRowColumn>{offer.position}</TableRowColumn>
-                        <TableRowColumn>{offer.salary}</TableRowColumn>
-                        <TableRowColumn>{offer.equity}</TableRowColumn>
-                        <TableRowColumn>{offer.total_funding}</TableRowColumn>
-                        <TableRowColumn>{offer.employees}</TableRowColumn>
+                        <TableRowColumn>{offer.id ? offer.id : ' - '}</TableRowColumn>
+                        <TableRowColumn>{offer.Company.name ? offer.Company.name : ' - '}</TableRowColumn>
+                        <TableRowColumn>{offer.position ? offer.position : ' - '}</TableRowColumn>
+                        <TableRowColumn>{offer.salary ? offer.salary : ' - '}</TableRowColumn>
+                        <TableRowColumn>{offer.equity ? offer.equity : ' - '}</TableRowColumn>
+                        <TableRowColumn>{offer.total_funding ? offer.total_funding : ' - '}</TableRowColumn>
+                        <TableRowColumn>{offer.employees ? offer.employees : ' - '}</TableRowColumn>
 
                       { /* this is not working; trying to remove list item upon clicking X */ }
                         <TableRowColumn onClick={this.clickRemoveOffer.bind(this)}><a href='#'>{'X'}</a></TableRowColumn>

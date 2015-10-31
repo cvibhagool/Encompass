@@ -101,11 +101,11 @@ export default class MyCompanies extends Component {
                             {company.website}
                           </a>
                         </TableRowColumn>
-                        <TableRowColumn>{company.city}</TableRowColumn>
-                        <TableRowColumn>{company.employees}</TableRowColumn>
-                        <TableRowColumn>{company.founding_date}</TableRowColumn>
-                        <TableRowColumn>{company.stage}</TableRowColumn>
-                        <TableRowColumn>{company.total_funding}</TableRowColumn>
+                        <TableRowColumn>{company.city ? company.city : ' - '}</TableRowColumn>
+                        <TableRowColumn>{company.employees ? company.employees : ' - '}</TableRowColumn>
+                        <TableRowColumn>{company.founding_date ? company.founding_date : ' - '}</TableRowColumn>
+                        <TableRowColumn>{company.stage ? company.stage : ' - '}</TableRowColumn>
+                        <TableRowColumn>{company.total_funding ? company.total_funding : ' - '}</TableRowColumn>
 
                         { /* this is not working; trying to remove list item upon clicking X */ }
                         <TableRowColumn onClick={this.clickRemoveCompany.bind(this)}><a href='#'>{'X'}</a></TableRowColumn>

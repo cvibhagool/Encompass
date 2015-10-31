@@ -7,7 +7,6 @@ import routes from '../routes';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
-
 export default function configureStore(initialState) {
   const finalCreateStore = compose(
     applyMiddleware(thunk),

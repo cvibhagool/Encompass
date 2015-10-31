@@ -99,8 +99,7 @@ export default class SearchCompany extends Component {
           <IndustryGraph
             className="content-pane"
             companyId={this.state.companyId} 
-            fetchApiData={this.props.fetchApiData}
-            apiData={this.props.apiData} 
+            apiData={this.props.apiData}
           />
         </Paper>
 	    </div>

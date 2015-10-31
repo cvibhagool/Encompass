@@ -12,25 +12,23 @@ export default class IndustryGraph extends Component {
 
   constructor() {
     super();
-    this.state = {industry: ''};
+    this.state = {};
   }
 
   componentWillReceiveProps(nextProps) {
     //User selected a company in the search box
-    if (nextProps.apiData.name){
+    console.log("Next Props", nextProps);
+    if (nextProps.apiData.Industries){
       var industryNames = _.pluck(nextProps.apiData.Industries, 'name');
-      this.setState({companyId: this.props.companyId, industryNames: industryNames, industry: industryNames[0], companyName: nextProps.apiData.name});
-      this.props.fetchApiData(industryPath + industryNames[0]);
-    } else {
-      this.updateVis(this.d3Node, nextProps.apiData);
+      this.updateVis(this.d3Node, nextProps.companyId, industryNames[0]);
     }
   }
 
   componentDidMount() {
     //Generate skeleton of d3 graph
     this.generateVis(this.d3Node);
-    //Get the initial data with all industry
-    this.props.fetchApiData(industryPath + (this.state.industry || 'all'));
+    //Draw out the all industry graph
+    this.updateVis(this.d3Node);
   }
 
   generateVis(node){
@@ -50,14 +48,12 @@ export default class IndustryGraph extends Component {
     var xAxis = d3.svg.axis();
     svg.append("g")
         .attr("class", "x-axis axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .attr("transform", "translate(0," + height + ")");
 
     // Add the y-axis.
     var yAxis = d3.svg.axis();
     svg.append("g")
-        .attr("class", "y-axis axis")
-        .call(yAxis);
+        .attr("class", "y-axis axis");
 
     // Add an x-axis label.
     svg.append("text")
@@ -108,15 +104,16 @@ export default class IndustryGraph extends Component {
         .attr("transform", "translate(" + (width - margin.left)/3 + "," + (height + margin.bottom/4) + ")");
   }
 
-  updateVis(node, data) {
-    var industry = this.state.industry || 'all';
-    var companies = data;
+  updateVis(node, companyId, industry_input) {
+
+  var industry = industry_input || 'all';
+  d3.json("/data/company?fields[]=id&fields[]=name&fields[]=employees&fields[]=employees_mom&fields[]=total_funding&fields[]=stage&fields[]=founding_date&industry=" + industry, function(companies) {
     // Various accessors that specify the four dimensions of data to visualize.
     function x(d) { return d.total_funding; }
     function y(d) { return d.total_funding / d.employees; }
     function radius(d) { return d.employees_mom; }
     function color(d) { return d.employees_mom; }
-    function key(d) { return d.name; }
+    function key(d) { return d.id; }
 
     // Chart dimensions.
     var margin = {top: 19.5, right: 19.5, bottom: 100, left: 39.5},
@@ -128,6 +125,7 @@ export default class IndustryGraph extends Component {
     // companies = chauvenet(companies, x);
     // companies = chauvenet(companies, y);
     // companies = chauvenet(companies, radius);
+
     //x
     var max_x = d3.max(companies, x);
     var min_x = d3.min(companies, x);
@@ -247,13 +245,13 @@ export default class IndustryGraph extends Component {
     var dots = svg.selectAll(".dots");
     // Update dot groups
     var dot = dots.selectAll(".dot")
-        .data(companies, function(d) {return d.name})
+        .data(companies, key);
 
       dot
         .transition()
         .duration(1000)
         .call(position).style("fill", function(d) {
-            if (d.name === this.state.companyName){
+            if (key(d) === companyId){
               return 'red';
             } else {
               return colorScale(color(d));
@@ -263,7 +261,7 @@ export default class IndustryGraph extends Component {
       dot.enter().append("circle")
         .attr("class", "dot")
         .style("fill", function(d) {
-          if (d.name === this.state.companyName){
+          if (key(d) === companyId){
             return 'red';
           } else {
             return colorScale(color(d));
@@ -323,9 +321,11 @@ export default class IndustryGraph extends Component {
         return (dMax > (Math.abs(f(d) - mean))/stdv);
       });
     }
-  }
+  }.bind(this));
+}
 
   render() {
+    console.log("rendering");
     return (
       <div className="vis">
         <div ref={(node) => this.d3Node = node} >

@@ -1,5 +1,7 @@
 .vis svg{
   padding-left: 50px;
+  display: block;
+  margin: auto;
 }
 
 .vis text {
@@ -20,12 +22,12 @@
   fill: #777;
 }
 
-.vis .year.label {
-  font: 500 196px "Helvetica Neue";
+.vis .industry-label {
+  font: 500 100px "Helvetica Neue";
   fill: #ddd;
 }
 
-.vis .year.label.active {
+.vis .industry.label.active {
   fill: #aaa;
 }
 

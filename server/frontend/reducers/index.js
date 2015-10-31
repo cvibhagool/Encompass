@@ -29,6 +29,8 @@ function api(state = {
 			};
 			if(action.apiPath==="/data/company?fields[]=name&fields[]=id")
 				newState.companies = action.apiData;
+      else if((action.apiPath.indexOf("/api/company") >= 0) && (action.apiPath.indexOf('follow') < 0))
+        newState.company = action.apiData;
 			else if(action.apiPath==="/api/user/profile/me")
 				newState.profile = action.apiData;
 			return Object.assign({}, state, newState);

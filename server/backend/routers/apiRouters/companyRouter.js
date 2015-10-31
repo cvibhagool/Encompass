@@ -53,7 +53,9 @@ router.route('/:companyId')
     db.Company.findOne({
       where: {
         id: req.params.companyId
-      }
+      },
+      include:
+        [db.Industry]
     }).then(function (company) {
       if(!company) {
         res.json('Requested company does not exist in the database!');

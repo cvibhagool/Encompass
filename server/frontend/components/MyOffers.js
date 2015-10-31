@@ -24,7 +24,7 @@ export default class MyOffers extends Component {
     this.selectedRow = [];
   }
 
-  clickRemoveOffer(e) {
+  componentWillMount(e) {
     e.preventDefault();
     this.props.removeApiData('/api/offer/', id)
   }

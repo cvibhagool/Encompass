@@ -17,7 +17,7 @@ export default class MyCompanies extends Component {
     this.state = {
       fixedHeader: true,
       stripedRows: true,
-      showRowHover: false,
+      showRowHover: true,
       multiSelectable: true,
       showComparison: false,
       deselectOnClickaway: false,
@@ -31,11 +31,8 @@ export default class MyCompanies extends Component {
   }
   selectedRows: []
 
-  //selectedCompanies: []
-
   doSelection(selection) {
     this.selectedRows = selection;
-    //console.log(this.selectedRows);
   }
 
   compareCompanies() {
@@ -49,7 +46,6 @@ export default class MyCompanies extends Component {
         selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
       }
     }
-    //this.selectedCompanies = selectedCompanies;
     this.setState({selectedCompanies: selectedCompanies});
     this.setState({showComparison: true});
     setTimeout(function() {
@@ -89,7 +85,9 @@ export default class MyCompanies extends Component {
 
                 <TableBody 
                   deselectOnClickaway={this.state.deselectOnClickaway}
-                  stripedRows={this.state.stripedRows}>
+                  stripedRows={this.state.stripedRows}
+                  showRowHover={this.state.showRowHover}  
+                >
                   {_.map(this.props.apiData.companies, function(company) {
                     return (
                       <TableRow >

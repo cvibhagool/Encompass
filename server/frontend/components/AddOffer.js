@@ -30,9 +30,7 @@ export default class AddOffer extends Component {
       company_name: this.state.company_name.trim(),
       position: this.refs.position.getValue().trim(),
       salary: this.refs.salary.getValue(),
-      total_funding: this.refs.total_funding.getValue(),
       equity: this.refs.equity.getValue(),
-      employees: this.refs.employees.getValue()
     }
 
     // send the user's submission to the server
@@ -42,8 +40,6 @@ export default class AddOffer extends Component {
     this.setState({company_name: ''});
     this.refs.position.clearValue();
     this.refs.salary.clearValue();
-    this.refs.total_funding.clearValue();
-    this.refs.employees.clearValue();
     this.refs.equity.clearValue();
   }
 
@@ -95,7 +91,6 @@ export default class AddOffer extends Component {
               />
             </div>
 
-
             <div className="col-md-4 col-md-offset-4 text-center">
               <TextField
                   floatingLabelText="What is your salary?"
@@ -117,27 +112,6 @@ export default class AddOffer extends Component {
               />
             </div>
             
-            <div className="col-md-4 col-md-offset-4 text-center">
-              <TextField
-                  floatingLabelText="Total funding?"
-                  hintText="numbers only please :)"
-                  name="total_funding"
-                  ref="total_funding" 
-                  step="any"
-                  type="number"
-              />
-            </div>
-
-            <div className="col-md-4 col-md-offset-4 text-center">
-              <TextField
-                  floatingLabelText="How many employees?"
-                  hintText="numbers only please :)"
-                  name="employees"
-                  ref="employees" 
-                  type="number"
-              />
-            </div>
-
             <div className="col-md-4 col-md-offset-4 text-center">
               <RaisedButton
                   label={"Follow Company"}

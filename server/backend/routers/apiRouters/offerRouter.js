@@ -18,14 +18,7 @@ router.route('/')
       var newOffer = db.Offer.create({
         position: req.body.position,
         salary: req.body.salary,
-        equity: req.body.equity,
-        vesting_start_date : req.body.vesting_start_date,
-        vesting_end_date : req.body.vesting_end_date,
-        vesting_cliff_date : req.body.vesting_cliff_date,
-        vesting_cliff_percent : req.body.vesting_cliff_percent,
-        other_benefits : req.body.other_benefits,
-        last_financing_round_valuation : req.body.last_financing_round_valuation,
-        estimated_exit_valuation : req.body.estimated_exit_valuation
+        equity: req.body.equity
       }).then(function(newOffer){
         //Associate offer to a company
         newOffer.setCompany(company);

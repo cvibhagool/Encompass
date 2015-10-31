@@ -77,7 +77,6 @@
     "node-libs-browser": "^0.5.2",
     "react-transform-hmr": "^1.0.0",
     "redux-devtools": "^2.1.5",
-    "segmentio": "^0.1.4",
     "webpack": "^1.9.11",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.2.0"

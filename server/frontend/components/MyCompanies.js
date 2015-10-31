@@ -66,7 +66,7 @@ export default class MyCompanies extends Component {
   
   render () {
 
-    return (<div>
+    return (<div style={{width: "80%", marginTop: "20px", marginLeft: "auto", marginRight: "auto"}}>
               <Table 
                   fixedHeader={this.state.fixedHeader}
                   multiSelectable={this.state.multiSelectable}
@@ -77,8 +77,7 @@ export default class MyCompanies extends Component {
                     <TableHeaderColumn 
                         colSpan="7" 
                         style={{textAlign: 'center'}}
-                    >
-                      <h1>{'My Companies'}</h1>
+                    ><h1>{'My Companies'}</h1>
                     </TableHeaderColumn>
                   </TableRow>
 

@@ -63,6 +63,7 @@ export default class UserProfile extends Component {
                   fetchApiData={this.props.fetchApiData.bind(this)} 
                   removeApiData={this.props.removeApiData.bind(this)} 
               />
+              <div></div>  
 
               { /* instantiate the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
               <MyCompanies 

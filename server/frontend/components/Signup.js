@@ -129,7 +129,8 @@ export default class Signup extends Component {
 
 Signup.propTypes = {
   postApiData: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  pushState: PropTypes.func.isRequired
 }
 
 function mapStateToProperties(state) {

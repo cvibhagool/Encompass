@@ -126,18 +126,20 @@ function deleteApiDataFailure(apiPath, id) {
 }
 
 export function removeApiData(apiPath, id) {
-  dispatch(deleteApiData(apiPath, id));
-  $.ajax({
-    url: 'http://localhost:3000' + apiPath + '/' + id,
-    type: 'DELETE',
-    success: function(data) {
-      console.log('Delete success!!');
-      dispatch(deleteApiDataSuccess(apiPath, id));
-    },
-    error: function(xhr, status, err) {
-      console.log('Delete Failure!!');
-      console.log(err);
-      dispatch(deleteApiDataFailure(apiPath, id));
-    }
-  });
+  return dispatch => {
+    dispatch(deleteApiData(apiPath, id));
+    $.ajax({
+      url: 'http://localhost:3000' + apiPath + '/' + id,
+      type: 'DELETE',
+      success: function(data) {
+        console.log('Delete success!!');
+        dispatch(deleteApiDataSuccess(apiPath, id));
+      },
+      error: function(xhr, status, err) {
+        console.log('Delete Failure!!');
+        console.log(err);
+        dispatch(deleteApiDataFailure(apiPath, id));
+      }
+    });
+  }
 }

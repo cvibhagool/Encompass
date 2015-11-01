@@ -1,4 +1,5 @@
-// this file controls the logic for our navbar tabs; its parent is App.js
+// this file controls the logic for our navbar tabs
+// its parent is App.js
 
 // import our dependencies
 import React, { PropTypes, Component }  from 'react';

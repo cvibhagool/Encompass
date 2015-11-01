@@ -24,18 +24,18 @@ export default class MyOffers extends Component {
     this.selectedRow = [];
   }
 
-  clickRemoveOffer(e) {
-    e.preventDefault();
-    this.props.removeApiData('/api/offer/', id)
+  // removes an offer from MyOffers after user clicks a row and 'delete' button
+  removeOffer(e) {
+    var offer = this.props.apiData.offers[this.selectedRow[0]];
+    this.props.removeApiData('/api/offer/', offer.id)
   }
-
+ 
   doSelection(selection) {
     this.selectedRow = selection;
   }
 
   exploreOffer() {
     var offer = this.props.apiData.offers[this.selectedRow[0]];
-    console.log(offer);
     this.setState({selectedOffer: offer});
     this.setState({showOfferExplore: true});
   }
@@ -84,20 +84,32 @@ export default class MyOffers extends Component {
                         <TableRowColumn>{offer.employees ? offer.employees : ' - '}</TableRowColumn>
 
                       { /* this is not working; trying to remove list item upon clicking X */ }
-                        <TableRowColumn onClick={this.clickRemoveOffer.bind(this)}><a href='#'>{'X'}</a></TableRowColumn>
+                      {/* <TableRowColumn onClick={this.clickRemoveOffer.bind(this)}><a href='#'>{'X'}</a></TableRowColumn> */}
                       </TableRow>
                     )
                   }.bind(this))
                   }
                 </TableBody>
               </Table>
+              
+              { /* button to explore an offer in detail */ }
               <div>
-              <FlatButton 
-                  label="Explore" 
-                  onClick={this.exploreOffer.bind(this)}
-                  primary={true}  
-              />
+                <FlatButton 
+                    label="Explore" 
+                    onClick={this.exploreOffer.bind(this)}
+                    primary={true}  
+                />
               </div>
+
+            { /* button to delete an offer from table */ }
+              <div>
+                <FlatButton
+                    label="Delete"
+                    onClick={this.removeOffer.bind(this)}
+                    primary={true}
+                />
+              </div>
+
               <div>
                 {this.state.showOfferExplore ? <OfferVis data={this.state.selectedOffer} /> : ''}
               </div>

@@ -23,7 +23,9 @@ When setting up local environment, do the following:
 2. `npm run dbreset` to drop the database and rebuild the tables.
 3. `npm run seed` to seed the database. This takes a while.
 
-
+###Starting the app:
+1. cd into the server directory
+2. type `npm start`
 
 ###whiteboard photos:
 https://drive.google.com/drive/folders/0B5Rh0oxLUMclVE9pQkw3aTVYaFU
@@ -108,7 +110,7 @@ content (folder)
 * Investors
   * GET `data/investor` return all investors
   * GET `data/investor/company?fields[]=field1&fields[]=field2.....&fields[]=fieldN`
-
+ 
 ###Database Tables
 * `BusinessModels`
 * `Companies`

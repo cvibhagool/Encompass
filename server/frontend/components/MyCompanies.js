@@ -65,7 +65,7 @@ export default class MyCompanies extends Component {
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
-                        colSpan="8" 
+                        colSpan="7" 
                         style={{textAlign: 'center'}}
                     >
                       <h1>{'My Companies'}</h1>
@@ -80,7 +80,6 @@ export default class MyCompanies extends Component {
                     <TableHeaderColumn>{'Founding'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Stage'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Funding'}</TableHeaderColumn>
-                    <TableHeaderColumn>{'Remove?'}</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
@@ -105,14 +104,10 @@ export default class MyCompanies extends Component {
                         <TableRowColumn>{company.employees ? company.employees : ' - '}</TableRowColumn>
                         <TableRowColumn>{company.founding_date ? company.founding_date.split('T')[0] : ' - '}</TableRowColumn>
                         <TableRowColumn>{company.stage ? company.stage : ' - '}</TableRowColumn>
-                        <TableRowColumn>{company.total_funding ? company.total_funding : ' - '}</TableRowColumn>
-
-                        { /* this is not working; trying to remove list item upon clicking X */ }
-                        <TableRowColumn onClick={this.clickRemoveCompany.bind(this)}><a href='#'>{'X'}</a></TableRowColumn>
-
+                        <TableRowColumn>{company.total_funding ? '$' + company.total_funding : ' - '}</TableRowColumn>
                       </TableRow>
                     )
-                  }.bind(this))
+                  })
                   }
                 </TableBody>
               </Table>

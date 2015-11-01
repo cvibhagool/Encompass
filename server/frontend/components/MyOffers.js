@@ -49,7 +49,7 @@ export default class MyOffers extends Component {
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn 
-                        colSpan="8" 
+                        colSpan="5" 
                         style={{textAlign: 'center'}}
                     >
                       <h1>{'My Offers'}</h1>
@@ -60,11 +60,8 @@ export default class MyOffers extends Component {
                     <TableHeaderColumn>{'Offer #'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Startup Name'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Position'}</TableHeaderColumn>
-                    <TableHeaderColumn>{'Salary'}</TableHeaderColumn>
-                    <TableHeaderColumn>{'Equity'}</TableHeaderColumn>
-                    <TableHeaderColumn>{'Total Funding'}</TableHeaderColumn>
-                    <TableHeaderColumn>{'Employees'}</TableHeaderColumn>
-                    <TableHeaderColumn>{'Remove?'}</TableHeaderColumn> 
+                    <TableHeaderColumn>{'Salary (per year)'}</TableHeaderColumn>
+                    <TableHeaderColumn>{'Equity %'}</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
@@ -78,31 +75,25 @@ export default class MyOffers extends Component {
                         <TableRowColumn>{offer.id ? offer.id : ' - '}</TableRowColumn>
                         <TableRowColumn>{offer.Company.name ? offer.Company.name : ' - '}</TableRowColumn>
                         <TableRowColumn>{offer.position ? offer.position : ' - '}</TableRowColumn>
-                        <TableRowColumn>{offer.salary ? offer.salary : ' - '}</TableRowColumn>
-                        <TableRowColumn>{offer.equity ? offer.equity : ' - '}</TableRowColumn>
-                        <TableRowColumn>{offer.total_funding ? offer.total_funding : ' - '}</TableRowColumn>
-                        <TableRowColumn>{offer.employees ? offer.employees : ' - '}</TableRowColumn>
-
-                      { /* this is not working; trying to remove list item upon clicking X */ }
-                      {/* <TableRowColumn onClick={this.clickRemoveOffer.bind(this)}><a href='#'>{'X'}</a></TableRowColumn> */}
+                        <TableRowColumn>{offer.salary ? '$' + offer.salary : ' - '}</TableRowColumn>
+                        <TableRowColumn>{offer.equity ? offer.equity + '%' : ' - '}</TableRowColumn>
                       </TableRow>
                     )
-                  }.bind(this))
+                  })
                   }
                 </TableBody>
               </Table>
               
-              { /* button to explore an offer in detail */ }
               <div>
+                
+                { /* button to explore an offer in detail */ }
                 <FlatButton 
                     label="Explore" 
                     onClick={this.exploreOffer.bind(this)}
-                    primary={true}  
+                    primary={true}
                 />
-              </div>
 
-            { /* button to delete an offer from table */ }
-              <div>
+                { /* button to delete an offer from table */ }
                 <FlatButton
                     label="Delete"
                     onClick={this.removeOffer.bind(this)}

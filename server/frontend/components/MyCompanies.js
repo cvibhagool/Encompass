@@ -27,9 +27,20 @@ export default class MyCompanies extends Component {
     this.selectedRows = [];
   }
 
-  clickRemoveCompany(e) {
-    e.preventDefault();
-    this.props.removeApiData('/api/company/', id)
+  removeCompany() {
+
+    var selectedCompanies = [];
+    if (this.selectedRows === 'all') {
+      selectedCompanies = this.props.apiData.comapnies.slice();
+    } else {
+      for (var i = 0; i < this.selectedRows.length; i++) {
+        selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
+      }
+    }
+    for (var i = 0; i < selectedCompanies.length; i++) {
+      var company = selectedCompanies[i];
+      this.props.removeApiData('/api/company/', company.id)
+    }
   }
 
   doSelection(selection) {
@@ -40,7 +51,6 @@ export default class MyCompanies extends Component {
 
     var selectedCompanies = [];
     if (this.selectedRows === 'all') {
-      console.log('all');
       selectedCompanies = this.props.apiData.companies.slice();
     } else {
       for (var i = 0; i < this.selectedRows.length; i++) {
@@ -111,16 +121,28 @@ export default class MyCompanies extends Component {
                   }
                 </TableBody>
               </Table>
+              
               <div>
-              <FlatButton 
-                  label="Compare" 
-                  onClick={this.compareCompanies.bind(this)}
-                  primary={true}  
-              />
+                
+                { /* button to compare companies on d3 graph */ }
+                <FlatButton 
+                    label="Compare" 
+                    onClick={this.compareCompanies.bind(this)}
+                    primary={true}  
+                />
+
+                { /* button to delete a company from table */ }
+                <FlatButton
+                    label="Delete"
+                    onClick={this.removeCompany.bind(this)}
+                    primary={true}
+                />
               </div>
+
               <div>
                 {this.state.showComparison ? <CompanyVis data={this.state.selectedCompanies} /> : ''}
-              </div>  
+              </div>
+
             </div>)
   }
 }

@@ -114,7 +114,7 @@ export default class AddOffer extends Component {
             
             <div className="col-md-4 col-md-offset-4 text-center">
               <RaisedButton
-                  label={"Follow Company"}
+                  label={"Add Offer"}
                   primary={true}
                   type="submit"
                   value="Post" 

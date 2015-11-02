@@ -39,7 +39,7 @@ export default class MyCompanies extends Component {
     }
     for (var i = 0; i < selectedCompanies.length; i++) {
       var company = selectedCompanies[i];
-      this.props.removeApiData('/api/company/', company.id)
+      this.props.removeApiData('/api/company/follow', company.id)
     }
   }
 

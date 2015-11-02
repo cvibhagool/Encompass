@@ -9,6 +9,7 @@ import cookie                           from 'react-cookie';
 // import subviews/children
 import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
+import Segment                          from './Segment.js';
 
 import { connect } from 'react-redux';
 import { fetchApiData, removeApiData } from '../actions';
@@ -37,7 +38,12 @@ export default class UserProfile extends Component {
   render() {
     const {profile} = this.props;
     return (
+          
           <div>
+          
+          <Segment 
+              apiData={profile}
+          />
 
           { /* check if user is logged in */ }
           {profile ?

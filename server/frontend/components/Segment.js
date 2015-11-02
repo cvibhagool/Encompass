@@ -2,18 +2,12 @@ import React, { PropTypes, Component }      from 'react';
 // var segmentioSnippet = require('segmentio-snippet');
 
 export default class Segment extends Component {
-
-
   constructor () {
     super();
     this.state = {};
-
   }
 
   render() {
-    console.log(this)
-
-    console.log(this.props.apiData)
     // Create a queue, but don't obliterate an existing one!
     var analytics = window.analytics = window.analytics || [];
 
@@ -99,9 +93,9 @@ export default class Segment extends Component {
     // move this call however you'd like.
     analytics.page();
 
-    analytics.identify(this.props.id, {
-      username: this.props.username,
-      email: this.props.email
+    analytics.identify(this.props.apiData.user.id, {
+      username: this.props.apiData.user.username,
+      email: this.props.apiData.user.email
     });
   }
 

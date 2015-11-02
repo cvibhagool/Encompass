@@ -30,10 +30,6 @@ export default class UserProfile extends Component {
     this.props.fetchApiData(userPath);
   }
 
-  componentDidMount() {
-
-  }
-
   checkCookie() {
     let usercookie = cookie.load('connect.sid');
     return usercookie;

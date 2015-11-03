@@ -22,14 +22,23 @@ export default class Signup extends Component {
   }
   
   componentDidUpdate () {
+
+    // if sigup is successful (if it exists)
     if(this.props.profile) {
 
       // Segment identify call for associated users w/ events & pageviews
       var userID = cookie.load('user.id');
       var userUsername = cookie.load('user.username');
       window.analytics.identify(userID, {
-        username: userUsername
-    });
+        Username: userUsername
+      });
+
+      // Segment tracking for Sign Up event
+      window.analytics.track('Signed Up', {
+        Username: userUsername,
+        "User ID": userID
+      });
+
       // forward user to Add Offer page if successful signup
       this.props.pushState(null, '/addoffer');
     }

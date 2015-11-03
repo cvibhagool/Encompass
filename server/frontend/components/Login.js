@@ -32,8 +32,14 @@ export default class Login extends Component {
       var userID = cookie.load('user.id');
       var userUsername = cookie.load('user.username');
       window.analytics.identify(userID, {
-        username: userUsername
+        Username: userUsername
     });
+
+      // Segment tracking for Sign Up event
+      window.analytics.track('Logged In', {
+        Username: userUsername,
+        "User ID": userID
+      });
 
       // forward user to their profile page upon login
       this.props.pushState(null, '/profile');

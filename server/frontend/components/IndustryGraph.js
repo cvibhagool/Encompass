@@ -9,7 +9,16 @@ export default class IndustryGraph extends Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      isD3ready: false
+    };
+  }
+
+  componentDidMount() {
+    //Generate skeleton of d3 graph
+    this.generateVis(this.d3Node);
+    //Draw out the all industry graph
+    this.updateVis(this.d3Node);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -20,11 +29,8 @@ export default class IndustryGraph extends Component {
     }
   }
 
-  componentDidMount() {
-    //Generate skeleton of d3 graph
-    this.generateVis(this.d3Node);
-    //Draw out the all industry graph
-    this.updateVis(this.d3Node);
+  removeSpinner() {
+    this.setState({isD3ready: true});
   }
 
   generateVis(node){
@@ -102,8 +108,11 @@ export default class IndustryGraph extends Component {
 
   updateVis(node, companyId, industry_input) {
 
-  var industry = industry_input || 'all';
-  d3.json("/data/company?fields[]=id&fields[]=name&fields[]=employees&fields[]=employees_mom&fields[]=total_funding&fields[]=stage&fields[]=founding_date&industry=" + industry, function(companies) {
+    var industry = industry_input || 'all';
+    d3.json("/data/company?fields[]=id&fields[]=name&fields[]=employees&fields[]=employees_mom&fields[]=total_funding&fields[]=stage&fields[]=founding_date&industry=" + industry, function(companies) {
+
+    this.removeSpinner();
+
     // Various accessors that specify the four dimensions of data to visualize.
     function x(d) { return d.total_funding; }
     function y(d) { return d.total_funding / d.employees; }
@@ -322,10 +331,16 @@ export default class IndustryGraph extends Component {
 
   render() {
     return (
-      <div className="vis">
-        <div ref={(node) => this.d3Node = node} >
-        </div>  
-      </div>  
+      <div>  
+        <div>
+        {!this.state.isD3ready ? <CircularProgress mode="indeterminate" size={1.5} /> : ''}
+        </div>
+
+        <div className="vis"
+          ref={(node) => this.d3Node = node} 
+        >
+        </div> 
+      </div>
     )
   }
 

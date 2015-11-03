@@ -198,6 +198,10 @@ export default class OfferVis extends Component {
 
     bars.transition()
       .duration(1000)
+      .attr("y", y(0))
+      .attr("height", height - y(0))
+      .transition()
+      .duration(1000)
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); });
   }

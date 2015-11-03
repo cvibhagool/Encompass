@@ -71,6 +71,21 @@ export default class OfferVis extends Component {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    var tooltip = d3.select(node).append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    var tooltipTemplate = '<div class="tooltipTitle">\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Outcome</span>\
+                                  <span class="tooltipMetricValue"><%= outcome %></span>\
+                              </div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Value</span>\
+                                  <span class="tooltipMetricValue">$<%= value %></span>\
+                              </div>\
+                             </div>';
+
     x.domain(data.map(function(d) { return d.outcome; }));
     y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
@@ -96,7 +111,23 @@ export default class OfferVis extends Component {
       .attr("x", function(d) { return x(d.outcome); })
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.value); })
-      .attr("height", function(d) { return height - y(d.value); });
+      .attr("height", function(d) { return height - y(d.value); })
+      .on("mouseover", function(d) {
+              var compiled = _.template(tooltipTemplate);
+              tooltip.transition()
+                   .duration(200)
+                   .style("opacity", .9);
+              //console.log('temp :', this.tooltipTemplate);
+              tooltip.html(compiled(d))
+                   .style("left", (d3.event.pageX + 5) + "px")
+                   .style("top", (d3.event.pageY - 28) + "px");
+          }.bind(this))
+          .on("mouseout", function(d) {
+              tooltip.transition()
+                   .duration(500)
+                   .style("opacity", 0);
+       });
+      
 
   }
 

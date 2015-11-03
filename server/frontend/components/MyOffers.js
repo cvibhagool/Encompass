@@ -41,7 +41,8 @@ export default class MyOffers extends Component {
   }
 
   render () {
-    return (<div>
+    return (
+            <div style={{width: "80%", margin: "auto"}}>
               <Table 
                 fixedHeader={this.state.fixedHeader}
                 onRowSelection={this.doSelection.bind(this)} 

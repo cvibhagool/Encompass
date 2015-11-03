@@ -9,7 +9,6 @@ import cookie                           from 'react-cookie';
 // import subviews/children
 import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
-import Segment                          from './Segment.js';
 
 import { connect } from 'react-redux';
 import { fetchApiData, removeApiData } from '../actions';
@@ -41,9 +40,7 @@ export default class UserProfile extends Component {
           
           <div>
           
-          <Segment 
-              apiData={profile}
-          />
+          
 
           { /* check if user is logged in */ }
           {profile ?
@@ -63,6 +60,7 @@ export default class UserProfile extends Component {
                   fetchApiData={this.props.fetchApiData.bind(this)} 
                   removeApiData={this.props.removeApiData.bind(this)} 
               />
+              <div></div>  
 
               { /* instantiate the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
               <MyCompanies 

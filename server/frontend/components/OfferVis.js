@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import _ from 'lodash';
-import {TextField, ClearFix} from 'material-ui';
+import {TextField, FlatButton} from 'material-ui';
 
 export default class OfferVis extends Component {
   
@@ -13,36 +13,227 @@ export default class OfferVis extends Component {
   }
 
   componentDidMount() {
-    this.generateVis(this.d3Node, this.props.data);
+    this.generateVis(this.d3Node);
+    console.log('max: ', this.refs.maxVal.getValue());
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateVis(this.d3Node, nextProps.data);
+  generateVis(node) {
+    console.log('props: ', this.props.data);
+
+    var lv = this.refs.minVal.getValue(),
+        hv = this.refs.maxVal.getValue(),
+        le = this.refs.minEq.getValue() / 100,
+        he = this.refs.maxEq.getValue() / 100;
+
+    var data = [
+      {
+        outcome: 'Min Val/Min Eq',
+        value: lv * le 
+      },
+      {
+        outcome: 'Min Val/Max Eq',
+        value: lv * he
+      },
+      {
+        outcome: 'Max Val/Min Eq',
+        value: hv * le
+      },
+      {
+        outcome: 'Max Val/Max Eq',
+        value: hv * he
+      }
+    ];
+
+    var margin = {top: 20, right: 100, bottom: 30, left: 10},
+      width = 1000 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+    var x = d3.scale.ordinal()
+      .rangeRoundBands([0, width], 0.2);
+
+    var y = d3.scale.linear()
+      .range([height, 0]);
+
+    var color = d3.scale.category10();
+
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+
+    var svg = d3.select(node)
+      .append('svg')
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var tooltip = d3.select(node).append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    var tooltipTemplate = '<div class="tooltipTitle">\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Outcome</span>\
+                                  <span class="tooltipMetricValue"><%= outcome %></span>\
+                              </div>\
+                              <div class="tooltipLine">\
+                                  <span class="tooltipMetricName">Value</span>\
+                                  <span class="tooltipMetricValue">$<%= value %></span>\
+                              </div>\
+                             </div>';
+
+    x.domain(data.map(function(d) { return d.outcome; }));
+    y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+    svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Option value at exit (USD)");
+
+    svg.selectAll(".bar")
+      .data(data, function(d) { return d.outcome; })
+      .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.outcome); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .on("mouseover", function(d) {
+              var compiled = _.template(tooltipTemplate);
+              tooltip.transition()
+                   .duration(200)
+                   .style("opacity", .9);
+              //console.log('temp :', this.tooltipTemplate);
+              tooltip.html(compiled(d))
+                   .style("left", (d3.event.pageX + 5) + "px")
+                   .style("top", (d3.event.pageY - 28) + "px");
+          }.bind(this))
+          .on("mouseout", function(d) {
+              tooltip.transition()
+                   .duration(500)
+                   .style("opacity", 0);
+       });
+      
+
   }
 
-  sliderMove(e, val) {
-    console.log('slider: ', val);
+  updateVis() {
+    var node = this.d3Node;
+
+    var lv = this.refs.minVal.getValue(),
+    hv = this.refs.maxVal.getValue(),
+    le = this.refs.minEq.getValue() / 100,
+    he = this.refs.maxEq.getValue() / 100;
+
+    var data = [
+    {
+      outcome: 'Min Val/Min Eq',
+      value: lv * le 
+    },
+    {
+      outcome: 'Min Val/Max Eq',
+      value: lv * he
+    },
+    {
+      outcome: 'Max Val/Min Eq',
+      value: hv * le
+    },
+    {
+      outcome: 'Max Val/Max Eq',
+      value: hv * he
+    }
+    ];
+
+    var margin = {top: 20, right: 100, bottom: 30, left: 10},
+      width = 1000 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+    var y = d3.scale.linear()
+      .range([height, 0]);
+
+    var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+  
+    var svg = d3.select(node).selectAll('svg');
+
+    y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+    svg.selectAll('.y')
+      .transition()
+      .duration(1000)
+      .call(yAxis);
+
+    var bars = svg.selectAll(".bar")
+      .data(data, function(d) {return d.outcome;});
+
+    bars.transition()
+      .duration(1000)
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); });
   }
-
-  generateVis() {}
-
-  updateVis() {}
 
   render() {
-    var divStyle = {width: "1600px"};
+    var divStyle = {width: "1100px", height: "700px", marginBottom: "50px", marginLeft: "auto", marginRight: "auto"};
 
     return (
-        <div style={divStyle}>
-          <div >
-            <TextField hintText="Min Valuation" /><TextField hintText="Max Valuation" />
+          <div style={divStyle}>
+            <div>
+              <TextField 
+                style={{margin: "10px"}}
+                hintText="Min Valuation" 
+                floatingLabelText="Min Valuation" 
+                defaultValue={1000000} 
+                ref="minVal"
+              />
+              <TextField 
+                style={{margin: "10px"}}
+                hintText="Min Equity Percentage" 
+                floatingLabelText="Min Equity Percentage"
+                defaultValue={0.001}
+                ref="minEq"
+              />
+            </div>
+            <div>
+              <TextField 
+                style={{margin: "10px"}}
+                hintText="Max Valuation" 
+                floatingLabelText="Max Valuation"
+                defaultValue={10000000}
+                ref="maxVal"
+              />
+              <TextField 
+                hintText="Max Equity Percentage"
+                style={{margin: "10px"}}
+                floatingLabelText="Max Equity Percentage"
+                defaultValue={this.props.data.equity}
+                ref="maxEq"
+              />
+              <FlatButton 
+                label="Recalculate" 
+                onClick={this.updateVis.bind(this)}
+              />
+            </div> 
+                
+            <div className="vis offer"
+                style={{marginTop: "50px"}}
+                ref={(node) => this.d3Node = node}
+            ></div>
           </div>
-          <div className="vis"
-              ref={(node) => this.d3Node = node}
-              style={divStyle}
-          ></div>
-          
-        </div>
-
     )
   }
 };

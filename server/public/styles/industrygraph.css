@@ -72,3 +72,17 @@
   font-size: 12px;
   text-align: center;
 }
+
+/* for bar chart */
+
+.vis .bar {
+  fill: #00afdd;
+}
+
+.vis .bar:hover {
+  fill: #00afff;
+}
+
+.vis .offer .x.axis path {
+  display: none;
+}

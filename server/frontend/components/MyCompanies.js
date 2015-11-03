@@ -170,6 +170,7 @@ MyCompanies.propTypes = {
     PropTypes.array,
     PropTypes.object
   ]),
+  fetchApiData: PropTypes.func.isRequired,
   removeApiData: PropTypes.func.isRequired
 }
 

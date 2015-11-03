@@ -204,34 +204,34 @@ export default class OfferVis extends Component {
           <div style={divStyle}>
             <div>
               <TextField 
-                style={{margin: "10px"}}
-                hintText="Min Valuation" 
-                floatingLabelText="Min Valuation" 
                 defaultValue={1000000} 
+                floatingLabelText="Min Valuation" 
+                hintText="Min Valuation" 
                 ref="minVal"
+                style={{margin: "10px"}}
               />
               <TextField 
-                style={{margin: "10px"}}
-                hintText="Min Equity Percentage" 
-                floatingLabelText="Min Equity Percentage"
                 defaultValue={0.001}
+                floatingLabelText="Min Equity Percentage"
+                hintText="Min Equity Percentage" 
                 ref="minEq"
+                style={{margin: "10px"}}
               />
             </div>
             <div>
               <TextField 
-                style={{margin: "10px"}}
-                hintText="Max Valuation" 
-                floatingLabelText="Max Valuation"
                 defaultValue={10000000}
+                floatingLabelText="Max Valuation"
+                hintText="Max Valuation" 
                 ref="maxVal"
+                style={{margin: "10px"}}
               />
               <TextField 
-                hintText="Max Equity Percentage"
-                style={{margin: "10px"}}
-                floatingLabelText="Max Equity Percentage"
                 defaultValue={this.props.data.equity}
+                floatingLabelText="Max Equity Percentage"
+                hintText="Max Equity Percentage"
                 ref="maxEq"
+                style={{margin: "10px"}}
               />
               <FlatButton 
                 label="Recalculate" 
@@ -240,8 +240,8 @@ export default class OfferVis extends Component {
             </div> 
                 
             <div className="vis offer"
-                style={{marginTop: "50px"}}
                 ref={(node) => this.d3Node = node}
+                style={{marginTop: "50px"}}
             ></div>
           </div>
     )

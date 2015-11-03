@@ -10,17 +10,17 @@ export default class Signup extends Component {
     super();
   }
 
+  componentDidMount() {
+    // Segment's pageview call
+    window.analytics.page();
+  }
+
   componentWillUpdate (nextProps) {
     if(nextProps.apiData.username) {
       nextProps.fetchApiData('/api/user/profile/me');  
     }
   }
   
-  componentDidMount() {
-    // Segment's pageview call
-    window.analytics.page();
-  }
-
   componentDidUpdate () {
     if(this.props.profile) {
 
@@ -30,8 +30,8 @@ export default class Signup extends Component {
       window.analytics.identify(userID, {
         username: userUsername
     });
-      // forward user if successful signup
-      this.props.pushState(null, '/');
+      // forward user to Add Offer page if successful signup
+      this.props.pushState(null, '/addoffer');
     }
   }
 

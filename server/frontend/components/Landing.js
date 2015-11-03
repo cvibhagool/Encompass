@@ -10,8 +10,7 @@ export default class Landing extends Component {
     this.state = {data: [],
                   displayChart: false};
 
-    this.setUpText = 'Encompass: it just makes sense. Don\'t think too hard about it.' +
-      ' Just look at our pretty graphs.';
+    this.setUpText = 'Encompass is the easiest place on the web to assess and compare your startup job offers.';
   }
 
   componentDidMount() {
@@ -33,7 +32,8 @@ export default class Landing extends Component {
   render() {
     return (
       <div style={{width:'95%', margin: 'auto'}}>  
-      <h1>{'You Are Here'}</h1>
+      <h1>{'Welcome to Encompass'}</h1>
+      <h2>{'We make it easy for you to understand your startup job offers'}</h2>
       <Card>  
         <CardHeader
             avatar={<Avatar style={{color:'black'}}>{'E'}</Avatar>}

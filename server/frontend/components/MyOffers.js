@@ -27,7 +27,8 @@ export default class MyOffers extends Component {
   // removes an offer from MyOffers after user clicks a row and 'delete' button
   removeOffer() {
     var offer = this.props.apiData.offers[this.selectedRow[0]];
-    this.props.removeApiData('/api/offer', offer.id)
+    this.props.removeApiData('/api/offer', offer.id);
+    this.props.fetchApiData('/api/user/profile/me');
   }
  
   doSelection(selection) {

@@ -42,7 +42,7 @@ export default class MyCompanies extends Component {
       var company = selectedCompanies[i];
       this.props.removeApiData('/api/company/follow', company.id)
 
-      // Segment event tracking when user deletes companies
+      // Segment event tracking when user deletes a company
       analytics.track('Remove Company', {
         "Company Name": company.name,
         "Company ID": company.id,
@@ -60,13 +60,11 @@ export default class MyCompanies extends Component {
   compareCompanies() {
 
     var selectedCompanies = [];
-    // var selectedCompanyNames = '';
     if (this.selectedRows === 'all') {
       selectedCompanies = this.props.apiData.companies.slice();
     } else {
       for (var i = 0; i < this.selectedRows.length; i++) {
         selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
-        // selectedCompanyNames += this.props.apiData.companies[this.selectedRows[i].toString(10)].name + ',';
       }
     }
     this.setState({selectedCompanies: selectedCompanies});
@@ -76,11 +74,6 @@ export default class MyCompanies extends Component {
     }.bind(this), 1);
 
     // Segment event tracking when user compares companies
-    // analytics.track('Compare Company', {
-    //   "Selected Companies": selectedCompanyNames
-    // });
-
-    // Segment event tracking when user deletes companies
     for (var i = 0; i < selectedCompanies.length; i++) {
       var company = selectedCompanies[i];
       analytics.track('Compare Company', {

@@ -28,7 +28,15 @@ export default class MyOffers extends Component {
   removeOffer() {
     var offer = this.props.apiData.offers[this.selectedRow[0]];
     this.props.removeApiData('/api/offer', offer.id);
+
+    // update the view by getting the new profile data
     this.props.fetchApiData('/api/user/profile/me');
+
+    // Segment event tracking when user deletes an offer
+    analytics.track('Remove Offer', {
+      "Company Name": offer.Company.name,
+      "Company ID": offer.CompanyId
+    });
   }
  
   doSelection(selection) {
@@ -39,6 +47,12 @@ export default class MyOffers extends Component {
     var offer = this.props.apiData.offers[this.selectedRow[0]];
     this.setState({selectedOffer: offer});
     this.setState({showOfferExplore: true});
+    
+    // Segment event tracking when user explores an offer
+    analytics.track('Explore Offer', {
+      "Company Name": offer.Company.name,
+      "Company ID": offer.CompanyId
+    });
   }
 
   render () {

@@ -41,6 +41,9 @@ export default class MyCompanies extends Component {
       var company = selectedCompanies[i];
       this.props.removeApiData('/api/company/follow', company.id)
     }
+
+    // update the view by getting the new profile data
+    this.props.fetchApiData('/api/user/profile/me');
   }
 
   doSelection(selection) {

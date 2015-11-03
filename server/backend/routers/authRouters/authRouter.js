@@ -12,6 +12,9 @@ var callBackFunctionGenerator = function (provider) {
         //Auto login user
         req.login(user, function(err){
           var userJSON = {username: user.username, id: user.id};
+          var minute = 60 * 1000;
+          res.cookie('user.id', user.id, { maxAge: minute });
+          res.cookie('user.username', user.username, {maxAge: minute});
           res.json(userJSON);
         });
       }
@@ -38,6 +41,9 @@ router.route('/signup')
       //Auto login user
       req.login(user, function(err){
         var userJSON = {username: user.username, id: user.id};
+        var minute = 60 * 1000;
+        res.cookie('user.id', user.id, {maxAge: minute});
+        res.cookie('user.username', user.username, {maxAge: minute});
         res.json(userJSON);
       });
     });

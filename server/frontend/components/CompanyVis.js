@@ -27,7 +27,6 @@ export default class CompanyVis extends Component {
   }
 
   cleanData(companies) {
-    console.log('cleaning!');
     return companies.filter(function(d) {
       return (!isNaN(parseFloat(d.employees)) && !isNaN(parseFloat(d.total_funding)));
     });

@@ -20,7 +20,9 @@
 	border-style: groove;
 	border-width: medium;
   text-align: center;
-  position:relative;
+  width:100%; 
+  text-align:center;
+  position: absolute;
 }
 
 .typeahead-item {

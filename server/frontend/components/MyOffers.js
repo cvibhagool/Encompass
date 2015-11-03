@@ -64,7 +64,7 @@ export default class MyOffers extends Component {
                 onRowSelection={this.doSelection.bind(this)} 
               >
                 <TableHeader>
-                  <TableRow>
+                  <TableRow displayBorder={false}>
                     <TableHeaderColumn 
                         colSpan="5" 
                         style={{textAlign: 'center'}}
@@ -73,7 +73,7 @@ export default class MyOffers extends Component {
                     </TableHeaderColumn>
                   </TableRow>
 
-                  <TableRow>
+                  <TableRow displayBorder={false}>
                     <TableHeaderColumn>{'Offer #'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Startup Name'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Position'}</TableHeaderColumn>
@@ -88,7 +88,7 @@ export default class MyOffers extends Component {
                 >
                   {_.map(this.props.apiData.offers, function (offer) {
                     return (
-                      <TableRow>
+                      <TableRow displayBorder={false}>
                         <TableRowColumn>{offer.id ? offer.id : ' - '}</TableRowColumn>
                         <TableRowColumn>{offer.Company.name ? offer.Company.name : ' - '}</TableRowColumn>
                         <TableRowColumn>{offer.position ? offer.position : ' - '}</TableRowColumn>

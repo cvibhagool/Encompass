@@ -1,8 +1,9 @@
 import React, { PropTypes, Component }        from 'react';
 import { TextField, RaisedButton, FontIcon }  from 'material-ui';
-import { pushState } from 'redux-router';
-import { connect } from 'react-redux';
-import { fetchApiData, postApiData } from '../actions';
+import { pushState }                          from 'redux-router';
+import { connect }                            from 'react-redux';
+import { fetchApiData, postApiData }          from '../actions';
+import cookie                                 from 'react-cookie';
 
 
 /*jshint esnext: true */
@@ -17,8 +18,27 @@ export default class Login extends Component {
     }
   }
 
+  componentDidMount() {
+    // Segment pageview call
+    window.analytics.page();
+    
+    // Segment user call
+    analytics.identify(this.props.apiData.user.id, {
+      username: this.props.apiData.user.username,
+      email: this.props.apiData.user.email
+    });
+  }
+
   componentDidUpdate () {
     if(this.props.profile) {
+
+      // Segment identify call for associated users w/ events & pageviews
+      var userID = cookie.load('user.id');
+      var userUsername = cookie.load('user.username');
+      window.analytics.identify(userID, {
+        username: userUsername
+    });
+      // forward user if successful login
       this.props.pushState(null, '/');
     }
   }

@@ -19,6 +19,9 @@ export default class AddOffer extends Component {
   }
 
   componentDidMount() {
+    // Segment pageview call
+    window.analytics.page();
+    
     this.setState({companyNames: _.pluck(this.props.companies, 'name')});
   }
 
@@ -50,7 +53,8 @@ export default class AddOffer extends Component {
   
   render () {
     return (
-      <div> 
+      <div>
+
       {this.checkCookie() ?
       <div>
         <h1 className="heading">{'Add Your Offer'}</h1>

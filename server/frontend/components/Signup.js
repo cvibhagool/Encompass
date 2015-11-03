@@ -1,8 +1,9 @@
-import React, { PropTypes, Component }  from 'react';
-import { TextField, RaisedButton, FontIcon } from 'material-ui';
-import { pushState } from 'redux-router';
-import { connect } from 'react-redux';
-import { fetchApiData, postApiData } from '../actions';
+import React, { PropTypes, Component }        from 'react';
+import { TextField, RaisedButton, FontIcon }  from 'material-ui';
+import { pushState }                          from 'redux-router';
+import { connect }                            from 'react-redux';
+import { fetchApiData, postApiData }          from '../actions';
+import cookie                                 from 'react-cookie';
 
 export default class Signup extends Component {
   constructor() {
@@ -14,9 +15,22 @@ export default class Signup extends Component {
       nextProps.fetchApiData('/api/user/profile/me');  
     }
   }
+  
+  componentDidMount() {
+    // Segment's pageview call
+    window.analytics.page();
+  }
 
   componentDidUpdate () {
     if(this.props.profile) {
+
+      // Segment identify call for associated users w/ events & pageviews
+      var userID = cookie.load('user.id');
+      var userUsername = cookie.load('user.username');
+      window.analytics.identify(userID, {
+        username: userUsername
+    });
+      // forward user if successful signup
       this.props.pushState(null, '/');
     }
   }
@@ -29,7 +43,7 @@ export default class Signup extends Component {
     };
 
     this.props.postApiData('/auth/signup', formData);
-
+    console.log(formData)
     this.refs.username.setValue('');
     this.refs.password.setValue('');
   }

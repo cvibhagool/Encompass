@@ -24,6 +24,7 @@ export default class CompanyProfile extends Component {
     const { apiData } = this.props;
     return (
       <div>
+
       {apiData.employees &&
         <Table>
           <TableHeader 

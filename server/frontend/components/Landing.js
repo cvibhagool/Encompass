@@ -14,14 +14,17 @@ export default class Landing extends Component {
       ' Just look at our pretty graphs.';
   }
 
-  // componentDidMount() {
+  componentDidMount() {
+    // Segment pageview call
+    window.analytics.page();
+
   //   d3.csv('nutrients.csv', function(error, data) {
   //     if (error) console.log(error);
 
   //     this.setState({data: data});
   //     console.log('in Landing: ', data.length);
   //   }.bind(this));
-  // }
+  }
 
   displayChart() {
     this.setState({displayChart: true});

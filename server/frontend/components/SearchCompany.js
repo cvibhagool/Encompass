@@ -25,6 +25,9 @@ export default class SearchCompany extends Component {
   }
 
   componentDidMount() {
+    // Segment pageview call
+    window.analytics.page();
+    
     this.setState({companyNames: _.pluck(this.props.companies, 'name'), companyFollowed: false});
   }
 

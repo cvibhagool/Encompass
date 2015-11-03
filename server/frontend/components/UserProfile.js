@@ -29,6 +29,11 @@ export default class UserProfile extends Component {
     this.props.fetchApiData(userPath);
   }
 
+  componentDidMount() {
+    // Segment pageview call
+    window.analytics.page();
+  }
+
   checkCookie() {
     let usercookie = cookie.load('connect.sid');
     return usercookie;
@@ -39,8 +44,6 @@ export default class UserProfile extends Component {
     return (
           
           <div>
-          
-          
 
           { /* check if user is logged in */ }
           {profile ?

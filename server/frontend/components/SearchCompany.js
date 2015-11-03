@@ -113,6 +113,7 @@ export default class SearchCompany extends Component {
             <Paper
                 className="graph-container" 
                 zDepth={2}
+                style = {{'box-shadow': '0 0px 0px'}}
             >
               <IndustryGraph
                 apiData={this.props.apiData}

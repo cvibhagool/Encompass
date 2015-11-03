@@ -1,5 +1,43 @@
-html {
-  font-family: 'Roboto', sans-serif;
+/** Ultra Light */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 100;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-ultralight-webfont.woff2");
+}
+
+/** Thin */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 200;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff2");
+}
+
+/** Medium */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: normal;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-medium-webfont.woff2");
+}
+
+/** Semi Bold */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 500;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff2");
+}
+
+/** Bold */ 
+@font-face {
+  font-family: "San Francisco";
+  font-weight: bold;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff2");
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'San Francisco';
+}
+p, div {
+    font-family: 'San Francisco';
 }
 
 body {
@@ -14,7 +52,6 @@ body {
 
 .content-pane {
 	width: 30%;
-  margin-left: 50px;
   float:left;
 }
 
@@ -27,6 +64,7 @@ body {
 .graph-container {
   width: 100%;
   margin-top: 50px;
+  box-shadow: 0 0px 0px;
 }
 
 .heading {

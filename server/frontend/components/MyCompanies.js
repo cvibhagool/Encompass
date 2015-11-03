@@ -93,7 +93,7 @@ export default class MyCompanies extends Component {
                   onRowSelection={this.doSelection.bind(this)} 
               >
                 <TableHeader>
-                  <TableRow>
+                  <TableRow displayBorder={false}>
                     <TableHeaderColumn 
                         colSpan="7" 
                         style={{textAlign: 'center'}}
@@ -101,7 +101,9 @@ export default class MyCompanies extends Component {
                     </TableHeaderColumn>
                   </TableRow>
 
-                  <TableRow>
+                  <TableRow 
+                    displayBorder={false}
+                  >
                     <TableHeaderColumn>{'Name'}</TableHeaderColumn>
                     <TableHeaderColumn>{'Website'}</TableHeaderColumn>
                     <TableHeaderColumn>{'City'}</TableHeaderColumn>
@@ -119,7 +121,7 @@ export default class MyCompanies extends Component {
                 >
                   {_.map(this.props.apiData.companies, function(company) {
                     return (
-                      <TableRow >
+                      <TableRow displayBorder={false} >
                         <TableRowColumn>{company.name}</TableRowColumn>
                         <TableRowColumn>
                           <a 

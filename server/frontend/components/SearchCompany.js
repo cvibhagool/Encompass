@@ -37,11 +37,11 @@ export default class SearchCompany extends Component {
     this.props.postApiData('/api/company/follow/' + this.state.companyId, {});
     this.setState({companyFollowed: true});
 
-    // need to still implement:
-    // analytics.track('Follow Company', {
-    //   plan: 'Startup',
-    //   source: 'Analytics Academy'
-    // });
+    // Segment event tracking; fires when user follows a company
+    analytics.track('Follow Company', {
+      "Company ID": this.state.companyId,
+      "Company Name": this.state.companyName
+    });
   }
 
   checkCookie() {
@@ -70,7 +70,7 @@ export default class SearchCompany extends Component {
                   onOptionSelected={
                     (name) =>  {
                       let companyEntry = _.find(this.props.companies, 'name', name);
-                      this.setState({companyId: companyEntry.id});
+                      this.setState({companyId: companyEntry.id, companyName: companyEntry.name});
                       if(this.props.profile) { 
                         this.setState({companyFollowed : !!_.find(this.props.profile.companies, 'id', companyEntry.id)})
                       }

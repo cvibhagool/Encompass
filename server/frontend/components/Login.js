@@ -12,34 +12,31 @@ export default class Login extends Component {
     super();
   }
 
+  componentDidMount() {
+    // Segment pageview call
+    window.analytics.page();
+  }
+
   componentWillUpdate (nextProps) {
     if(nextProps.apiData.username) {
       nextProps.fetchApiData('/api/user/profile/me');  
     }
   }
 
-  componentDidMount() {
-    // Segment pageview call
-    window.analytics.page();
-    
-    // Segment user call
-    analytics.identify(this.props.apiData.user.id, {
-      username: this.props.apiData.user.username,
-      email: this.props.apiData.user.email
-    });
-  }
-
   componentDidUpdate () {
+
+    // if login is successful
     if(this.props.profile) {
 
-      // Segment identify call for associated users w/ events & pageviews
+      // Segment identify call; passes in username property
       var userID = cookie.load('user.id');
       var userUsername = cookie.load('user.username');
       window.analytics.identify(userID, {
         username: userUsername
     });
-      // forward user if successful login
-      this.props.pushState(null, '/');
+
+      // forward user to their profile page upon login
+      this.props.pushState(null, '/profile');
     }
   }
 
@@ -150,6 +147,7 @@ export default class Login extends Component {
 };
 
 Login.propTypes = {
+  apiData: PropTypes.object.isRequired,
   fetchApiData: PropTypes.func.isRequired, 
   postApiData: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,

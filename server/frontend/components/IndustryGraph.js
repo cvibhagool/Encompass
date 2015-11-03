@@ -21,6 +21,13 @@ export default class IndustryGraph extends Component {
     this.updateVis(this.d3Node);
   }
 
+  componentDidMount() {
+    //Generate skeleton of d3 graph
+    this.generateVis(this.d3Node);
+    //Draw out the all industry graph
+    this.updateVis(this.d3Node);
+  }
+
   componentWillReceiveProps(nextProps) {
     //User selected a company in the search box
     if (nextProps.apiData.Industries){

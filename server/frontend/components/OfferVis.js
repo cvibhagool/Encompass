@@ -17,16 +17,13 @@ export default class OfferVis extends Component {
     console.log('max: ', this.refs.maxVal.getValue());
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateVis(this.d3Node, nextProps.data);
-  }
-
   generateVis(node) {
+    console.log('props: ', this.props.data);
+
     var lv = this.refs.minVal.getValue(),
         hv = this.refs.maxVal.getValue(),
         le = this.refs.minEq.getValue() / 100,
         he = this.refs.maxEq.getValue() / 100;
-        
 
     var data = [
       {
@@ -90,23 +87,74 @@ export default class OfferVis extends Component {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Option value at exit");
+      .text("Option value at exit (USD)");
 
     svg.selectAll(".bar")
-      .data(data)
+      .data(data, function(d) { return d.outcome; })
       .enter().append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x(d.outcome); })
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); });
-    
-    
-
 
   }
 
-  updateVis() {}
+  updateVis() {
+    var node = this.d3Node;
+
+    var lv = this.refs.minVal.getValue(),
+    hv = this.refs.maxVal.getValue(),
+    le = this.refs.minEq.getValue() / 100,
+    he = this.refs.maxEq.getValue() / 100;
+
+    var data = [
+    {
+      outcome: 'Min Val/Min Eq',
+      value: lv * le 
+    },
+    {
+      outcome: 'Min Val/Max Eq',
+      value: lv * he
+    },
+    {
+      outcome: 'Max Val/Min Eq',
+      value: hv * le
+    },
+    {
+      outcome: 'Max Val/Max Eq',
+      value: hv * he
+    }
+    ];
+
+    var margin = {top: 20, right: 100, bottom: 30, left: 10},
+      width = 1000 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+    var y = d3.scale.linear()
+      .range([height, 0]);
+
+    var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+  
+    var svg = d3.select(node).selectAll('svg');
+
+    y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+    svg.selectAll('.y')
+      .transition()
+      .duration(1000)
+      .call(yAxis);
+
+    var bars = svg.selectAll(".bar")
+      .data(data, function(d) {return d.outcome;});
+
+    bars.transition()
+      .duration(1000)
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); });
+  }
 
   render() {
     var divStyle = {width: "1100px", height: "700px", marginBottom: "50px", marginLeft: "auto", marginRight: "auto"};
@@ -118,14 +166,14 @@ export default class OfferVis extends Component {
                 style={{margin: "10px"}}
                 hintText="Min Valuation" 
                 floatingLabelText="Min Valuation" 
-                value={1000000} 
+                defaultValue={1000000} 
                 ref="minVal"
               />
               <TextField 
                 style={{margin: "10px"}}
                 hintText="Min Equity Percentage" 
                 floatingLabelText="Min Equity Percentage"
-                value={0.001}
+                defaultValue={0.001}
                 ref="minEq"
               />
             </div>
@@ -134,18 +182,19 @@ export default class OfferVis extends Component {
                 style={{margin: "10px"}}
                 hintText="Max Valuation" 
                 floatingLabelText="Max Valuation"
-                value={10000000}
+                defaultValue={10000000}
                 ref="maxVal"
               />
               <TextField 
                 hintText="Max Equity Percentage"
                 style={{margin: "10px"}}
                 floatingLabelText="Max Equity Percentage"
-                value={.5}
+                defaultValue={this.props.data.equity}
                 ref="maxEq"
               />
               <FlatButton 
                 label="Recalculate" 
+                onClick={this.updateVis.bind(this)}
               />
             </div> 
                 

@@ -86,7 +86,6 @@ export default class MyOffers extends Component {
               </Table>
               
               <div>
-<<<<<<< HEAD
                 
                 { /* button to explore an offer in detail */ }
                 <FlatButton 

@@ -5,6 +5,7 @@
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon, FlatButton, ClearFix } from 'material-ui';
+import d3 from 'd3';
 
 import OfferVis from './OfferVis';
 
@@ -91,7 +92,7 @@ export default class MyOffers extends Component {
                         <TableRowColumn>{offer.id ? offer.id : ' - '}</TableRowColumn>
                         <TableRowColumn>{offer.Company.name ? offer.Company.name : ' - '}</TableRowColumn>
                         <TableRowColumn>{offer.position ? offer.position : ' - '}</TableRowColumn>
-                        <TableRowColumn>{offer.salary ? '$' + offer.salary : ' - '}</TableRowColumn>
+                        <TableRowColumn>{offer.salary ? '$' + d3.format(",")(offer.salary) : ' - '}</TableRowColumn>
                         <TableRowColumn>{offer.equity ? offer.equity + '%' : ' - '}</TableRowColumn>
                       </TableRow>
                     )

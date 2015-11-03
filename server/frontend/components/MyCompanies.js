@@ -30,8 +30,9 @@ export default class MyCompanies extends Component {
   removeCompany() {
 
     var selectedCompanies = [];
+
     if (this.selectedRows === 'all') {
-      selectedCompanies = this.props.apiData.comapnies.slice();
+      selectedCompanies = this.props.apiData.companies.slice();
     } else {
       for (var i = 0; i < this.selectedRows.length; i++) {
         selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
@@ -40,6 +41,12 @@ export default class MyCompanies extends Component {
     for (var i = 0; i < selectedCompanies.length; i++) {
       var company = selectedCompanies[i];
       this.props.removeApiData('/api/company/follow', company.id)
+
+      // Segment event tracking when user deletes a company
+      analytics.track('Remove Company', {
+        "Company Name": company.name,
+        "Company ID": company.id,
+      });
     }
 
     // update the view by getting the new profile data
@@ -65,6 +72,15 @@ export default class MyCompanies extends Component {
     setTimeout(function() {
       console.log(this.state)
     }.bind(this), 1);
+
+    // Segment event tracking when user compares companies
+    for (var i = 0; i < selectedCompanies.length; i++) {
+      var company = selectedCompanies[i];
+      analytics.track('Compare Company', {
+        "Company Name": company.name,
+        "Company ID": company.id,
+      });
+    }
   }
   
   render () {

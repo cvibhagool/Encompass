@@ -60,8 +60,8 @@ export default class OfferVis extends Component {
     ];
 
     var margin = {top: 20, right: 100, bottom: 30, left: 10},
-      width = 1200 - margin.left - margin.right,
-      height = 700 - margin.top - margin.bottom;
+      width = 1000 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
       .rangeRoundBands([0, width], 0.2);
@@ -174,8 +174,8 @@ export default class OfferVis extends Component {
     ];
 
     var margin = {top: 20, right: 100, bottom: 30, left: 10},
-      width = 1200 - margin.left - margin.right,
-      height = 700 - margin.top - margin.bottom;
+      width = 1000 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
     var y = d3.scale.linear()
       .range([height, 0]);
@@ -207,7 +207,7 @@ export default class OfferVis extends Component {
   }
 
   render() {
-    var divStyle = {width: "1300px", height: "750px", marginBottom: "50px", marginLeft: "auto", marginRight: "auto"};
+    var divStyle = {width: "1300px", height: "700px", marginBottom: "50px", marginLeft: "auto", marginRight: "auto"};
 
     return (
           <div style={divStyle}>

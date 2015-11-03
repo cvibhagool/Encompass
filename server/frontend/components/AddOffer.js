@@ -39,6 +39,13 @@ export default class AddOffer extends Component {
     // send the user's submission to the server
     this.props.postApiData('/api/offer', formData);
 
+    analytics.track('Add Offer', {
+      "Company Name": formData.company_name,
+      "Position": formData.position,
+      "Salary": formData.salary,
+      "Equity": formData.equity
+    });
+
     // reset the form upon submission
     this.setState({company_name: ''});
     this.refs.position.clearValue();

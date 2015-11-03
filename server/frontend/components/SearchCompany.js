@@ -35,6 +35,11 @@ export default class SearchCompany extends Component {
     e.preventDefault();
     this.props.postApiData('/api/company/follow/' + this.state.companyId, {});
     this.setState({companyFollowed: true});
+    console.log(this.props.apiData)
+    // analytics.track('Follow Company', {
+    //   plan: 'Startup',
+    //   source: 'Analytics Academy'
+    // });
   }
 
   render() {
@@ -122,7 +127,6 @@ SearchCompany.propTypes = {
 }
 
 function mapStateToProps(state) {
-  console.log("State", state);
   const {api} = state;  return {
     apiData: api.apiData,
     companies: api.companies,

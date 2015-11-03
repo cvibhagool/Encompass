@@ -5,6 +5,7 @@
 import React, { PropTypes, Component } from 'react';
 import _                               from 'lodash';
 import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton } from 'material-ui';
+import d3 from 'd3';
 
 import CompanyVis from './CompanyVis';
 
@@ -129,10 +130,10 @@ export default class MyCompanies extends Component {
                           </a>
                         </TableRowColumn>
                         <TableRowColumn>{company.city ? company.city : ' - '}</TableRowColumn>
-                        <TableRowColumn>{company.employees ? company.employees : ' - '}</TableRowColumn>
+                        <TableRowColumn>{company.employees ? d3.format(",")(company.employees) : ' - '}</TableRowColumn>
                         <TableRowColumn>{company.founding_date ? company.founding_date.split('T')[0] : ' - '}</TableRowColumn>
                         <TableRowColumn>{company.stage ? company.stage : ' - '}</TableRowColumn>
-                        <TableRowColumn>{company.total_funding ? '$' + company.total_funding : ' - '}</TableRowColumn>
+                        <TableRowColumn>{company.total_funding ? '$' + d3.format(",")(company.total_funding) : ' - '}</TableRowColumn>
                       </TableRow>
                     )
                   })

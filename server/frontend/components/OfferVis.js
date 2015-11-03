@@ -14,7 +14,6 @@ export default class OfferVis extends Component {
 
   componentDidMount() {
     this.generateVis(this.d3Node);
-    console.log('max: ', this.refs.maxVal.getValue());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,8 +26,14 @@ export default class OfferVis extends Component {
     this.updateVis();
   }
 
+  roundData(data) {
+    var d = {};
+    d.outcome = data.outcome;
+    d.value = Math.round(data.value);
+    return d;
+  }
+
   generateVis(node) {
-    console.log('props: ', this.props.data);
 
     var lv = this.refs.minVal.getValue(),
         hv = this.refs.maxVal.getValue(),
@@ -128,7 +133,7 @@ export default class OfferVis extends Component {
                    .duration(200)
                    .style("opacity", .9);
               //console.log('temp :', this.tooltipTemplate);
-              tooltip.html(compiled(d))
+              tooltip.html(compiled(this.roundData(d)))
                    .style("left", (d3.event.pageX + 15) + "px")
                    .style("top", (d3.event.pageY - 28) + "px");
           }.bind(this))

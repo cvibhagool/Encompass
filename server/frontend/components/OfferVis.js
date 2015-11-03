@@ -17,6 +17,16 @@ export default class OfferVis extends Component {
     console.log('max: ', this.refs.maxVal.getValue());
   }
 
+  componentWillReceiveProps(nextProps) {
+    // reset the text fields
+    this.refs.maxEq.setValue(nextProps.data.equity);
+    this.refs.minEq.setValue(0.001);
+    this.refs.maxVal.setValue(10000000);
+    this.refs.minVal.setValue(1000000);
+
+    this.updateVis();
+  }
+
   generateVis(node) {
     console.log('props: ', this.props.data);
 
@@ -119,7 +129,7 @@ export default class OfferVis extends Component {
                    .style("opacity", .9);
               //console.log('temp :', this.tooltipTemplate);
               tooltip.html(compiled(d))
-                   .style("left", (d3.event.pageX + 5) + "px")
+                   .style("left", (d3.event.pageX + 15) + "px")
                    .style("top", (d3.event.pageY - 28) + "px");
           }.bind(this))
           .on("mouseout", function(d) {
@@ -135,9 +145,9 @@ export default class OfferVis extends Component {
     var node = this.d3Node;
 
     var lv = this.refs.minVal.getValue(),
-    hv = this.refs.maxVal.getValue(),
-    le = this.refs.minEq.getValue() / 100,
-    he = this.refs.maxEq.getValue() / 100;
+        hv = this.refs.maxVal.getValue(),
+        le = this.refs.minEq.getValue() / 100,
+        he = this.refs.maxEq.getValue() / 100;
 
     var data = [
     {

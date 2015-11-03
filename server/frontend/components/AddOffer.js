@@ -40,7 +40,7 @@ export default class AddOffer extends Component {
     this.props.postApiData('/api/offer', formData);
 
     // Segment event tracking when user adds an offer
-    analytics.track('Add Offer', {
+    window.analytics.track('Add Offer', {
       "Company Name": formData.company_name,
       "Position": formData.position,
       "Salary": formData.salary,

@@ -38,7 +38,7 @@ export default class SearchCompany extends Component {
     this.setState({companyFollowed: true});
 
     // Segment event tracking; fires when user follows a company
-    analytics.track('Follow Company', {
+    window.analytics.track('Follow Company', {
       "Company ID": this.state.companyId,
       "Company Name": this.state.companyName
     });

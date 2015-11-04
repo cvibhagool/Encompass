@@ -10,6 +10,3 @@ export default class ETab extends Component {
     return (<Tab className='tab'><a href={this.props.url} onClick={this.handleClick.bind(this)}>{this.props.name}</a></Tab>);
   }
 }
-
-// Tabs.propTypes = {
-// };

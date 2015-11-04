@@ -1,17 +1,20 @@
-// this file is the user's profile page /#/profile
-// its parent is ContentPage.js
+// URL is /profile
+// this view renders when user navigates to their profile page
+// its parent is ContentPage
+
+// require our dependencies
 
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 import cookie                           from 'react-cookie';
+import { connect }                      from 'react-redux';
+import { fetchApiData, removeApiData }  from '../actions';
 
 // import subviews/children
 import MyCompanies                      from './MyCompanies.js';
 import MyOffers                         from './MyOffers.js';
 
-import { connect } from 'react-redux';
-import { fetchApiData, removeApiData } from '../actions';
 
 // define all constant variables
 const userPath = '/api/user/profile/me';

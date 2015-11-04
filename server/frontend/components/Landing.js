@@ -1,3 +1,8 @@
+// URL is /
+// this view renders when a user hits the homepage
+// its parent is ContentPage
+
+// require our dependencies
 import React, { PropTypes, Component }  from 'react';
 import d3                               from 'd3';
 import { Card, CardHeader, CardText, CardTitle, CardActions, Avatar, RaisedButton } from 'material-ui';

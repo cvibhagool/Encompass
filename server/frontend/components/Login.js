@@ -1,3 +1,8 @@
+// URL is /login
+// this view renders the login/signup box
+// its parent is ContentPage
+
+// require our dependencies
 import React, { PropTypes, Component }        from 'react';
 import { TextField, RaisedButton, FontIcon }  from 'material-ui';
 import { pushState }                          from 'redux-router';
@@ -18,6 +23,8 @@ export default class Login extends Component {
   }
 
   componentWillUpdate (nextProps) {
+
+    // if the user exists in our db, make a GET request for their profile info
     if(nextProps.apiData.username) {
       nextProps.fetchApiData('/api/user/profile/me');  
     }
@@ -33,7 +40,7 @@ export default class Login extends Component {
       var userUsername = cookie.load('user.username');
       window.analytics.identify(userID, {
         Username: userUsername
-    });
+      });
 
       // Segment tracking for Sign Up event
       window.analytics.track('Logged In', {
@@ -48,11 +55,14 @@ export default class Login extends Component {
 
   handleClick (e) {
     e.preventDefault();
+
+    // collect login data to send to server
     let formData = {
       username: this.refs.username.getValue().trim(),
       password: this.refs.password.getValue().trim()
     };
 
+    // determine whether user is logging in or signing up
     if (e.target.textContent === 'Login'){
       this.props.postApiData('/auth/local', formData);
     } else {

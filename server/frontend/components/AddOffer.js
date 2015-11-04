@@ -1,12 +1,12 @@
-// this page will add an offer to a user's profile
+// URL is /addoffer
+// this view renders where a user adds an offer to their profile 
 // it's parent is ContentPage
 
+// require our dependencies
 import React, { PropTypes, Component }  from 'react';
 import { Typeahead }                    from 'react-typeahead';
-
-import { connect } from 'react-redux';
-import { postApiData } from '../actions';
-
+import { connect }                      from 'react-redux';
+import { postApiData }                  from '../actions';
 import _                                from 'lodash';
 import cookie                           from 'react-cookie';
 import { TextField, RaisedButton, Snackbar }      from 'material-ui';
@@ -70,7 +70,7 @@ export default class AddOffer extends Component {
               <div className="form-group">
                 <div className="col-md-4 col-md-offset-4 text-center">
 
-                    { /* creates a dropdown for company name to allow user to click when matched */ }
+                    { /* creates a dropdown for company name that allows user to click to choose */ }
                     <Typeahead 
                         customClasses={
                           { hover: "typeahead-active",
@@ -94,6 +94,7 @@ export default class AddOffer extends Component {
                     />
                 </div>
                 
+                { /* add offer form */ }
                 <div className="col-md-4 col-md-offset-4 text-center">
                   <TextField
                       floatingLabelText="What is your job title?"

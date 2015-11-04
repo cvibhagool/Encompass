@@ -97,7 +97,7 @@ export default class OfferVis extends Component {
                               </div>\
                               <div class="tooltipLine">\
                                   <span class="tooltipMetricName">Value</span>\
-                                  <span class="tooltipMetricValue">$<%= value %></span>\
+                                  <span class="tooltipMetricValue">$<%= d3.format(",")(value) %></span>\
                               </div>\
                              </div>';
 

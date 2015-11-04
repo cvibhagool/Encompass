@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import _ from 'lodash';
-import {TextField, FlatButton} from 'material-ui';
+import {TextField, RaisedButton} from 'material-ui';
 
 export default class OfferVis extends Component {
   
@@ -242,7 +242,8 @@ export default class OfferVis extends Component {
                 ref="maxEq"
                 style={{margin: "10px"}}
               />
-              <FlatButton 
+              <RaisedButton 
+                primary={true}
                 label="Recalculate" 
                 onClick={this.updateVis.bind(this)}
               />

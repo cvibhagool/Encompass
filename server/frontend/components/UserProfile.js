@@ -73,7 +73,7 @@ export default class UserProfile extends Component {
               />
 
             </div> :
-            <h1>{'Please log in to use this feature'}</h1>}
+            <h1 style = {{"text-align": "center"}} >{'Please log in to use this feature'}</h1>}
           </div>
           );
   }

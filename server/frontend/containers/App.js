@@ -4,14 +4,24 @@ import { pushState } from 'redux-router';
 import { fetchApiData } from '../actions';
 import NavBar from './NavBar';
 
+const ThemeManager = require('material-ui/lib/styles/theme-manager');
+const MyRawTheme = require('./CustomTheme');
+
 class App extends Component {
   constructor(props) {
     super(props);
-
     //Adds display name for debugging purposes
     this.displayName = 'App';
     
     this.handleChange = this.handleChange.bind(this);
+
+  }
+  
+  //the key passed through context must be called "muiTheme"
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(MyRawTheme),
+    };
   }
 
   componentDidMount() {
@@ -45,6 +55,8 @@ App.propTypes = {
   fetchApiData: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired
 };
+
+App.childContextTypes = { muiTheme: React.PropTypes.object,};
 
 function mapStateToProperties(state) {
 

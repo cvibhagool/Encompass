@@ -46,14 +46,18 @@ export default class Login extends Component {
     }
   }
 
-  handleSubmit (e) {
+  handleClick (e) {
     e.preventDefault();
     let formData = {
       username: this.refs.username.getValue().trim(),
       password: this.refs.password.getValue().trim()
     };
 
-    this.props.postApiData('/auth/local', formData);
+    if (e.target.textContent === 'Login'){
+      this.props.postApiData('/auth/local', formData);
+    } else {
+      this.props.postApiData('/auth/signup', formData);
+    }
     this.refs.username.setValue('');
     this.refs.password.setValue('');
   }
@@ -64,10 +68,7 @@ export default class Login extends Component {
       <div className = "row">
         <div className = "col-md-4 col-md-offset-4 text-center">
         	<h1 id="heading">{'Login'}</h1>
-        	<form 
-            action="" 
-            onSubmit={this.handleSubmit.bind(this)}
-          >
+        	<form>
             <div>
               <TextField 
                   floatingLabelText={
@@ -106,26 +107,44 @@ export default class Login extends Component {
               />
             </div>
 
-            <div className="form-group">
-              <RaisedButton 
-                  label="Login" 
-                  style={{
-                      width: 'auto',
-                      display: 'absolute'
-                  }}
-                  type="submit" 
-              />
-            </div>
+            <div className="buttons" style = {{'margin-top':'5%'}}>
+              <div className="form-group">
+                <RaisedButton 
+                    label="Login" 
+                    style={{
+                        width: 'auto',
+                        display: 'absolute'
+                    }}
+                    primary={true}
+                    onClick={this.handleClick.bind(this)}
+                    type='login'
+                />
+              </div>
 
-            <div className="form-group">
-              <RaisedButton 
-                  href="auth/facebook" 
-                  label="Login with Facebook" 
-                  style={{
-                      width: 'auto',
-                      display: 'absolute'
-                  }}
-              />
+              <div className="form-group">
+                <RaisedButton 
+                    label="Signup" 
+                    style={{
+                        width: 'auto',
+                        display: 'absolute'
+                    }}
+                    primary={true}
+                    onClick={this.handleClick.bind(this)}
+                    type='signup'
+                />
+              </div>
+
+              <div className="form-group">
+                <RaisedButton 
+                    href="auth/facebook" 
+                    label="Use Facebook" 
+                    style={{
+                        width: 'auto',
+                        display: 'absolute'
+                    }}
+                    primary={true}
+                />
+              </div>
             </div>
         	</form>
         </div>

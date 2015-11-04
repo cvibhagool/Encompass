@@ -4,7 +4,7 @@
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
-import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon, FlatButton, ClearFix } from 'material-ui';
+import { RaisedButton, Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon, FlatButton, ClearFix } from 'material-ui';
 import d3 from 'd3';
 
 import OfferVis from './OfferVis';
@@ -104,17 +104,19 @@ export default class MyOffers extends Component {
               <div>
                 
                 { /* button to explore an offer in detail */ }
-                <FlatButton 
+                <RaisedButton 
                     label="Explore" 
                     onClick={this.exploreOffer.bind(this)}
                     primary={true}
+                    style = {{'margin-left': '2%'}}
                 />
 
                 { /* button to delete an offer from table */ }
-                <FlatButton
+                <RaisedButton
                     label="Delete"
                     onClick={this.removeOffer.bind(this)}
                     primary={true}
+                    style = {{'margin-left': '2%'}}
                 />
               </div>
 

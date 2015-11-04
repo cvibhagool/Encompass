@@ -40,7 +40,6 @@ export default class Landing extends Component {
         </div>
       </section>
       <section className = "container parallel">
-
       </section>
       </div>
     );

@@ -29,6 +29,7 @@
   },
   "homepage": "http://rackt.github.io/redux",
   "dependencies": {
+    "babel": "5.8.23",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^2.10.2",
     "body-parser": "^1.14.1",

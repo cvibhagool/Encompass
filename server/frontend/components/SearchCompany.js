@@ -14,6 +14,7 @@ import { Paper, RaisedButton }          from 'material-ui';
 //Import component to display a specific company's profile
 import CompanyProfile                   from './CompanyProfile';
 import IndustryGraph                    from './IndustryGraph';
+import Parallel                         from './Parallel';
 
 //Import lodash utility functions
 import _                                from 'lodash';
@@ -21,7 +22,9 @@ import _                                from 'lodash';
 export default class SearchCompany extends Component {
   constructor () {
     super();
-    this.state = {};
+    this.state = {
+      displayParallel: false
+    };
     this.clickFollowCompany = this.clickFollowCompany.bind(this);
   }
 
@@ -30,6 +33,10 @@ export default class SearchCompany extends Component {
     window.analytics.page();
     
     this.setState({companyNames: _.pluck(this.props.companies, 'name'), companyFollowed: false});
+  }
+
+  showParallel() {
+    this.setState({displayParallel: true});
   }
 
   clickFollowCompany(e) {
@@ -121,6 +128,18 @@ export default class SearchCompany extends Component {
                 companyId={this.state.companyId} 
               />
             </Paper>
+
+            <div className="col-md-12  text-center">
+              <h1 className="heading">{'Or view the data summarized by industry:'}</h1>
+              <RaisedButton
+                label="View"
+                primary={true}
+                onClick={this.showParallel.bind(this)}
+              />
+            </div>  
+            <div style={{margin: "auto"}} >  		
+-             {this.state.displayParallel ? <Parallel /> : ''}		
+            </div>
           </div> :
             <h1>{'Please log in to use this feature'}</h1>
         }

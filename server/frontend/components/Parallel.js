@@ -100,7 +100,7 @@ export default class Parallel extends Component {
   
   render() {
     
-    var divStyle = {width: "1600px", height: "900px"};
+    var divStyle = {width: "1500px", height: "850px", margin: "auto"};
 
     return (
       <div>
@@ -114,6 +114,7 @@ export default class Parallel extends Component {
             <CircularProgress 
                 mode="indeterminate" 
                 size={1.5} 
+                style={{'display': 'block', 'margin': 'auto', 'margin-top' : '10%'}}
             /> : ''}
         </div>
       </div>

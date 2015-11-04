@@ -1,13 +1,15 @@
-// this file is a subview of a user's offers that they received & inputted
-// its parent is UserProfile.js
+// URL is /profile
+// this view renders a table of offers the user has received
+// its parent is UserProfile
 
 // import dependencies
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 import { RaisedButton, Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn,TableBody, TableFooter, FontIcon, FlatButton, ClearFix } from 'material-ui';
-import d3 from 'd3';
+import d3                               from 'd3';
 
-import OfferVis from './OfferVis';
+// import components
+import OfferVis                         from './OfferVis';
 
 export default class MyOffers extends Component {
   constructor () {
@@ -28,6 +30,8 @@ export default class MyOffers extends Component {
   // removes an offer from MyOffers after user clicks a row and 'delete' button
   removeOffer() {
     var offer = this.props.apiData.offers[this.selectedRow[0]];
+
+    // DELETE request to remove company from profile
     this.props.removeApiData('/api/offer', offer.id);
 
     // update the view by getting the new profile data

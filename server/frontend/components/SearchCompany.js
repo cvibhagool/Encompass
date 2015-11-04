@@ -1,3 +1,8 @@
+// URL is /searchcompany
+// this view renders when a user is searching for a company
+// its parent is ContentPage
+
+// require our dependencies
 import React, { PropTypes, Component }  from 'react';
 
 //Connect this component to Redux dispatcher and store
@@ -41,6 +46,8 @@ export default class SearchCompany extends Component {
 
   clickFollowCompany(e) {
     e.preventDefault();
+
+    // POST request to follow a company
     this.props.postApiData('/api/company/follow/' + this.state.companyId, {});
     this.setState({companyFollowed: true});
 

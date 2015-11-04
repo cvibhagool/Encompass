@@ -1,13 +1,15 @@
-// this file is a subview of a user's companies that they follow
-// its parent is UserProfile.js
+// URL is /profile
+// this view renders a table of companies that the user is following
+// its parent is UserProfile
 
 // import dependencies
-import React, { PropTypes, Component } from 'react';
-import _                               from 'lodash';
-import { RaisedButton,Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton } from 'material-ui';
-import d3 from 'd3';
+import React, { PropTypes, Component }  from 'react';
+import _                                from 'lodash';
+import { RaisedButton,Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton }             from 'material-ui';
+import d3                               from 'd3';
 
-import CompanyVis from './CompanyVis';
+// import components
+import CompanyVis                       from './CompanyVis';
 
 export default class MyCompanies extends Component {
 
@@ -28,19 +30,27 @@ export default class MyCompanies extends Component {
     this.selectedRows = [];
   }
 
+  // method to delete a company from the user's profile
   removeCompany() {
 
     var selectedCompanies = [];
 
+    // if user selects all the rows
     if (this.selectedRows === 'all') {
       selectedCompanies = this.props.apiData.companies.slice();
-    } else {
+    } 
+    // otherwise, iterate over the rows they did select
+    else {
       for (var i = 0; i < this.selectedRows.length; i++) {
         selectedCompanies.push(this.props.apiData.companies[this.selectedRows[i].toString(10)]);
       }
     }
+
+    // iterate over the rows the user has selected
     for (var i = 0; i < selectedCompanies.length; i++) {
       var company = selectedCompanies[i];
+
+      // DELETE request to remove a company from a user's profile
       this.props.removeApiData('/api/company/follow', company.id)
 
       // Segment event tracking when user deletes a company
@@ -58,6 +68,7 @@ export default class MyCompanies extends Component {
     this.selectedRows = selection;
   }
 
+  // method to compare companies in a user's profile
   compareCompanies() {
 
     var selectedCompanies = [];
@@ -85,7 +96,6 @@ export default class MyCompanies extends Component {
   }
   
   render () {
-
     return (<div style={{width: "80%", marginTop: "20px", marginLeft: "auto", marginRight: "auto"}}>
               <Table 
                   fixedHeader={this.state.fixedHeader}

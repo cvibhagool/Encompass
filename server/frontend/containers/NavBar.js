@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react';
-import ETabs from '../components/Tabs';
+import React, { PropTypes, Component }  from 'react';
+import ETabs                            from '../components/Tabs';
 
 export default class NavBar extends Component {
   constructor(props) {

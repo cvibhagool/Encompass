@@ -1,8 +1,13 @@
-import React, { PropTypes, Component } from 'react';
-import ReactDOM from 'react-dom';
-import d3 from 'd3';
-import _ from 'lodash';
-import {TextField, RaisedButton} from 'material-ui';
+// URL is /profile
+// this view renders when a user compares offers from their profile page
+// its parent is MyOffers
+
+// require our dependencies
+import React, { PropTypes, Component }  from 'react';
+import ReactDOM                         from 'react-dom';
+import d3                               from 'd3';
+import _                                from 'lodash';
+import {TextField, RaisedButton}        from 'material-ui';
 
 export default class OfferVis extends Component {
   

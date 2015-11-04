@@ -1,8 +1,16 @@
-import React, { PropTypes, Component } from 'react';
-import ReactDOM from 'react-dom';
-import d3 from 'd3';
-import {CircularProgress} from 'material-ui';
-import _ from 'lodash';
+// URL is /profile
+// this view renders when a user compares companies from their profile page
+// its parent is MyCompanies
+
+// require our dependencies
+import React, { PropTypes, Component }  from 'react';
+import d3                               from 'd3';
+import {CircularProgress}               from 'material-ui';
+import _                                from 'lodash';
+
+// delete this if no longer needed:
+// import ReactDOM                         from 'react-dom';
+
 
 export default class CompanyVis extends Component {
 
@@ -35,21 +43,19 @@ export default class CompanyVis extends Component {
   // cleans tooltip template data. Out here so it can be used by both updateVis and
   // generateVis
   cleanTemplateData(c) {
-        var d = {};
-        var integer = d3.format(',f');
-        var percent = d3.format('%');
-        d.name = c.name || 'no name';
-        d.total_funding = integer(c.total_funding) || 'no total funding';
-        d.employees = integer(c.employees) || 'no employee info';
-        d.employees_mom = percent(c.employees_mom) || 'no employee growth info';
-        d.year = c.founding_date ? " (" +(new Date(c.founding_date)).getFullYear() + ")": "";
-        console.log(d.year);
-        console.log(d.total_funding);
-        d.fund_per_emp = integer(c.total_funding/c.employees) || '';
-        return d;
-  }
-
-                             
+    var d = {};
+    var integer = d3.format(',f');
+    var percent = d3.format('%');
+    d.name = c.name || 'no name';
+    d.total_funding = integer(c.total_funding) || 'no total funding';
+    d.employees = integer(c.employees) || 'no employee info';
+    d.employees_mom = percent(c.employees_mom) || 'no employee growth info';
+    d.year = c.founding_date ? " (" +(new Date(c.founding_date)).getFullYear() + ")": "";
+    console.log(d.year);
+    console.log(d.total_funding);
+    d.fund_per_emp = integer(c.total_funding/c.employees) || '';
+    return d;
+  }                      
 
   updateVis(node, data) {
     console.log('newdata: ', data);
@@ -152,8 +158,7 @@ export default class CompanyVis extends Component {
       .attr("cy", function(d) { return y(d.employees); })
       .style("fill-opacity", 1)
       .style("fill", function(d) { return color(d.stage); });
-      
-      
+
     points.exit()
       .transition()
       .duration(1000)
@@ -274,8 +279,6 @@ export default class CompanyVis extends Component {
                    .duration(500)
                    .style("opacity", 0);
           });
-
-      
   }
 
   render() {
@@ -297,5 +300,4 @@ export default class CompanyVis extends Component {
 CompanyVis.propTypes = {
   data: PropTypes.array.isRequired
 }
-
 

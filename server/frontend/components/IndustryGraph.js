@@ -1,8 +1,11 @@
-import React, { PropTypes, Component } from 'react';
-//Connect this component to Redux dispatcher and store
-import d3 from 'd3';
-import {CircularProgress} from 'material-ui';
-//Import lodash utility functions
+// URL is /searchcompany
+// this view renders when the page loads and shows a graph of funding against funding per employee
+// its parent is SearchCompany
+
+// require our dependencies
+import React, { PropTypes, Component }  from 'react';
+import d3                               from 'd3';
+import {CircularProgress}               from 'material-ui';
 import _                                from 'lodash';
 
 export default class IndustryGraph extends Component {
@@ -41,37 +44,37 @@ export default class IndustryGraph extends Component {
   }
 
   generateVis(node){
-    // Chart dimensions.
+    // Chart dimensions
       var margin = {top: 19.5, right: 19.5, bottom: 100, left: 39.5},
           width = 960 - margin.right,
           height = 600 - margin.top - margin.bottom;
 
-    // Create the SVG container and set the origin.
+    // Create the SVG container and set the origin
     var svg = d3.select(node).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + 0 + "," + margin.top + ")");
 
-    // Add the x-axis.
+    // Add the x-axis
     var xAxis = d3.svg.axis();
     svg.append("g")
         .attr("class", "x-axis axis")
         .attr("transform", "translate(0," + height + ")");
 
-    // Add the y-axis.
+    // Add the y-axis
     var yAxis = d3.svg.axis();
     svg.append("g")
         .attr("class", "y-axis axis");
 
-    // Add an x-axis label.
+    // Add an x-axis label
     svg.append("text")
         .attr("class", "x-label label")
         .attr("text-anchor", "end")
         .attr("x", width)
         .attr("y", height - 6)
 
-    // Add a y-axis label.
+    // Add a y-axis label
     svg.append("text")
         .attr("class", "y-label label")
         .attr("text-anchor", "end")
@@ -86,7 +89,7 @@ export default class IndustryGraph extends Component {
       .attr("y", height - 24)
       .attr("x", width);
 
-    // Add an overlay for the industry label.
+    // Add an overlay for the industry label
     var box = label.node().getBBox();
 
     var overlay = svg.append("rect")
@@ -196,7 +199,7 @@ export default class IndustryGraph extends Component {
         .domain([q0,q1,q2,q3,q4])
         .range([0].concat(colors));
 
-    // The x & y axes.
+    // The x & y axes
     var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(6, d3.format("s"))
                   .innerTickSize(-height)
                   .outerTickSize(0)
@@ -209,13 +212,13 @@ export default class IndustryGraph extends Component {
 
     var svg = d3.select(node).selectAll('svg');
 
-    // Update the x-axis.
+    // Update the x-axis
     svg.selectAll(".x-axis")
       .transition()
       .duration(500)
       .call(xAxis);
 
-    // Update the y-axis.
+    // Update the y-axis
     svg.selectAll(".y-axis")
       .transition()
       .duration(500)
@@ -255,7 +258,7 @@ export default class IndustryGraph extends Component {
     // Select tooltip
     var tooltip = d3.select(node).selectAll(".tooltip");
 
-    // A bisector since many nation's data is sparsely-defined.
+    // A bisector since many nation's data is sparsely-defined
     var bisect = d3.bisector(function(d) { return d[0]; });
 
     var dots = svg.selectAll(".dots");
@@ -307,7 +310,7 @@ export default class IndustryGraph extends Component {
         .style("fill-opacity", 1e-6)
         .remove();
 
-    // Positions the dots based on data.
+    // Positions the dots based on data
     function position(dot) {
       dot .transition().duration(1000)
           .attr("cx", function(d) { return xScale(x(d)); })
@@ -315,7 +318,7 @@ export default class IndustryGraph extends Component {
           .attr("r", function(d) { return radiusScale(radius(d))/4; });
     }
 
-    // Defines a sort order so that the smallest dots are drawn on top.
+    // Defines a sort order so that the smallest dots are drawn on top
     function order(a, b) {
       return radius(b) - radius(a);
     }
@@ -356,3 +359,4 @@ export default class IndustryGraph extends Component {
   }
 
 };
+

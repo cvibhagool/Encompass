@@ -1,17 +1,25 @@
-import React, { PropTypes, Component } from 'react';
+// URL is /searchcompany
+// this view populates the company table after a user searches for and finds the company they want to follow
+// it's parent is SearchCompany
+
+// require our dependencies
+import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui';
+
 export default class CompanyProfile extends Component {
 
   constructor () {
     super();
 
-    //Adds display name for debugging purposes
+    // adds display name for debugging purposes
     this.displayName = 'CompanyProfile';
     this.state = {};
   }
 
   componentWillMount() {
+
+    // GET request for company data
     this.props.fetchApiData('/api/company/' + this.props.companyId);
   }
 

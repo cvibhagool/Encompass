@@ -59,7 +59,6 @@ export default class Parallel extends Component {
       summary['Employees'] = intermediate[industry]['employees'].sum / intermediate[industry]['employees'].count;      
       out.push(summary);
     }
-
     return out;
   }
 
@@ -94,12 +93,9 @@ export default class Parallel extends Component {
         .style("font", "8px");
       
     }.bind(this));
-
   }
 
-  
   render() {
-    
     var divStyle = {width: "1500px", height: "850px", margin: "auto"};
 
     return (
@@ -119,8 +115,5 @@ export default class Parallel extends Component {
         </div>
       </div>
     )
-
   }
-
-
 }

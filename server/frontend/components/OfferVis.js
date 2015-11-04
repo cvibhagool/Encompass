@@ -207,7 +207,7 @@ export default class OfferVis extends Component {
   }
 
   render() {
-    var divStyle = {width: "1100px", height: "700px", marginBottom: "50px", marginLeft: "auto", marginRight: "auto"};
+    var divStyle = {width: "1300px", height: "700px", marginBottom: "50px", marginLeft: "auto", marginRight: "auto"};
 
     return (
           <div style={divStyle}>

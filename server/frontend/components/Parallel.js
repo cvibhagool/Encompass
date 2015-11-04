@@ -64,7 +64,7 @@ export default class Parallel extends Component {
 
   doD3(d3Node) {
         
-    d3.json('http://localhost:3000/data/company?industry=all&fields[]=employees_mom&fields[]=employees&fields[]=total_funding', function(data) {
+    d3.json('/data/company?industry=all&fields[]=employees_mom&fields[]=employees&fields[]=total_funding', function(data) {
      
       this.setState({dataLoaded: true});  
         

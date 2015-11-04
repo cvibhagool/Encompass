@@ -112,7 +112,7 @@ export default class MyOffers extends Component {
                     label="Explore" 
                     onClick={this.exploreOffer.bind(this)}
                     primary={true}
-                    style = {{'margin-left': '2%'}}
+                    style = {{'marginLeft': '2%'}}
                 />
 
                 { /* button to delete an offer from table */ }
@@ -120,7 +120,7 @@ export default class MyOffers extends Component {
                     label="Delete"
                     onClick={this.removeOffer.bind(this)}
                     primary={true}
-                    style = {{'margin-left': '2%'}}
+                    style = {{'marginLeft': '2%'}}
                 />
               </div>
 

@@ -4,7 +4,7 @@
 // import dependencies
 import React, { PropTypes, Component } from 'react';
 import _                               from 'lodash';
-import { Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton } from 'material-ui';
+import { RaisedButton,Table, TableHeader, TableRow, TableRowColumn, TableHeaderColumn, TableBody, TableFooter, FlatButton } from 'material-ui';
 import d3 from 'd3';
 
 import CompanyVis from './CompanyVis';
@@ -146,17 +146,19 @@ export default class MyCompanies extends Component {
               <div>
                 
                 { /* button to compare companies on d3 graph */ }
-                <FlatButton 
+                <RaisedButton 
                     label="Compare" 
                     onClick={this.compareCompanies.bind(this)}
-                    primary={true}  
+                    primary={true}
+                    style = {{'margin-left': '2%'}}
                 />
 
                 { /* button to delete a company from table */ }
-                <FlatButton
+                <RaisedButton
                     label="Delete"
                     onClick={this.removeCompany.bind(this)}
                     primary={true}
+                    style = {{'margin-left': '2%'}}
                 />
               </div>
 

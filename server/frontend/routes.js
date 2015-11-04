@@ -7,7 +7,6 @@ import UserProfile     	      from './components/UserProfile';
 import AddOffer        	      from './components/AddOffer';
 import SearchCompany   	      from './components/SearchCompany';
 import Login           	      from './components/Login';
-import Signup          	      from './components/Signup';
 
 export default (
   <Route
@@ -30,10 +29,6 @@ export default (
     <Route 
         component={Login} 
         path="login"
-    />
-    <Route 
-        component={Signup} 
-        path="signup"
     />
   </Route>
 );

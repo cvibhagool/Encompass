@@ -3,7 +3,6 @@ import d3                               from 'd3';
 import { Card, CardHeader, CardText, CardTitle, CardActions, Avatar, RaisedButton } from 'material-ui';
 import Parallel                         from './Parallel.js'; 
 
-
 export default class Landing extends Component {
   constructor() {
     super();
@@ -31,27 +30,18 @@ export default class Landing extends Component {
     
   render() {
     return (
-      <div style={{width:'95%', margin: 'auto'}}>  
-      <h1>{'Welcome to Encompass'}</h1>
-      <h2>{'We make it easy for you to understand your startup job offers'}</h2>
-      <Card>  
-        <CardHeader
-            avatar={<Avatar style={{color:'black'}}>{'E'}</Avatar>}
-            subtitle={"Insights"}
-            title={"Encompass"}
-        />
-        <CardActions>
-          <RaisedButton label="Display Chart" 
-              onClick={this.displayChart.bind(this)} 
-          />
-        </CardActions>
-        <CardText>
-          {this.setUpText}
-        </CardText>  
-        <div>  
-          {this.state.displayChart ? <Parallel data={this.state.data} /> : ''}
+      <div>
+      <section className = "container hero-landing">
+        <div className = "col-xs-12 hero-content">
+          <h1> <span className="word">Gauge</span> your future </h1>
+          <p className = "lead"> Make better, more informed career decisions</p>
+          <a href="/searchCompany" className= "btn btn-primary btn-lg">Search Companies</a>
+          <a href="/profile" className= "btn btn-primary btn-lg">Compare Offers</a>
         </div>
-      </Card> 
+      </section>
+      <section className = "container parallel">
+
+      </section>
       </div>
     );
   }

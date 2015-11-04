@@ -70,7 +70,6 @@ export default class IndustryGraph extends Component {
         .attr("text-anchor", "end")
         .attr("x", width)
         .attr("y", height - 6)
-        .text("Log of Total funding ($)");
 
     // Add a y-axis label.
     svg.append("text")
@@ -79,7 +78,6 @@ export default class IndustryGraph extends Component {
         .attr("y", 6)
         .attr("dy", ".75em")
         .attr("transform", "rotate(-90)")
-        .text("Funding per employee ($)");
 
     // Add the industry label
     var label = svg.append("text")
@@ -204,7 +202,7 @@ export default class IndustryGraph extends Component {
                   .outerTickSize(0)
                   .tickPadding(10),
 
-        yAxis = d3.svg.axis().scale(yScale).orient("left")
+        yAxis = d3.svg.axis().scale(yScale).ticks(8, d3.format("s")).orient("left")
                   .innerTickSize(-width)
                   .outerTickSize(0)
                   .tickPadding(10);
@@ -222,6 +220,12 @@ export default class IndustryGraph extends Component {
       .transition()
       .duration(500)
       .call(yAxis);
+
+    svg.selectAll('.x-label')
+      .text("Log of Total funding ($)");
+
+    svg.selectAll('.y-label')
+      .text("Funding per employee ($)");
 
     // Update the industry label
     var label = svg.selectAll('.industry-label')
@@ -339,8 +343,8 @@ export default class IndustryGraph extends Component {
   render() {
     return (
       <div>  
-        <div>
-        {!this.state.isD3ready ? <CircularProgress mode="indeterminate" size={1.5} /> : ''}
+        <div className = "container" >
+        {!this.state.isD3ready ? <CircularProgress mode="indeterminate" size={1.5} style = {{'display': 'block', 'margin': 'auto', 'margin-top' : '10%'}} /> : ''}
         </div>
 
         <div className="vis"

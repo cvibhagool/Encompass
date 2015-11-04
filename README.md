@@ -3,7 +3,6 @@
 A tool that helps all tech employees make better, more informed hiring decisions
 
 ###When setting up local environment, do the following:
-<<<<<<< HEAD
 1. `npm install` in root folder
 2. `npm install` in client folder
 3. type `grunt server-dev` (cd into client folder)

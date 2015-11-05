@@ -31,13 +31,16 @@ function renderFullPage(html, state) {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles/bootstrap.css">
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/d3parcoords.css">
         <link rel="stylesheet" href="styles/industrygraph.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="styles/typeahead.css">
         <title>Encompass</title>
+        
+        <script type="text/javascript" src="/segment.js">
+        </script>
 
       </head>
       <body>
@@ -47,19 +50,7 @@ function renderFullPage(html, state) {
           window.__INITIAL_STATE__ = ${JSON.stringify(state)}
         </script>
         <!-- Add google webfont Roboto -->
-        <script>
-          var WebFontConfig = {
-            google: { families: [ 'Roboto:400,300,500:latin' ] }
-          };
-          (function() {
-            var wf = document.createElement('script');
-            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-            wf.type = 'text/javascript';
-            wf.async = 'true';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(wf, s);
-          })();
+        <script type="text/javascript" src="/robotoFont.js">
         </script>
         <script src="/bundle.js"></script>
       </body>

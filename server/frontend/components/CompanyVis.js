@@ -282,7 +282,7 @@ export default class CompanyVis extends Component {
   }
 
   render() {
-    var divStyle = {width: "1600px"};
+    var divStyle = {width: "1600px", 'marginBottom': "5%"};
 
     return (
         <div className="vis"

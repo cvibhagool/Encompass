@@ -102,7 +102,7 @@ export default class Parallel extends Component {
   }
 
   render() {
-    var divStyle = {width: "1300px", height: "950px", margin: "auto"};
+    var divStyle = {width: "1300px", height: "950px", margin: "auto", marginBottom: "5%"};
 
     return (
       <div>

@@ -134,7 +134,7 @@ export default class SearchCompany extends Component {
               />
             </Paper>
 
-            <div className="col-md-12  text-center" style={{marginBottom: "15px"}}>
+            <div className="col-md-12  text-center" style={{marginBottom: "5%"}}>
               <h1 className="heading">{'Or view the data summarized by industry:'}</h1>
               <RaisedButton
                 label="View"

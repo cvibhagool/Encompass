@@ -143,9 +143,7 @@ export default class SearchCompany extends Component {
               />
             </div>  
             <ClearFix />
-            <div>
               {this.state.displayParallel ? <Parallel /> : ''}		
-            </div>  
           </div> :
             <section className = "container hero-landing">
               <div className = "col-xs-21 hero-content">

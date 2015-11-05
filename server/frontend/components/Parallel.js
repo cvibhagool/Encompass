@@ -11,6 +11,10 @@ export default class Parallel extends Component {
     this.state = {dataLoaded: false}
   }
 
+  componentDidMount() {
+    this.doD3(this.d3Node);
+  }
+
   summarize(apiData) {
     var intermediate = {};
 
@@ -63,6 +67,8 @@ export default class Parallel extends Component {
   }
 
   doD3(d3Node) {
+
+    console.log('node: ', d3Node);
         
     d3.json('/data/company?industry=all&fields[]=employees_mom&fields[]=employees&fields[]=total_funding', function(data) {
      
@@ -83,7 +89,7 @@ export default class Parallel extends Component {
         .color(color)
         .alpha(0.35)
         .composite("darken")
-        .margin({ top: 24, left: 150, bottom: 12, right: 0 })
+        .margin({ top: 24, left: 50, bottom: 12, right: 0 })
         .mode("queue")
         .render()
         .brushMode("1D-axes")
@@ -96,24 +102,27 @@ export default class Parallel extends Component {
   }
 
   render() {
-    var divStyle = {width: "1500px", height: "850px", margin: "auto"};
+    var divStyle = {width: "1200px", height: "650px"};
 
     return (
       <div>
+        
         <div 
             className="parcoords" 
-            id="example" 
-            ref={(ref) =>  this.doD3(ReactDOM.findDOMNode(ref))} 
+            ref={(node) => this.d3Node = node} 
             style={divStyle}
         >
-        {!this.state.dataLoaded ? 
+          <div>
+            {!this.state.dataLoaded ? 
             <CircularProgress 
                 mode="indeterminate" 
                 size={1.5} 
-                style={{'display': 'block', 'margin': 'auto', 'margin-top' : '10%'}}
+                style={{'display': 'block', 'margin': 'auto', 'marginTop' : '10%'}}
             /> : ''}
-        </div>
-      </div>
+           </div> 
+         </div> 
+      </div>  
+      
     )
   }
 }

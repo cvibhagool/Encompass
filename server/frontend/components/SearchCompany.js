@@ -8,7 +8,7 @@ import { Link }                         from 'react-router';
 import { connect }                      from 'react-redux';
 import cookie                           from 'react-cookie';
 import { Typeahead }                    from 'react-typeahead';
-import { Paper, RaisedButton }          from 'material-ui';
+import { Paper, RaisedButton, ClearFix }          from 'material-ui';
 
 //Import the following api actions
 import { fetchApiData, postApiData }    from '../actions';
@@ -93,7 +93,7 @@ export default class SearchCompany extends Component {
               />}
             </div>
 
-            <div className="col-md-12 col-md-offset-4 text-center">
+            <div className="col-md-12 text-center">
               <Paper 
                   className="content-pane" 
                   zDepth={1}
@@ -125,7 +125,7 @@ export default class SearchCompany extends Component {
             <Paper
                 className="graph-container" 
                 zDepth={2}
-                style = {{'box-shadow': '0 0px 0px'}}
+                style = {{'boxShadow': '0 0px 0px'}}
             >
               <IndustryGraph
                 apiData={this.props.apiData}
@@ -134,7 +134,7 @@ export default class SearchCompany extends Component {
               />
             </Paper>
 
-            <div className="col-md-12  text-center">
+            <div className="col-md-12  text-center" style={{marginBottom: "15px"}}>
               <h1 className="heading">{'Or view the data summarized by industry:'}</h1>
               <RaisedButton
                 label="View"
@@ -142,13 +142,14 @@ export default class SearchCompany extends Component {
                 onClick={this.showParallel.bind(this)}
               />
             </div>  
-            <div style={{margin: "auto"}} >  		
+            <ClearFix />
+            <div>
               {this.state.displayParallel ? <Parallel /> : ''}		
-            </div>
+            </div>  
           </div> :
             <section className = "container hero-landing">
               <div className = "col-xs-21 hero-content">
-                <h1> <span className="word">Stalk</span> for startups</h1>
+                <h1> <span className="word">Look</span> for startups</h1>
                 <p className = "lead">Over 47,000 startups to choose from</p>
                 <Link to="/login" className= "btn btn-primary btn-lg">Login to Access</Link>
               </div>

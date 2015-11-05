@@ -93,7 +93,7 @@ export default class SearchCompany extends Component {
               />}
             </div>
 
-            <div className="col-md-12 text-center">
+            <div className="col-md-12 col-md-offset-4 text-center">
               <Paper 
                   className="content-pane" 
                   zDepth={1}

@@ -160,7 +160,7 @@ export default class MyCompanies extends Component {
                     label="Compare" 
                     onClick={this.compareCompanies.bind(this)}
                     primary={true}
-                    style = {{'margin-left': '2%'}}
+                    style = {{'marginLeft': '2%'}}
                 />
 
                 { /* button to delete a company from table */ }
@@ -168,7 +168,7 @@ export default class MyCompanies extends Component {
                     label="Delete"
                     onClick={this.removeCompany.bind(this)}
                     primary={true}
-                    style = {{'margin-left': '2%'}}
+                    style = {{'marginLeft': '2%'}}
                 />
               </div>
 

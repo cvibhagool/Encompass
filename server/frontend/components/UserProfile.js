@@ -56,7 +56,7 @@ export default class UserProfile extends Component {
               <div className="container">
                 <h1>{'Welcome'} {profile.user && profile.user.username}{'!'}</h1>
 
-                <p style={{'font-size': '15px'}}>{'Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!'}</p>
+                <p style={{'fontSize': '15px'}}>{'Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!'}</p>
   
               </div>
 

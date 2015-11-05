@@ -11,6 +11,8 @@ export const DELETE_API_DATA = 'DELETE_API_DATA';
 export const DELETE_API_DATA_SUCCESS = 'DELETE_API_DATA_SUCCESS';
 export const DELETE_API_DATA_FAILURE = 'DELETE_API_DATA_FAILURE';
 
+import {severRoute} from '../constants/routeAPI';
+
 function requestApiData(apiPath) {
   return {
     type: REQUEST_API_DATA,
@@ -39,7 +41,7 @@ export function fetchApiData(apiPath) {
   return dispatch => {
     dispatch(requestApiData(apiPath));
     $.ajax({
-      url: 'http://localhost:3000' + apiPath,
+      url: severRoute + apiPath,
       dataType: 'json',
       type: 'GET',
       success: function(data) {
@@ -85,7 +87,7 @@ export function postApiData(apiPath, json) {
   return dispatch => {
     dispatch(sendApiData(apiPath, json));
     $.ajax({
-      url: 'http://localhost:3000' + apiPath,
+      url: severRoute + apiPath,
       dataType: 'json',
       type: 'POST',
       data: json,
@@ -129,7 +131,7 @@ export function removeApiData(apiPath, id) {
   return dispatch => {
     dispatch(deleteApiData(apiPath, id));
     $.ajax({
-      url: 'http://localhost:3000' + apiPath + '/' + id,
+      url: severRoute + apiPath + '/' + id,
       type: 'DELETE',
       success: function(data) {
         console.log('Delete success!!');

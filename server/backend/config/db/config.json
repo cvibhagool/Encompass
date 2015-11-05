@@ -7,6 +7,14 @@
     "dialect": "postgres",
     "logging": false
   },
+  "production": {
+    "database": "encompass",
+    "username": "postgres",
+    "password": "dragon",
+    "host": "localhost",
+    "dialect": "postgres",
+    "logging": false
+  },
   "test": {
     "database": "travis_ci_test",
     "username": "postgres",

@@ -3,12 +3,23 @@ var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var config = require('./webpack.config');
 var express = require('express');
+var fs = require('fs');
 
 import serverSideRenderer from './backend/routers/serverSideRenderer';
-
-
 var app = express();
 var port = process.env.PORT || 3000;
+
+var environment = process.env.NODE_ENV;
+var route;
+if (environment === 'production'){
+  route = "http://104.236.142.210";
+} else {
+  route = "http://localhost:3000";
+}
+var fileBody = "export const severRoute = '" + route + "';";
+fs.writeFile('./frontend/constants/routeAPI.js', fileBody , function (err) {
+  if (err) return console.log(err);
+});
 
 var compiler = webpack(config);
 

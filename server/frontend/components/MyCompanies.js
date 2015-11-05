@@ -153,7 +153,7 @@ export default class MyCompanies extends Component {
                 </TableBody>
               </Table>
               
-              <div>
+              <div style={{marginBottom: "5%"}}>
                 
                 { /* button to compare companies on d3 graph */ }
                 <RaisedButton 

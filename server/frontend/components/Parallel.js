@@ -89,7 +89,7 @@ export default class Parallel extends Component {
         .color(color)
         .alpha(0.35)
         .composite("darken")
-        .margin({ top: 24, left: 50, bottom: 12, right: 0 })
+        .margin({ top: 24, left: 100, bottom: 12, right: 50 })
         .mode("queue")
         .render()
         .brushMode("1D-axes")
@@ -102,7 +102,7 @@ export default class Parallel extends Component {
   }
 
   render() {
-    var divStyle = {width: "1200px", height: "650px"};
+    var divStyle = {width: "1300px", height: "950px", margin: "auto"};
 
     return (
       <div>

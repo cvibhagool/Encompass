@@ -1,6 +1,7 @@
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 var db = require('../models/index');
 var passport = require('../auth/passport');
 
@@ -32,7 +33,14 @@ module.exports = function (app, express) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   //Session with same secret as cookie parser
-  app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: {httpOnly: false}}));
+  app.use(session({ store: new RedisStore({
+      host: '127.0.0.1',
+      port: 6379
+    }),
+    secret: 'keyboard cat', 
+    resave: false, saveUninitialized: false,
+    cookie: {httpOnly: false}
+  }));
   //Initialize passport and session management
 
   app.use(passport.initialize());

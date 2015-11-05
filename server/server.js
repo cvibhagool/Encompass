@@ -16,7 +16,7 @@ if (environment === 'production'){
 } else {
   route = "http://localhost:3000";
 }
-var fileBody = "export const severRoute = '" + route + "';";
+var fileBody = "export const serverRoute = '" + route + "';";
 fs.writeFile('./frontend/constants/routeAPI.js', fileBody , function (err) {
   if (err) return console.log(err);
 });

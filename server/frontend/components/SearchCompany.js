@@ -67,7 +67,8 @@ export default class SearchCompany extends Component {
         {this.checkCookie() ? 
           <div>
             <h1 className="heading">{'Search by Company Name'}</h1>
-
+            <h2 className="heading">{'Want to research your future employer?'}</h2>
+            <h5 className="heading">{'Let us do the hard work for you. Search from over 47,000 startups to find the best one for you.'}</h5>
             <div className="col-md-4 col-md-offset-4 text-center">
               {<Typeahead 
                   customClasses={

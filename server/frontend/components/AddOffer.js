@@ -68,6 +68,7 @@ export default class AddOffer extends Component {
           <div>
             <h1 className="heading">{'Add Your Offer'}</h1>
             <h2 className="heading">{'We\'ll help you compare your new job offers'}</h2>
+            <h5 className="heading">{'Simply input the offers you\'ve received then head over to your profile to compare the value of each'}</h5>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group">
                 <div className="col-md-4 col-md-offset-4 text-center">

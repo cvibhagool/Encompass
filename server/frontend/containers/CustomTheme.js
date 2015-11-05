@@ -13,9 +13,9 @@ module.exports = {
     accent2Color: Colors.grey100,
     accent3Color: Colors.grey500,
     textColor: Colors.darkBlack,
-    alternateTextColor: Colors.darkBlack,
+    alternateTextColor: Colors.grey100,
     canvasColor: Colors.white,
     borderColor: Colors.grey300,
-    disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
+    disabledColor: ColorManipulator.fade(Colors.grey300, 0.3),
   },
 };

@@ -16,6 +16,10 @@ A tool that helps all tech employees make better, more informed hiring decisions
 2. `npm run dbreset` to drop the database and rebuild the tables.
 3. `npm run seed` to seed the database. This takes a while.
 
+###Setting Redis data store:
+1. Install redis `brew install redis`
+2. Start redis server `redis-server`
+
 ###Starting the app:
 1. cd into the server directory
 2. type `npm start`

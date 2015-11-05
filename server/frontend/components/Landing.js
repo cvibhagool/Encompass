@@ -34,17 +34,20 @@ export default class Landing extends Component {
         <div className = "col-xs-12 hero-content">
           <h1> <span className="word">Gauge</span> your future </h1>
           <p className = "lead"> Make better, more informed career decisions</p>
-          <RaisedButton 
-            style={{marginRight: "2%"}}
-            secondary={true} 
-            label="Search Companies">
-            <Link to="/searchCompany"></Link>
-          </RaisedButton>
-          <RaisedButton
-            secondary={true}
-            label="Compare Offers">
-            <Link to="/profile"></Link>
-          </RaisedButton>
+          <Link to="/searchCompany">
+            <RaisedButton 
+              style={{marginRight: "2%"}}
+              secondary={true} 
+              label="Search Companies">
+            </RaisedButton>
+          </Link>
+          
+          <Link to="/profile">
+            <RaisedButton
+              secondary={true}
+              label="Compare Offers">
+            </RaisedButton>  
+          </Link>
         </div>
       </section>
 

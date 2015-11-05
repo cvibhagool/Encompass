@@ -1,1 +1,0 @@
-export const severRoute = 'http://localhost:3000';

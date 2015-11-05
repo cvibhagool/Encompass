@@ -7,6 +7,7 @@ import React, { PropTypes, Component }  from 'react';
 import d3                               from 'd3';
 import { Card, CardHeader, CardText, CardTitle, CardActions, Avatar, RaisedButton } from 'material-ui';
 import Parallel                         from './Parallel.js'; 
+import { Link }                         from 'react-router';
 
 export default class Landing extends Component {
   constructor() {
@@ -40,8 +41,8 @@ export default class Landing extends Component {
         <div className = "col-xs-12 hero-content">
           <h1> <span className="word">Gauge</span> your future </h1>
           <p className = "lead"> Make better, more informed career decisions</p>
-          <a href="/searchCompany" className= "btn btn-primary btn-lg">Search Companies</a>
-          <a href="/profile" className= "btn btn-primary btn-lg">Compare Offers</a>
+          <Link to="/searchCompany"  className= "btn btn-primary btn-lg">Search Companies</Link>
+          <Link to="/profile" className= "btn btn-primary btn-lg">Compare Offers</Link>
         </div>
       </section>
       <section className = "container parallel">

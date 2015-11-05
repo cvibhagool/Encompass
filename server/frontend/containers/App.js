@@ -44,6 +44,9 @@ class App extends Component {
           </div>
         }
         {children}
+        <footer>
+          Made with <span id="heart"> ❤ </span> by <a href="https://github.com/cvibhagool" target="_blank">Chirat</a>, <a href="https://github.com/aaronnorby" target="_blank">Aaron</a>, <a href="https://github.com/csling" target="_blank">Christian</a>, <a href="https://github.com/benjaminhoffman" target="_blank">Benjamin</a>
+        </footer>
       </div>
     );
   }

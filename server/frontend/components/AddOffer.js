@@ -10,6 +10,7 @@ import { postApiData }                  from '../actions';
 import _                                from 'lodash';
 import cookie                           from 'react-cookie';
 import { TextField, RaisedButton, Snackbar }      from 'material-ui';
+import { Link }                         from 'react-router';
 
 export default class AddOffer extends Component {
  
@@ -66,6 +67,8 @@ export default class AddOffer extends Component {
         {this.checkCookie() ?
           <div>
             <h1 className="heading">{'Add Your Offer'}</h1>
+            <h2 className="heading">{'We\'ll help you compare your new job offers'}</h2>
+            <h5 className="heading">{'Simply input the offers you\'ve received then head over to your profile to compare the value of each'}</h5>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group">
                 <div className="col-md-4 col-md-offset-4 text-center">
@@ -138,7 +141,13 @@ export default class AddOffer extends Component {
             </form>
 
           </div> :
-            <h1>{'Please log in to use this feature'}</h1>
+            <section className = "container hero-landing">
+              <div className = "col-xs-21 hero-content">
+                <h1> <span className="word">Add</span> your offers</h1>
+                <p className = "lead">Calculate & compare the value of your offers</p>
+                <Link to="/login" className= "btn btn-primary btn-lg">Login to Access</Link>
+              </div>
+            </section>
         }
       </div>
     )

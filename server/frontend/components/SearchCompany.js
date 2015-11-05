@@ -4,17 +4,14 @@
 
 // require our dependencies
 import React, { PropTypes, Component }  from 'react';
-
-//Connect this component to Redux dispatcher and store
+import { Link }                         from 'react-router';
 import { connect }                      from 'react-redux';
-
-//Import the following api actions
-import { fetchApiData, postApiData }    from '../actions';
-
-//Import third party components
 import cookie                           from 'react-cookie';
 import { Typeahead }                    from 'react-typeahead';
 import { Paper, RaisedButton }          from 'material-ui';
+
+//Import the following api actions
+import { fetchApiData, postApiData }    from '../actions';
 
 //Import component to display a specific company's profile
 import CompanyProfile                   from './CompanyProfile';
@@ -145,10 +142,16 @@ export default class SearchCompany extends Component {
               />
             </div>  
             <div style={{margin: "auto"}} >  		
--             {this.state.displayParallel ? <Parallel /> : ''}		
+              {this.state.displayParallel ? <Parallel /> : ''}		
             </div>
           </div> :
-            <h1>{'Please log in to use this feature'}</h1>
+            <section className = "container hero-landing">
+              <div className = "col-xs-21 hero-content">
+                <h1> <span className="word">Stalk</span> for startups</h1>
+                <p className = "lead">Over 47,000 startups to choose from</p>
+                <Link to="/login" className= "btn btn-primary btn-lg">Login to Access</Link>
+              </div>
+            </section>
         }
 	    </div>
     );

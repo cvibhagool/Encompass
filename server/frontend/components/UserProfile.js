@@ -10,6 +10,7 @@ import _                                from 'lodash';
 import cookie                           from 'react-cookie';
 import { connect }                      from 'react-redux';
 import { fetchApiData, removeApiData }  from '../actions';
+import { Link }                         from 'react-router';
 
 // import subviews/children
 import MyCompanies                      from './MyCompanies.js';
@@ -45,39 +46,42 @@ export default class UserProfile extends Component {
   render() {
     const {profile} = this.props;
     return (
-          
-          <div>
-
-          { /* check if user is logged in */ }
-          {profile ?
-            
             <div>
+              { /* check if user is logged in */ }
+              {profile ?
+                
+                <div>
+                  <div className="container">
+                    <h1>{'Welcome'} {profile.user && profile.user.username}{'!'}</h1>
 
-              <div className="container">
-                <h1>{'Welcome'} {profile.user && profile.user.username}{'!'}</h1>
+                    <p style={{'font-size': '15px'}}>{'Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!'}</p>
+                  </div>
 
-                <p style={{'fontSize': '15px'}}>{'Below we have saved your offers and the companies you follow. Click on any offer or company to drill down for more information.  Go on now, dont be shy!'}</p>
-  
-              </div>
+                  { /* instantiate the MyOffers child and pass it props (the offers) that this logged-in user has entered previously */ }
+                  <MyOffers 
+                      apiData={profile}
+                      fetchApiData={this.props.fetchApiData.bind(this)} 
+                      removeApiData={this.props.removeApiData.bind(this)} 
+                  />
+                  <div style={{marginTop: "100px"}}></div>  
 
-              { /* instantiate the MyOffers child and pass it props (the offers) that this logged-in user has entered previously */ }
-              <MyOffers 
-                  apiData={profile}
-                  fetchApiData={this.props.fetchApiData.bind(this)} 
-                  removeApiData={this.props.removeApiData.bind(this)} 
-              />
-              <div style={{marginTop: "100px"}}></div>  
+                  { /* instantiate the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
+                  <MyCompanies 
+                      apiData={profile} 
+                      fetchApiData={this.props.fetchApiData.bind(this)} 
+                      removeApiData={this.props.removeApiData.bind(this)}
+                  />
+                </div> :
 
-              { /* instantiate the MyCompanies child and pass it props (the companies) that this logged-in user currently follows */ }
-              <MyCompanies 
-                  apiData={profile} 
-                  fetchApiData={this.props.fetchApiData.bind(this)} 
-                  removeApiData={this.props.removeApiData.bind(this)}
-              />
-
-            </div> :
-            <h1 style = {{"text-align": "center"}} >{'Please log in to use this feature'}</h1>}
-          </div>
+                <section className = "container hero-landing">
+                  <div className = "col-xs-21 hero-content">
+                    <h1> <span className="word">Organize</span> your life</h1>
+                    <p className = "lead">Keep track of who is offering you what</p>
+                    <Link to="/login" className= "btn btn-primary btn-lg">Login to Access</Link>
+                  </div>
+                </section>
+              }
+            </div>
           );
   }
 }

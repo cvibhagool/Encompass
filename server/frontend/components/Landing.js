@@ -21,13 +21,6 @@ export default class Landing extends Component {
   componentDidMount() {
     // Segment pageview call
     window.analytics.page();
-
-  //   d3.csv('nutrients.csv', function(error, data) {
-  //     if (error) console.log(error);
-
-  //     this.setState({data: data});
-  //     console.log('in Landing: ', data.length);
-  //   }.bind(this));
   }
 
   displayChart() {
@@ -45,8 +38,7 @@ export default class Landing extends Component {
           <Link to="/profile" className= "btn btn-primary btn-lg">Compare Offers</Link>
         </div>
       </section>
-      <section className = "container parallel">
-      </section>
+
       </div>
     );
   }

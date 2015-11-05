@@ -38,3 +38,6 @@ seedData.json
 
 # eslintrc
 .eslintrc
+
+#Dynamic Server Route
+routeAPI.js

@@ -5,15 +5,17 @@
 // require our dependencies
 import React, { PropTypes, Component }  from 'react';
 import d3                               from 'd3';
-import {CircularProgress}               from 'material-ui';
+import {CircularProgress, RaisedButton} from 'material-ui';
 import _                                from 'lodash';
-
+import {TopIndustries} from '../constants/topIndustries';
 export default class IndustryGraph extends Component {
 
   constructor() {
     super();
     this.state = {
-      isD3ready: false
+      isD3ready: false,
+      companyId: -1,
+      industries: TopIndustries
     };
   }
 
@@ -36,6 +38,7 @@ export default class IndustryGraph extends Component {
     if (nextProps.apiData.Industries){
       var industryNames = _.pluck(nextProps.apiData.Industries, 'name');
       this.updateVis(this.d3Node, nextProps.companyId, industryNames[0]);
+      this.setState({industries: nextProps.apiData.Industries, companyId: nextProps.companyId});
     }
   }
 
@@ -45,7 +48,7 @@ export default class IndustryGraph extends Component {
 
   generateVis(node){
     // Chart dimensions
-      var margin = {top: 19.5, right: 19.5, bottom: 100, left: 39.5},
+      var margin = {top: 19.5, right: 19.5, bottom: 50, left: 39.5},
           width = 960 - margin.right,
           height = 600 - margin.top - margin.bottom;
 
@@ -133,7 +136,7 @@ export default class IndustryGraph extends Component {
     function key(d) { return d.id; }
 
     // Chart dimensions.
-    var margin = {top: 19.5, right: 19.5, bottom: 100, left: 39.5},
+    var margin = {top: 19.5, right: 19.5, bottom: 50, left: 39.5},
         width = 960 - margin.right,
         height = 600 - margin.top - margin.bottom;
 
@@ -238,27 +241,6 @@ export default class IndustryGraph extends Component {
     var label = svg.selectAll('.industry-label')
       .text(industry);
 
-    // var gridSize = 50;
-    // var legendElementWidth = 60;
-
-    // var blocks = legend.selectAll(".block")
-    //   .data(colorScale.domain(), function(d) { return d; })
-    //   .enter().append("g").attr("class","block");
-
-    //   blocks.append("rect")
-    //   .attr("class","scale")
-    //   .attr("x", function(d, i) { return legendElementWidth * i; })
-    //   .attr("y", 0)
-    //   .attr("width", legendElementWidth)
-    //   .attr("height", gridSize / 2)
-    //   .style("fill", function(d, i) { return colors[i]; });
-      
-    //   blocks.append("text")
-    //   .attr("class", "mono")
-    //   .text(function(d) { return "> " + d*100 + "%"; })
-    //   .attr("x", function(d, i) { return legendElementWidth/4 + legendElementWidth * i; })
-    //   .attr("y", 3/4*gridSize);
-
     // Select tooltip
     var tooltip = d3.select(node).selectAll(".tooltip");
 
@@ -351,13 +333,25 @@ export default class IndustryGraph extends Component {
     return (
       <div>  
         <div className = "container" >
-        {!this.state.isD3ready ? <CircularProgress mode="indeterminate" size={1.5} style = {{'display': 'block', 'margin': 'auto', 'margin-top' : '10%'}} /> : ''}
+        {!this.state.isD3ready ? <CircularProgress mode="indeterminate" size={1.5} style = {{'display': 'block', 'margin': 'auto', 'marginTop' : '10%'}} /> : ''}
         </div>
+
 
         <div className="vis"
           ref={(node) => this.d3Node = node} 
         >
-        </div> 
+        </div>
+        <div className = "container">
+            {
+              this.state.industries.map(function(industry) {
+              return (<RaisedButton
+                  style = {{margin: "0.5%"}}
+                  secondary={true} 
+                  label={industry.name}
+                  onClick={this.updateVis.bind(this,this.d3Node,this.state.companyId, industry.name)}>
+                   </RaisedButton>);
+            }.bind(this))}
+        </div>
       </div>
     )
   }

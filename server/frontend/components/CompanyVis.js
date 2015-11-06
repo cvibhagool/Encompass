@@ -63,7 +63,7 @@ export default class CompanyVis extends Component {
     data = this.cleanData(data);
 
     var margin = {top: 20, right: 100, bottom: 30, left: 10},
-      width = 1600 - margin.left - margin.right,
+      width = 1300 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
@@ -175,7 +175,7 @@ export default class CompanyVis extends Component {
     console.log('data: ', data);
     
     var margin = {top: 20, right: 100, bottom: 30, left: 10},
-      width = 1600 - margin.left - margin.right,
+      width = 1300 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
@@ -282,7 +282,7 @@ export default class CompanyVis extends Component {
   }
 
   render() {
-    var divStyle = {width: "1600px", 'marginBottom': "5%"};
+    var divStyle = {width: "1300px", 'marginBottom': "5%"};
 
     return (
         <div className="vis"

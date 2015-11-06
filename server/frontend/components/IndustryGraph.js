@@ -117,7 +117,11 @@ export default class IndustryGraph extends Component {
   updateVis(node, companyId, industry_input) {
 
     var industry = industry_input || 'all';
-    d3.json("/data/company?fields[]=id&fields[]=name&fields[]=employees&fields[]=employees_mom&fields[]=total_funding&fields[]=stage&fields[]=founding_date&industry=" + industry, function(companies) {
+    var dataURL = "/data/company?fields[]=id&fields[]=name&fields[]=employees&fields[]=employees_mom&fields[]=total_funding&fields[]=stage&fields[]=founding_date";
+    if (industry !== 'all'){
+      dataURL = dataURL + "&industry=" + industry;
+    }
+    d3.json(dataURL, function(companies) {
 
     this.removeSpinner();
 

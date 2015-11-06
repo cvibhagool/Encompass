@@ -3,8 +3,15 @@ var db = require('../models/index.js');
 var environment = process.env.NODE_ENV || 'development';
 var config;
 if (environment === 'test'){
-  config = require('./oauth-config-test')[environment];
-} else{
+  config = {
+    "facebook": {
+      "clientID": "551538928355517",
+      "clientSecret": "091bdc91acce257fbdc150fb2d23405a",
+      "callbackURL": "http://localhost:3000/auth/facebook/callback",
+      "profileFields": ["first_name", "last_name", "age_range", "emails"]
+    }
+  };
+} else {
   config = require('./oauth-config')[environment];
 }
 var strategy = {

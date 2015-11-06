@@ -1,8 +1,11 @@
 language: node_js
+services:
+  - redis-server
 before_install:
   - cd server
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - npm run dbreset
+  - echo "export const severRoute = 'http://localhost:3000';" > frontend/constants/routeAPI.js
 node_js:
   - "0.12"

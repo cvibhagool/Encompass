@@ -6,7 +6,6 @@
 import React, { PropTypes, Component }  from 'react';
 import _                                from 'lodash';
 import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn } from 'material-ui';
-
 export default class CompanyProfile extends Component {
 
   constructor () {
@@ -18,7 +17,6 @@ export default class CompanyProfile extends Component {
   }
 
   componentWillMount() {
-
     // GET request for company data
     this.props.fetchApiData('/api/company/' + this.props.companyId);
   }

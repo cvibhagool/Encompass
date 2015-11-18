@@ -89,5 +89,5 @@ module.exports = function (app, express) {
   app.use('/auth', authRouter);
 
   var dataRouter = require('../routers/dataRouters/dataRouter');
-  app.use('/data', dataRouter);
+  app.use('/data', checkUser, dataRouter);
 };

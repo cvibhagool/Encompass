@@ -38,7 +38,7 @@ class App extends Component {
     const { api, children } = this.props;
     return (
       <div id='app-view'>
-        {api.companies &&
+        {
           <div>
             <NavBar onTabClick={this.handleChange} />
           </div>

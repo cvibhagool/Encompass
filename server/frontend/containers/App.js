@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchApiData('/data/company?fields[]=name&fields[]=id');
+    //this.props.fetchApiData('/data/company?fields[]=name&fields[]=id');
     this.props.fetchApiData('/api/user/profile/me');
   }
 

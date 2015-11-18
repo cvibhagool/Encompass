@@ -25,6 +25,10 @@ var callBackFunctionGenerator = function (provider) {
 //Local signup Route
 router.route('/signup')
   .post(function (req, res) {
+    if (!req.isAuthenticated()){
+      res.status(403).send("Signup disabled. Need to be authenticated to create new accounts.");
+      return;
+    }
     db.User.findOrCreate({
       where: {
         username: req.body.username,

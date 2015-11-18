@@ -12,7 +12,7 @@ var port = process.env.PORT || 3000;
 var environment = process.env.NODE_ENV;
 var route;
 if (environment === 'production'){
-  route = "http://104.236.142.210";
+  route = "http://encompass.space";
 } else {
   route = "http://localhost:3000";
 }

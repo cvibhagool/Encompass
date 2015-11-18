@@ -131,7 +131,7 @@ export default class Login extends Component {
                 />
               </div>
 
-              <div className="form-group">
+              {/*<div className="form-group">
                 <RaisedButton 
                     label="Signup" 
                     style={{
@@ -142,7 +142,7 @@ export default class Login extends Component {
                     onClick={this.handleClick.bind(this)}
                     type='signup'
                 />
-              </div>
+              </div>*/}
 
               <div className="form-group">
                 <RaisedButton 

@@ -30,6 +30,7 @@ export default class UserProfile extends Component {
 
   // GET request for when page loads for our user data & subview components
   componentWillMount() {
+    this.props.fetchApiData('/data/company?fields[]=name&fields[]=id');
     this.props.fetchApiData(userPath);
   }
 

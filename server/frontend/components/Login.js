@@ -144,7 +144,7 @@ export default class Login extends Component {
                 />
               </div>*/}
 
-              <div className="form-group">
+              {/*<div className="form-group">
                 <RaisedButton 
                     href="auth/facebook" 
                     label="Use Facebook" 
@@ -154,7 +154,7 @@ export default class Login extends Component {
                     }}
                     primary={true}
                 />
-              </div>
+              </div>*/}
             </div>
         	</form>
         </div>
